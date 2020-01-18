@@ -18,7 +18,12 @@ async function copyTemplateFiles(options) {
 }
 
 async function createProjectDir(options) {
-  return mkdir(path.resolve(process.cwd(), 'bob'));
+  return mkdir(
+    path.resolve(
+      process.cwd(),
+      options.name.replace(/\s+/g, '-').toLowerCase(),
+    ),
+  );
 }
 
 async function initGit(options) {
@@ -70,9 +75,8 @@ export async function createProject(options) {
           cwd: options.targetDirectory,
         }),
       skip: () =>
-        !options.runInstall
-          ? 'Pass --install to automatically install dependencies'
-          : undefined,
+        // prettier-ignore
+        !options.runInstall ? 'Pass --install to automatically install dependencies' : undefined,
     },
   ]);
 
