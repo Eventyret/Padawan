@@ -85,7 +85,7 @@ async function promptForMissingOptions(options) {
     questions.push({
       type: 'confirm',
       name: 'env',
-      message: 'Have you created a virtual enviroment for your project yet?',
+      message: 'Have you created a virtual enviroment for your project',
       default: false,
     });
     if (questions.envCreated)
