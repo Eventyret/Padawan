@@ -1,0 +1,12 @@
+{
+  "name": "padawan",
+  "version": "1.0.0",
+  "description": "![Padwan](assets/logo.png)",
+  "main": "prettier.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
