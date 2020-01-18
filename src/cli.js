@@ -8,11 +8,13 @@ import { createProject } from './main';
 function parseArgumentsIntoOptions(rawArgs) {
   const args = arg(
     {
-      '--git': Boolean,
+      '--name': String,
       '--skip': Boolean,
+      '--git': Boolean,
       '--install': Boolean,
+      '-n': '--name',
       '-g': '--git',
-      '-y': '--yes',
+      '-s': '--skip',
       '-i': '--install',
     },
     {
@@ -20,6 +22,7 @@ function parseArgumentsIntoOptions(rawArgs) {
     },
   );
   return {
+    name: args['--name'],
     skipPrompts: args['--skip'] || false,
     git: args['--git'] || false,
     template: args._[0],
@@ -34,8 +37,21 @@ async function promptForMissingOptions(options) {
       template: options.template || defaultTemplate,
     };
   }
-
   const questions = [];
+  if (!options.name) {
+    questions.push({
+      type: 'input',
+      name: 'name',
+      message: 'What shall we call this awesome project',
+      validate: function(value) {
+        if (value.length) {
+          return true;
+        } else {
+          return 'Need to give your project a name';
+        }
+      },
+    });
+  }
   if (!options.template) {
     questions.push({
       type: 'list',
@@ -71,12 +87,12 @@ async function promptForMissingOptions(options) {
       default: false,
     });
   }
-
   const answers = await inquirer.prompt(questions);
   return {
     ...options,
     template: options.template || answers.template,
     git: options.git || answers.git,
+    name: answers.name,
   };
 }
 
