@@ -23,6 +23,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "esm": "^3.2.25"
+    "arg": "^4.1.2",
+    "chalk": "^3.0.0",
+    "clear": "^0.1.0",
+    "esm": "^3.2.25",
+    "figlet": "^1.2.4",
+    "inquirer": "^7.0.3",
+    "ncp": "^2.0.0"
   }
 }
