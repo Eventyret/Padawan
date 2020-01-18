@@ -43,19 +43,19 @@ async function promptForMissingOptions(options) {
       choices: [
         {
           name: 'User Centric Frontend (MS1)',
-          value: 'ms1',
+          value: 'UCFD',
         },
         {
           name: 'Interactive Frontend (MS2)',
-          value: 'ms2',
+          value: 'IFD',
         },
         {
           name: 'Data Centric Development (MS3)',
-          value: 'ms3',
+          value: 'DCD',
         },
         {
           name: 'Full Stack Frameworks (MS4)',
-          value: 'ms4',
+          value: 'FSF',
         },
       ],
       default: defaultTemplate,
