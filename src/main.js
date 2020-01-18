@@ -70,7 +70,7 @@ export async function createProject(options) {
     },
     {
       title: 'Copy project files',
-      task: () => copyTemplateFiles(options),
+      task: () => copyTemplateFiles(options)
     },
     {
       title: 'Copying Common files for the Project',
