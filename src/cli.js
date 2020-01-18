@@ -12,10 +12,12 @@ function parseArgumentsIntoOptions(rawArgs) {
       '--skip': Boolean,
       '--git': Boolean,
       '--install': Boolean,
+      '--clean': Boolean,
       '-n': '--name',
       '-g': '--git',
       '-s': '--skip',
       '-i': '--install',
+      '-c': '--clean',
     },
     {
       argv: rawArgs.slice(2),
@@ -27,6 +29,7 @@ function parseArgumentsIntoOptions(rawArgs) {
     git: args['--git'] || false,
     template: args._[0],
     runInstall: args['--install'] || false,
+    clean: args['--clean'] || false,
   };
 }
 async function promptForMissingOptions(options) {
@@ -93,6 +96,7 @@ async function promptForMissingOptions(options) {
     template: options.template || answers.template,
     git: options.git || answers.git,
     name: answers.name,
+    clean: options.clean || answers.clean,
   };
 }
 
