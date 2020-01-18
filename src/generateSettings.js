@@ -1,7 +1,6 @@
 import { platform } from 'os';
-const userOS = getOS();
 export async function generatePythonSettings(config) {
-  const envPath = config.env ? generatePath(config) : '';
+  const envPath = config.env ? await generatePath(config) : '';
   const settings = `{
   ${envPath}
   "python.terminal.activateEnvironment": true,
@@ -10,7 +9,7 @@ export async function generatePythonSettings(config) {
     config.template.django ? 'django' : 'flask'
   }"],
   "files.autoSave": "onFocusChange",
-  "terminal.integrated.env.${userOS}": {
+  "terminal.integrated.env.${getOS()}": {
     "SECRET_KEY": "${Math.random()
       .toString(36)
       .substring(2, 15) +
@@ -25,13 +24,13 @@ export async function generatePythonSettings(config) {
   return settings;
 }
 
-function generatePath(config) {
+async function generatePath(config) {
   if (platform() === 'darwin' || platform() === 'linux')
     return `"python.pythonPath:\${workspaceFolder}/${config.envName}/bin/python",`;
   if (platform() === 'windows')
     return `"python.pythonPath": "\${workspaceFolder}\\\\${config.envName}\\\\bin\\\\python.exe",`;
 }
-function getOS() {
+async function getOS() {
   switch (platform()) {
     case 'win32':
       return 'windows';
