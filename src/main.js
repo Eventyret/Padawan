@@ -52,7 +52,12 @@ async function writeReadme(options) {
 }
 async function writeStarterTemplate(options) {
   const html = await generateHTML(options);
-  await write(options.targetDirectory + '/index.html', html);
+  let indexFileLocation = '/index.html';
+  if (options.template.flask) {
+    indexFileLocation = '/templates/index.html';
+  }
+
+  await write(options.targetDirectory + indexFileLocation, html);
 }
 async function writeVSCodeSettings(options) {
   const settings = await generatePythonSettings(options);
@@ -92,12 +97,12 @@ export async function createProject(options) {
       task: () => writeReadme(options),
     },
     {
-      title: 'Creating Project Files',
-      task: () => writeStarterTemplate(options),
-    },
-    {
       title: 'Copy project files',
       task: () => copyTemplateFiles(options),
+    },
+    {
+      title: 'Making Starting Templates',
+      task: () => writeStarterTemplate(options),
     },
     {
       title: 'Generating vscode settings',
