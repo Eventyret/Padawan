@@ -38,6 +38,7 @@ async function promptForMissingOptions(options) {
     return {
       ...options,
       template: options.template || defaultTemplate,
+      clean: options.template || false,
     };
   }
   const questions = [];
@@ -45,7 +46,7 @@ async function promptForMissingOptions(options) {
     questions.push({
       type: 'input',
       name: 'name',
-      message: 'What shall we call this awesome project',
+      message: 'What is the name of this amazing project: ',
       validate: function(value) {
         if (value.length) {
           return true;
@@ -81,28 +82,6 @@ async function promptForMissingOptions(options) {
       default: defaultTemplate,
     });
   }
-  if (options.choices !== 'FSF' || options.choices !== 'DCD') {
-    questions.push({
-      type: 'confirm',
-      name: 'env',
-      message: 'Have you created a virtual enviroment for your project',
-      default: false,
-    });
-    if (questions.envCreated)
-      questions.push({
-        type: 'input',
-        name: 'envName',
-        message: 'What is the name of the folder for your virtual enviroment',
-        validate: function(value) {
-          if (value.length) {
-            return true;
-          } else {
-            return 'We need to know your virtual enviroment folder name';
-          }
-        },
-      });
-  }
-
   if (!options.git) {
     questions.push({
       type: 'confirm',
@@ -117,7 +96,47 @@ async function promptForMissingOptions(options) {
     template: options.template || answers.template,
     git: options.git || answers.git,
     name: answers.name,
-    clean: options.clean || answers.clean,
+  };
+}
+
+async function extraQuestions(options) {
+  const questions = [];
+  if (options.template == 'FSF' || options.template == 'DCD') {
+    questions.push({
+      type: 'confirm',
+      name: 'env',
+      message: 'Have you created a virtual enviroment for your project',
+      default: false,
+    });
+  }
+
+  const answers = await inquirer.prompt(questions);
+  return {
+    ...options,
+    env: answers.env,
+    pyton: true
+  };
+}
+async function envQuestions(options) {
+  const questions = [];
+  if (options.env) {
+    questions.push({
+      type: 'input',
+      name: 'envName',
+      message: 'What is the name of the folder for your virtual enviroment',
+      validate: function(value) {
+        if (value.length) {
+          return true;
+        } else {
+          return 'We need to know your virtual enviroment folder name';
+        }
+      },
+    });
+  }
+  const answers = await inquirer.prompt(questions);
+  return {
+    ...options,
+    envName: answers.envName,
   };
 }
 
@@ -134,6 +153,8 @@ export async function cli(args) {
   title();
   let options = parseArgumentsIntoOptions(args);
   options = await promptForMissingOptions(options);
+  options = await extraQuestions(options);
+  options = await envQuestions(options);
   await createProject(options);
-  // console.log(options);
+  console.log(options);
 }
