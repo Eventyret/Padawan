@@ -37,7 +37,7 @@ async function promptForMissingOptions(options) {
   if (options.skipPrompts) {
     return {
       ...options,
-      template: options.template || defaultTemplate,
+      template: options.template.name || defaultTemplate,
       clean: options.template || false,
     };
   }
@@ -64,19 +64,19 @@ async function promptForMissingOptions(options) {
       choices: [
         {
           name: 'User Centric Frontend (MS1)',
-          value: 'UCFD',
+          value: { name: 'UCFD', python: false, django: false, flask: false },
         },
         {
           name: 'Interactive Frontend (MS2)',
-          value: 'IFD',
+          value: { name: 'IFD', python: false, django: false, flask: false },
         },
         {
           name: 'Data Centric Development (MS3)',
-          value: 'DCD',
+          value: { name: 'DCD', python: true, django: false, flask: true },
         },
         {
           name: 'Full Stack Frameworks (MS4)',
-          value: 'FSF',
+          value: { name: 'FSF', python: true, django: false, flask: true },
         },
       ],
       default: defaultTemplate,
@@ -96,12 +96,14 @@ async function promptForMissingOptions(options) {
     template: options.template || answers.template,
     git: options.git || answers.git,
     name: answers.name,
+    env: answers.env || false,
+    envName: answers.envName || '',
   };
 }
 
 async function extraQuestions(options) {
   const questions = [];
-  if (options.template == 'FSF' || options.template == 'DCD') {
+  if (options.template.python) {
     questions.push({
       type: 'confirm',
       name: 'env',
@@ -114,7 +116,6 @@ async function extraQuestions(options) {
   return {
     ...options,
     env: answers.env,
-    pyton: true
   };
 }
 async function envQuestions(options) {
@@ -155,6 +156,6 @@ export async function cli(args) {
   options = await promptForMissingOptions(options);
   options = await extraQuestions(options);
   options = await envQuestions(options);
-  await createProject(options);
+  // await createProject(options);
   console.log(options);
 }
