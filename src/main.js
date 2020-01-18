@@ -1,16 +1,18 @@
 import chalk from 'chalk';
-import fs from 'fs';
+import fs, { appendFile } from 'fs';
 import ncp from 'ncp';
 import path from 'path';
 import { promisify } from 'util';
 import Listr from 'listr';
 import { projectInstall } from 'pkg-install';
 import simplegit from 'simple-git/promise';
+import { generateHTML } from './generateHTML';
 
 const mkdir = promisify(fs.mkdir);
 const access = promisify(fs.access);
 const copy = promisify(ncp);
 const append = promisify(fs.appendFile);
+const write = promisify(fs.writeFile);
 const git = simplegit();
 
 async function copyTemplateFiles(options) {
@@ -44,10 +46,14 @@ async function initGit(options) {
   return;
 }
 async function writeReadme(options) {
-  append(
-    options.commonDir + '/README.md',
+  write(
+    options.targetDirectoryz + '/README.md',
     `# Welcome to Project ${options.name} Project`,
   );
+}
+async function writeStarterTemplate(options) {
+  const html = await generateHTML(options);
+  await write(options.targetDirectory + '/index.html', html);
 }
 
 export async function createProject(options) {
@@ -83,6 +89,10 @@ export async function createProject(options) {
       task: () => writeReadme(options),
     },
     {
+      title: 'Creating Project Files',
+      task: () => writeStarterTemplate(options),
+    },
+    {
       title: 'Copy project files',
       task: () => copyTemplateFiles(options),
     },
@@ -90,6 +100,7 @@ export async function createProject(options) {
       title: 'Copying Common files for the Project',
       task: () => copyCommonFiles(options),
     },
+
     {
       title: 'Setting up git',
       task: () => initGit(options),
