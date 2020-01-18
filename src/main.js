@@ -16,14 +16,18 @@ async function copyTemplateFiles(options) {
     clobber: false,
   });
 }
+async function copyCommonFiles(options) {
+  return copy(options.commonDir, options.targetDirectory, {
+    clobber: false,
+  });
+}
 
 async function createProjectDir(options) {
-  return mkdir(
-    path.resolve(
-      process.cwd(),
-      options.name.replace(/\s+/g, '-').toLowerCase(),
-    ),
+  options.targetDirectory = path.resolve(
+    process.cwd(),
+    options.name.replace(/\s+/g, '-').toLowerCase(),
   );
+  return mkdir(options.targetDirectory);
 }
 
 async function initGit(options) {
@@ -37,21 +41,22 @@ async function initGit(options) {
 }
 
 export async function createProject(options) {
-  await createProjectDir(options);
   options = {
     ...options,
     targetDirectory: options.targetDirectory || process.cwd(),
   };
-  const currentFileUrl = __filename;
   const templateDir = path.resolve(
     __dirname,
     '../templates',
     options.template.toLowerCase(),
   );
+  const commonDir = path.resolve(__dirname, '../templates/common');
   options.templateDirectory = templateDir;
+  options.commonDir = commonDir;
 
   try {
     await access(templateDir, fs.constants.R_OK);
+    await access(commonDir, fs.constants.R_OK);
   } catch (err) {
     console.log(err);
     console.error('%s Invalid template name', chalk.red.bold('ERROR'));
@@ -60,8 +65,16 @@ export async function createProject(options) {
 
   const tasks = new Listr([
     {
+      title: `Creating ${options.name} Project Structure`,
+      task: () => createProjectDir(options),
+    },
+    {
       title: 'Copy project files',
       task: () => copyTemplateFiles(options),
+    },
+    {
+      title: 'Copying Common files for the Project',
+      task: () => copyCommonFiles(options),
     },
     {
       title: 'Initialize git',
