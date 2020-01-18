@@ -13,6 +13,7 @@ const access = promisify(fs.access);
 const copy = promisify(ncp);
 const write = promisify(fs.writeFile);
 const git = simplegit();
+const append = promisify(fs.appendFile);
 
 async function copyTemplateFiles(options) {
   return copy(options.templateDirectory, options.targetDirectory, {
@@ -50,6 +51,10 @@ async function writeReadme(options) {
     `# Welcome to Project ${options.name} Project`,
   );
 }
+async function generateGitIgnoreFile(options) {
+  append(options.targetDirectory + '/.gitignore', `\n${options.envName}/`);
+}
+
 async function writeStarterTemplate(options) {
   const html = await generateHTML(options);
   let indexFileLocation = '/index.html';
@@ -59,6 +64,7 @@ async function writeStarterTemplate(options) {
 
   await write(options.targetDirectory + indexFileLocation, html);
 }
+
 async function writeVSCodeSettings(options) {
   const settings = await generatePythonSettings(options);
   await write(options.targetDirectory + '/.vscode/settings.json', settings);
@@ -93,8 +99,8 @@ export async function createProject(options) {
       task: () => createProjectDir(options),
     },
     {
-      title: 'Creating README file',
-      task: () => writeReadme(options),
+      title: 'Copying Common files for the Project',
+      task: () => copyCommonFiles(options),
     },
     {
       title: 'Copy project files',
@@ -105,17 +111,23 @@ export async function createProject(options) {
       task: () => writeStarterTemplate(options),
     },
     {
+      title: 'Creating README file',
+      task: () => writeReadme(options),
+    },
+    {
+      title: 'Customizing git ignore file',
+      task: () => generateGitIgnoreFile(options),
+      skip: () =>
+        // prettier-ignore
+        !options.env ? 'No virtual enviroment created' : false,
+    },
+    {
       title: 'Generating vscode settings',
       task: () => writeVSCodeSettings(options),
       skip: () =>
         // prettier-ignore
         !options.template.python ? 'Not a Python Project' : false,
     },
-    {
-      title: 'Copying Common files for the Project',
-      task: () => copyCommonFiles(options),
-    },
-
     {
       title: 'Setting up git',
       task: () => initGit(options),
