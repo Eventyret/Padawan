@@ -1,7 +1,2 @@
-.venv/
-venv/
-env/
-.env/
 .vscode/
 env.py
-.env.py
