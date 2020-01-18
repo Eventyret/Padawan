@@ -3,13 +3,15 @@ import fs from 'fs';
 import ncp from 'ncp';
 import path from 'path';
 import { promisify } from 'util';
-import execa from 'execa';
 import Listr from 'listr';
 import { projectInstall } from 'pkg-install';
+import simplegit from 'simple-git/promise';
 
 const mkdir = promisify(fs.mkdir);
 const access = promisify(fs.access);
 const copy = promisify(ncp);
+const append = promisify(fs.appendFile);
+const git = simplegit();
 
 async function copyTemplateFiles(options) {
   return copy(options.templateDirectory, options.targetDirectory, {
@@ -31,13 +33,17 @@ async function createProjectDir(options) {
 }
 
 async function initGit(options) {
-  const result = await execa('git', ['init'], {
-    cwd: options.targetDirectory,
-  });
-  if (result.failed) {
-    return Promise.reject(new Error('Failed to initialize git'));
-  }
+  await git.cwd(options.targetDirectory);
+  await git.init();
+  await git.add('.');
+  await git.commit('Initial commit made by Padwan Tool');
   return;
+}
+async function writeReadme(options) {
+  append(
+    options.commonDir + '/README.md',
+    `# Welcome to Project ${options.name} Project`,
+  );
 }
 
 export async function createProject(options) {
@@ -69,15 +75,19 @@ export async function createProject(options) {
       task: () => createProjectDir(options),
     },
     {
+      title: 'Creating README file',
+      task: () => writeReadme(options),
+    },
+    {
       title: 'Copy project files',
-      task: () => copyTemplateFiles(options)
+      task: () => copyTemplateFiles(options),
     },
     {
       title: 'Copying Common files for the Project',
       task: () => copyCommonFiles(options),
     },
     {
-      title: 'Initialize git',
+      title: 'Setting up git',
       task: () => initGit(options),
       enabled: () => options.git,
     },
