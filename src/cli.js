@@ -156,6 +156,6 @@ export async function cli(args) {
   options = await promptForMissingOptions(options);
   options = await extraQuestions(options);
   options = await envQuestions(options);
-  // await createProject(options);
+  await createProject(options);
   console.log(options);
 }
