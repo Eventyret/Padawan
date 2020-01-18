@@ -81,6 +81,27 @@ async function promptForMissingOptions(options) {
       default: defaultTemplate,
     });
   }
+  if (options.choices !== 'FSF' || options.choices !== 'DCD') {
+    questions.push({
+      type: 'confirm',
+      name: 'env',
+      message: 'Have you created a virtual enviroment for your project yet?',
+      default: false,
+    });
+    if (questions.envCreated)
+      questions.push({
+        type: 'input',
+        name: 'envName',
+        message: 'What is the name of the folder for your virtual enviroment',
+        validate: function(value) {
+          if (value.length) {
+            return true;
+          } else {
+            return 'We need to know your virtual enviroment folder name';
+          }
+        },
+      });
+  }
 
   if (!options.git) {
     questions.push({
