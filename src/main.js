@@ -1,13 +1,13 @@
 import chalk from 'chalk';
-import fs, { appendFile } from 'fs';
+import fs from 'fs';
+import Listr from 'listr';
 import ncp from 'ncp';
 import path from 'path';
-import { promisify } from 'util';
-import Listr from 'listr';
 import { projectInstall } from 'pkg-install';
 import simplegit from 'simple-git/promise';
+import { promisify } from 'util';
 import { generateHTML } from './generateHTML';
-
+import { generatePythonSettings } from './generateSettings';
 const mkdir = promisify(fs.mkdir);
 const access = promisify(fs.access);
 const copy = promisify(ncp);
@@ -47,13 +47,17 @@ async function initGit(options) {
 }
 async function writeReadme(options) {
   write(
-    options.targetDirectoryz + '/README.md',
+    options.targetDirectory + '/README.md',
     `# Welcome to Project ${options.name} Project`,
   );
 }
 async function writeStarterTemplate(options) {
   const html = await generateHTML(options);
   await write(options.targetDirectory + '/index.html', html);
+}
+async function writeVSCodeSettings(options) {
+  const settings = await generatePythonSettings(options);
+  await write(options.targetDirectory + '/.vscode/settings.json', settings);
 }
 
 export async function createProject(options) {
@@ -95,6 +99,13 @@ export async function createProject(options) {
     {
       title: 'Copy project files',
       task: () => copyTemplateFiles(options),
+    },
+    {
+      title: 'Generating vscode settings',
+      task: () => writeVSCodeSettings(options),
+      skip: () =>
+        // prettier-ignore
+        !options.python ? 'Not a Python Project' : false,
     },
     {
       title: 'Copying Common files for the Project',
