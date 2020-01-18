@@ -26,7 +26,7 @@ function parseArgumentsIntoOptions(rawArgs) {
   };
 }
 async function promptForMissingOptions(options) {
-  const defaultTemplate = 'ms1';
+  const defaultTemplate = 'UCFD';
   if (options.skipPrompts) {
     return {
       ...options,
