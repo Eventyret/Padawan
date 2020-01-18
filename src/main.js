@@ -11,7 +11,6 @@ import { generatePythonSettings } from './generateSettings';
 const mkdir = promisify(fs.mkdir);
 const access = promisify(fs.access);
 const copy = promisify(ncp);
-const append = promisify(fs.appendFile);
 const write = promisify(fs.writeFile);
 const git = simplegit();
 
@@ -68,7 +67,7 @@ export async function createProject(options) {
   const templateDir = path.resolve(
     __dirname,
     '../templates',
-    options.template.toLowerCase(),
+    options.template.name.toLowerCase(),
   );
   const commonDir = path.resolve(__dirname, '../templates/common');
   options.templateDirectory = templateDir;
@@ -105,7 +104,7 @@ export async function createProject(options) {
       task: () => writeVSCodeSettings(options),
       skip: () =>
         // prettier-ignore
-        !options.python ? 'Not a Python Project' : false,
+        !options.template.python ? 'Not a Python Project' : false,
     },
     {
       title: 'Copying Common files for the Project',
