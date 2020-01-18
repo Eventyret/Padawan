@@ -1,12 +1,28 @@
 {
-  "name": "padawan",
+  "name": "@eventyret/padawan",
   "version": "1.0.0",
-  "description": "![Padwan](assets/logo.png)",
-  "main": "prettier.config.js",
+  "description": "Bootstraping Milestone Projects with use of Vscode",
+  "main": "src/index.js",
+  "bin": {
+    "@eventyret/padawan": "bin/padawan",
+    "padawan": "bin/padawan"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "cli",
+    "code institute",
+    "milestone projects",
+    "yoda",
+    "padawan"
+  ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "esm": "^3.2.25"
+  }
 }
