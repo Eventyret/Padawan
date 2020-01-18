@@ -3,6 +3,7 @@ import inquirer from 'inquirer';
 import chalk from 'chalk';
 import clear from 'clear';
 import figlet from 'figlet';
+import { createProject } from './main';
 
 function parseArgumentsIntoOptions(rawArgs) {
   const args = arg(
@@ -92,5 +93,6 @@ export async function cli(args) {
   title();
   let options = parseArgumentsIntoOptions(args);
   options = await promptForMissingOptions(options);
+  await createProject(options);
   console.log(options);
 }
