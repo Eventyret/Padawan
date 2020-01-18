@@ -110,5 +110,5 @@ export async function cli(args) {
   let options = parseArgumentsIntoOptions(args);
   options = await promptForMissingOptions(options);
   await createProject(options);
-  console.log(options);
+  // console.log(options);
 }
