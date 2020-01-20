@@ -6,17 +6,17 @@ import { generatePythonSettings } from '../generators/generateSettings';
 const write = promisify(fs.writeFile);
 const append = promisify(fs.appendFile);
 
-export async function readme(options) {
+export async function createReadme(options) {
   write(
     options.targetDirectory + '/README.md',
     `# Welcome to Project ${options.name} Project`,
   );
 }
-export async function gitignore(options) {
+export async function createGitIgnore(options) {
   append(options.targetDirectory + '/.gitignore', `\n${options.envName}/`);
 }
 
-export async function createIndexFile(options) {
+export async function createHTML(options) {
   const html = await generateHTML(options);
   let indexFileLocation = '/index.html';
   if (options.template.flask) {
@@ -26,7 +26,7 @@ export async function createIndexFile(options) {
   await write(options.targetDirectory + indexFileLocation, html);
 }
 
-export async function vscodeSettings(options) {
+export async function createVSCodeSettings(options) {
   const settings = await generatePythonSettings(options);
   await write(options.targetDirectory + '/.vscode/settings.json', settings);
 }
