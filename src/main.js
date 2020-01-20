@@ -1,85 +1,35 @@
 import chalk from 'chalk';
 import fs from 'fs';
 import Listr from 'listr';
-import ncp from 'ncp';
 import path from 'path';
 import { projectInstall } from 'pkg-install';
-import simplegit from 'simple-git/promise';
 import { promisify } from 'util';
-import { generateHTML } from './generateHTML';
-import { generatePythonSettings } from './generateSettings';
-const mkdir = promisify(fs.mkdir);
+import {
+  createProjectDir,
+  copyTemplateFiles,
+  copyCommonFiles,
+} from './tasks/createStructure';
+import {
+  createReadme,
+  createGitIgnore,
+  createHTML,
+  createVSCodeSettings,
+} from './tasks/createFiles';
+import { gitTasks } from './tasks/git';
 const access = promisify(fs.access);
-const copy = promisify(ncp);
-const write = promisify(fs.writeFile);
-const git = simplegit();
-const append = promisify(fs.appendFile);
-
-async function copyTemplateFiles(options) {
-  return copy(options.templateDirectory, options.targetDirectory, {
-    clobber: false,
-  });
-}
-async function copyCommonFiles(options) {
-  return copy(options.commonDir, options.targetDirectory, {
-    clobber: false,
-  });
-}
-
-async function createProjectDir(options) {
-  options.targetDirectory = path.resolve(
-    process.cwd(),
-    options.name.replace(/\s+/g, '-').toLowerCase(),
-  );
-  return mkdir(options.targetDirectory);
-}
-
-async function initGit(options) {
-  try {
-    await git.cwd(options.targetDirectory);
-    await git.init();
-    await git.add('.');
-    await git.commit('Initial commit made by Padwan Tool');
-  } catch (err) {
-    console.error(err.message);
-  }
-  return;
-}
-async function writeReadme(options) {
-  write(
-    options.targetDirectory + '/README.md',
-    `# Welcome to Project ${options.name} Project`,
-  );
-}
-async function generateGitIgnoreFile(options) {
-  append(options.targetDirectory + '/.gitignore', `\n${options.envName}/`);
-}
-
-async function writeStarterTemplate(options) {
-  const html = await generateHTML(options);
-  let indexFileLocation = '/index.html';
-  if (options.template.flask) {
-    indexFileLocation = '/templates/index.html';
-  }
-
-  await write(options.targetDirectory + indexFileLocation, html);
-}
-
-async function writeVSCodeSettings(options) {
-  const settings = await generatePythonSettings(options);
-  await write(options.targetDirectory + '/.vscode/settings.json', settings);
-}
 
 export async function createProject(options) {
   options = {
     ...options,
     targetDirectory: options.targetDirectory || process.cwd(),
   };
+
   const templateDir = path.resolve(
     __dirname,
     '../templates',
     options.template.name.toLowerCase(),
   );
+
   const commonDir = path.resolve(__dirname, '../templates/common');
   options.templateDirectory = templateDir;
   options.commonDir = commonDir;
@@ -95,42 +45,49 @@ export async function createProject(options) {
 
   const tasks = new Listr([
     {
-      title: `Creating ${options.name} Project Structure`,
+      title: `Creating ${options.name} Project`,
       task: () => createProjectDir(options),
+      enabled: true,
     },
     {
-      title: 'Copying Common files for the Project',
+      title: `Copying Common files to ${options.name}`,
       task: () => copyCommonFiles(options),
+      enabled: true,
     },
     {
-      title: 'Copy project files',
+      title: `Copying template files to ${options.name}`,
       task: () => copyTemplateFiles(options),
+      enabled: true,
     },
     {
       title: 'Making Starting Templates',
-      task: () => writeStarterTemplate(options),
+      task: () => createHTML(options),
+      enabled: true,
     },
     {
       title: 'Creating README file',
-      task: () => writeReadme(options),
+      task: () => createReadme(options),
+      enabled: true,
     },
     {
       title: 'Customizing git ignore file',
-      task: () => generateGitIgnoreFile(options),
+      task: () => createGitIgnore(options),
+      enabled: true,
       skip: () =>
         // prettier-ignore
         !options.env ? 'No virtual enviroment created' : false,
     },
     {
       title: 'Generating vscode settings',
-      task: () => writeVSCodeSettings(options),
+      task: () => createVSCodeSettings(options),
       skip: () =>
         // prettier-ignore
         !options.template.python ? 'Not a Python Project' : false,
+      enabled: true,
     },
     {
       title: 'Setting up git',
-      task: () => initGit(options),
+      task: () => gitTasks(options),
       enabled: () => options.git,
     },
     {
@@ -142,6 +99,7 @@ export async function createProject(options) {
       skip: () =>
         // prettier-ignore
         !options.runInstall ? 'Pass --install to automatically install dependencies' : undefined,
+      enabled: false,
     },
   ]);
 
