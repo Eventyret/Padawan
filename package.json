@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "bin": {
     "@eventyret/padawan": "bin/padawan",
-    "padawan": "bin/padawan"
+    "padawan": "bin/padawan",
+    "padwan": "bin/padawan"
   },
   "publishConfig": {
     "access": "public"
