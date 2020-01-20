@@ -4,8 +4,9 @@ from os import path
 if path.exists("env.py"):
   import env 
 SECRET_KEY = os.environ.get('SECRET_KEY')
-SECRET_KEY = os.environ.get('MONGO_DBNAME')
-SECRET_KEY = os.environ.get('MONGO_URI')
+MONGO_DBNAME = os.environ.get('MONGO_DBNAME')
+MONGO_URI = os.environ.get('MONGO_URI')
+
 
 APP = Flask(__name__)
 
