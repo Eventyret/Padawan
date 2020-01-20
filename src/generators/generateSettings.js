@@ -8,6 +8,7 @@ export async function generatePythonSettings(config) {
   ${envPath}
   "python.terminal.activateEnvironment": true,
   "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
   "python.linting.pylintArgs": ["--load-plugins=pylint_${
     config.template.django ? 'django' : 'flask'
   }"],
@@ -31,7 +32,7 @@ async function generatePath(config) {
   if (usrPlatform === 'darwin' || usrPlatform === 'linux')
     return `"python.pythonPath:\${workspaceFolder}/${config.envName}/bin/python",`;
   if (usrPlatform === 'win32')
-    return `"python.pythonPath": "\${workspaceFolder}\\\\${config.envName}\\\\bin\\\\python.exe",`;
+    return `"python.pythonPath": "\${workspaceFolder}\\\\${config.envName}\\\\Scripts\\\\python.exe",`;
 }
 async function getOS() {
   switch (usrPlatform) {
