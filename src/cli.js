@@ -13,8 +13,10 @@ function parseArgumentsIntoOptions(rawArgs) {
       '--git': Boolean,
       '--install': Boolean,
       '--clean': Boolean,
+      '--gitpod': Boolean,
       '-n': '--name',
       '-g': '--git',
+      '-p': '--gitpod',
       '-s': '--skip',
       '-i': '--install',
       '-c': '--clean',
@@ -30,6 +32,7 @@ function parseArgumentsIntoOptions(rawArgs) {
     template: args._[0],
     runInstall: args['--install'] || false,
     clean: args['--clean'] || false,
+    gitpod: args['--gitpod'] || false,
   };
 }
 async function promptForMissingOptions(options) {
@@ -82,6 +85,14 @@ async function promptForMissingOptions(options) {
       default: defaultTemplate,
     });
   }
+  if (!questions.gitpod) {
+    questions.push({
+      type: 'configm',
+      name: 'gitpod',
+      message: 'Are you using Gitpod?',
+      default: false,
+    });
+  }
   if (!options.git) {
     questions.push({
       type: 'confirm',
@@ -98,6 +109,7 @@ async function promptForMissingOptions(options) {
     name: answers.name,
     env: answers.env || false,
     envName: answers.envName || '',
+    gitpod: answers.gitpod,
   };
 }
 
