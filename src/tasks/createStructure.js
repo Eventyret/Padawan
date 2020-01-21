@@ -16,6 +16,11 @@ export async function copyCommonFiles(options) {
     clobber: false,
   });
 }
+export async function copyPythonFiles(options) {
+  return copy(options.pythonDir, options.targetDirectory, {
+    clobber: false,
+  });
+}
 
 export async function createProjectDir(options) {
   options.targetDirectory = path.resolve(

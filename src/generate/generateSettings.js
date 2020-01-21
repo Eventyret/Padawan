@@ -1,4 +1,6 @@
 import { getOS } from '../common/common';
+import { platform } from 'os';
+const usrPlatform = platform();
 
 export async function generatePythonSettings(config) {
   const envPath = config.env ? await generatePath(config) : '';

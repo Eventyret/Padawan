@@ -9,13 +9,17 @@ import {
   createHTML,
   createReadme,
   createVSCodeSettings,
+  createENVPy
 } from './tasks/createFiles';
 import {
-  copyCommonFiles,
+  copyPythonFiles,
   copyTemplateFiles,
+  copyCommonFiles,
   createProjectDir,
 } from './tasks/createStructure';
+import { generateRequirements } from './generate/generateRequirements';
 import { gitTasks } from './tasks/git';
+import { title } from './common/common';
 const access = promisify(fs.access);
 
 export async function createProject(options) {
@@ -31,12 +35,15 @@ export async function createProject(options) {
   );
 
   const commonDir = path.resolve(__dirname, '../templates/common');
+  const pythonDir = path.resolve(__dirname, '../templates/python');
   options.templateDirectory = templateDir;
   options.commonDir = commonDir;
+  options.pythonDir = pythonDir;
 
   try {
     await access(templateDir, fs.constants.R_OK);
     await access(commonDir, fs.constants.R_OK);
+    await access(pythonDir, fs.constants.R_OK);
   } catch (err) {
     console.log(err);
     console.error('%s Invalid template name', chalk.red.bold('ERROR'));
@@ -51,6 +58,13 @@ export async function createProject(options) {
     {
       title: `Copying Common files to ${options.name}`,
       task: () => copyCommonFiles(options),
+    },
+    {
+      title: `Copying Python settings ${options.name}`,
+      task: () => copyPythonFiles(options),
+      skip: () =>
+        // prettier-ignore
+        !options.template.python ? 'Not a Python Project 🚫🐍' : false,
     },
     {
       title: `Copying template files to ${options.name}`,
@@ -72,6 +86,20 @@ export async function createProject(options) {
         !options.env ? 'No virtual enviroment created' : false,
     },
     {
+      title: 'Generating requirements.txt file',
+      task: () => generateRequirements(options),
+      skip: () =>
+        // prettier-ignore
+        !options.template.python ? 'Not a Python Project 🚫🐍' : false,
+    },
+    {
+      title: 'Generating python env file',
+      task: () => createENVPy(options),
+      skip: () =>
+        // prettier-ignore
+        !options.template.flask ? 'Not a Flask Project 🚫🐍' : false,
+    },
+    {
       title: 'Generating vscode settings',
       task: (ctx, task) =>
         createVSCodeSettings(options).catch(err => {
@@ -80,7 +108,7 @@ export async function createProject(options) {
         }),
       skip: () =>
         // prettier-ignore
-        !options.template.python ? 'Not a Python Project' : false,
+        !options.template.python ? 'Not a Python Project 🚫🐍' : false,
     },
     {
       title: 'Setting up git',
@@ -102,6 +130,7 @@ export async function createProject(options) {
   await tasks.run().catch(err => {
     console.error(err);
   });
-  console.log('%s Project ready', chalk.green.bold('DONE'));
+  title(`Created
+  ${options.name}`);
   return true;
 }

@@ -2,6 +2,7 @@ import fs from 'fs';
 import { promisify } from 'util';
 import { generateHTML } from '../generate/generateHTML';
 import { generatePythonSettings } from '../generate/generateSettings';
+import { generateENVFile } from '../generate/generateENV';
 
 const write = promisify(fs.writeFile);
 const append = promisify(fs.appendFile);
@@ -24,6 +25,10 @@ export async function createHTML(options) {
   }
 
   await write(options.targetDirectory + indexFileLocation, html);
+}
+
+export async function createENVPy(options) {
+  await write(options.targetDirectory + '/env.py', generateENVFile());
 }
 
 export async function createVSCodeSettings(options) {
