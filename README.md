@@ -2,4 +2,10 @@
 
 ![Padwan](assets/logo.png)
 
-TODO: 
+TODO:
+
+- Remove folder if it already exisits
+- Generate env.py for django projects
+- Pip install functionality
+- Virtualenv install functionality
+- Gitpod support
