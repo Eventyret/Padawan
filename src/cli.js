@@ -97,7 +97,7 @@ async function promptForMissingOptions(options) {
       type: 'confirm',
       name: 'git',
       message: 'Initialize a git repository?',
-      default: false,
+      default: true,
     });
   }
   const answers = await inquirer.prompt(questions);
