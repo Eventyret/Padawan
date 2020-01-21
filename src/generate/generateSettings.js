@@ -1,5 +1,4 @@
-import { platform } from 'os';
-const usrPlatform = platform();
+import { getOS } from '../common/common';
 
 export async function generatePythonSettings(config) {
   const envPath = config.env ? await generatePath(config) : '';
@@ -33,16 +32,4 @@ async function generatePath(config) {
     return `"python.pythonPath:\${workspaceFolder}/${config.envName}/bin/python",`;
   if (usrPlatform === 'win32')
     return `"python.pythonPath": "\${workspaceFolder}\\\\${config.envName}\\\\Scripts\\\\python.exe",`;
-}
-async function getOS() {
-  switch (usrPlatform) {
-    case 'win32':
-      return 'windows';
-    case 'darwin':
-      return 'osx';
-    case 'linux':
-      return 'linux';
-    default:
-      return false;
-  }
 }
