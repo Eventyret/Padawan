@@ -32,5 +32,5 @@ export async function createVSCodeSettings(options) {
   if (options.gitpod) {
     throw new Error('Gitpod is so far not supported');
   }
-  await write(options.targetDirectory + '/.vscode/settings.json', settings);
+  await write(options.targetDirectory + path, settings);
 }
