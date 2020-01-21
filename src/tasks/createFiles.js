@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { promisify } from 'util';
-import { generateHTML } from '../generators/generateHTML';
-import { generatePythonSettings } from '../generators/generateSettings';
+import { generateHTML } from '../generate/generateHTML';
+import { generatePythonSettings } from '../generate/generateSettings';
 
 const write = promisify(fs.writeFile);
 const append = promisify(fs.appendFile);
@@ -27,6 +27,10 @@ export async function createHTML(options) {
 }
 
 export async function createVSCodeSettings(options) {
+  let path = '/.vscode/settings.json';
   const settings = await generatePythonSettings(options);
+  if (options.gitpod) {
+    throw new Error('Gitpod is so far not supported');
+  }
   await write(options.targetDirectory + '/.vscode/settings.json', settings);
 }
