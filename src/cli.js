@@ -87,7 +87,7 @@ async function promptForMissingOptions(options) {
   }
   if (!questions.gitpod) {
     questions.push({
-      type: 'configm',
+      type: 'confirm',
       name: 'gitpod',
       message: 'Are you using Gitpod?',
       default: false,
