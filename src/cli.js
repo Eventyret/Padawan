@@ -1,8 +1,7 @@
 import arg from 'arg';
 import inquirer from 'inquirer';
-import chalk from 'chalk';
 import clear from 'clear';
-import figlet from 'figlet';
+import { title } from './common/common';
 import { createProject } from './main';
 
 function parseArgumentsIntoOptions(rawArgs) {
@@ -153,21 +152,12 @@ async function envQuestions(options) {
   };
 }
 
-function title() {
-  console.log(
-    chalk.yellow(
-      figlet.textSync('Padawan', { horizontalLayout: 'full', font: 'Big' }),
-    ),
-  );
-}
-
 export async function cli(args) {
   clear();
-  title();
+  title('Padawan');
   let options = parseArgumentsIntoOptions(args);
   options = await promptForMissingOptions(options);
   options = await extraQuestions(options);
   options = await envQuestions(options);
   await createProject(options);
-  console.log(options);
 }

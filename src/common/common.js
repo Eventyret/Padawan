@@ -1,7 +1,9 @@
+import chalk from 'chalk';
+import figlet from 'figlet';
 import { platform } from 'os';
-const usrPlatform = platform();
 
 export async function getOS() {
+  const usrPlatform = platform();
   switch (usrPlatform) {
     case 'win32':
       return 'windows';
@@ -12,4 +14,12 @@ export async function getOS() {
     default:
       return false;
   }
+}
+
+export function title(text) {
+  console.log(
+    chalk.yellow(
+      figlet.textSync(text, { horizontalLayout: 'full', font: 'Big' }),
+    ),
+  );
 }
