@@ -5,16 +5,16 @@ import path from 'path';
 import { projectInstall } from 'pkg-install';
 import { promisify } from 'util';
 import {
-  createProjectDir,
-  copyTemplateFiles,
-  copyCommonFiles,
-} from './tasks/createStructure';
-import {
-  createReadme,
   createGitIgnore,
   createHTML,
+  createReadme,
   createVSCodeSettings,
 } from './tasks/createFiles';
+import {
+  copyCommonFiles,
+  copyTemplateFiles,
+  createProjectDir,
+} from './tasks/createStructure';
 import { gitTasks } from './tasks/git';
 const access = promisify(fs.access);
 
@@ -47,43 +47,40 @@ export async function createProject(options) {
     {
       title: `Creating ${options.name} Project`,
       task: () => createProjectDir(options),
-      enabled: true,
     },
     {
       title: `Copying Common files to ${options.name}`,
       task: () => copyCommonFiles(options),
-      enabled: true,
     },
     {
       title: `Copying template files to ${options.name}`,
       task: () => copyTemplateFiles(options),
-      enabled: true,
     },
     {
       title: 'Making Starting Templates',
       task: () => createHTML(options),
-      enabled: true,
     },
     {
       title: 'Creating README file',
       task: () => createReadme(options),
-      enabled: true,
     },
     {
       title: 'Customizing git ignore file',
       task: () => createGitIgnore(options),
-      enabled: true,
       skip: () =>
         // prettier-ignore
         !options.env ? 'No virtual enviroment created' : false,
     },
     {
       title: 'Generating vscode settings',
-      task: () => createVSCodeSettings(options),
+      task: (ctx, task) =>
+        createVSCodeSettings(options).catch(err => {
+          ctx.gitpod = false;
+          task.skip(err.message);
+        }),
       skip: () =>
         // prettier-ignore
         !options.template.python ? 'Not a Python Project' : false,
-      enabled: true,
     },
     {
       title: 'Setting up git',
@@ -99,11 +96,12 @@ export async function createProject(options) {
       skip: () =>
         // prettier-ignore
         !options.runInstall ? 'Pass --install to automatically install dependencies' : undefined,
-      enabled: false,
     },
   ]);
 
-  await tasks.run();
+  await tasks.run().catch(err => {
+    console.error(err);
+  });
   console.log('%s Project ready', chalk.green.bold('DONE'));
   return true;
 }
