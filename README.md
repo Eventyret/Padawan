@@ -1,4 +1,4 @@
-# Padawan
+\*# Padawan
 
 ![Padwan](assets/logo.png)
 
@@ -14,3 +14,5 @@ TODO:
 [x] - Python folder to be renamed to Backend
 [x] - Virtualenv Install Flask
 [x] - Virtulaenv install django
+[] - Seperate Django and flask install functions
+[x] - Reflect changes to cli menu
