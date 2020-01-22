@@ -16,8 +16,13 @@ export async function copyCommonFiles(options) {
     clobber: false,
   });
 }
-export async function copyPythonFiles(options) {
-  return copy(options.pythonDir, options.targetDirectory, {
+export async function copyBackendFiles(options) {
+  return copy(options.backendDir, options.targetDirectory, {
+    clobber: false,
+  });
+}
+export async function copyFrontendFiles(options) {
+  return copy(options.frontendDir, options.targetDirectory, {
     clobber: false,
   });
 }

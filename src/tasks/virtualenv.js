@@ -27,7 +27,7 @@ async function activate(options) {
   await execa(`${targetDir}${pip}`, [
     `install`,
     `-r`,
-    `${options.pythonDir}${requirements}`,
+    `${options.backendDir}${requirements}`,
   ]);
   if (options.template.flask) {
     await execa(`${targetDir}${pip}`, ['install', 'Flask']);

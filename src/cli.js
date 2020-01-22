@@ -131,7 +131,7 @@ async function extraQuestions(options) {
 }
 async function envQuestions(options) {
   const questions = [];
-  if (!options.env) {
+  if (!options.env && options.python) {
     questions.push({
       type: 'confirm',
       name: 'createENV',

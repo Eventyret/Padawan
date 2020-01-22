@@ -12,7 +12,8 @@ import {
   createENVPy,
 } from './tasks/createFiles';
 import {
-  copyPythonFiles,
+  copyBackendFiles,
+  copyFrontendFiles,
   copyTemplateFiles,
   copyCommonFiles,
   createProjectDir,
@@ -36,15 +37,18 @@ export async function createProject(options) {
   );
 
   const commonDir = path.resolve(__dirname, '../templates/common');
-  const pythonDir = path.resolve(__dirname, '../templates/python');
+  const backendDir = path.resolve(__dirname, '../templates/backend');
+  const frontendDir = path.resolve(__dirname, '../templates/frontend');
   options.templateDirectory = templateDir;
   options.commonDir = commonDir;
-  options.pythonDir = pythonDir;
+  options.backendDir = backendDir;
+  options.frontendDir = frontendDir;
 
   try {
     await access(templateDir, fs.constants.R_OK);
     await access(commonDir, fs.constants.R_OK);
-    await access(pythonDir, fs.constants.R_OK);
+    await access(backendDir, fs.constants.R_OK);
+    await access(frontendDir, fs.constants.R_OK);
   } catch (err) {
     console.log(err);
     console.error('%s Invalid template name', chalk.red.bold('ERROR'));
@@ -59,6 +63,13 @@ export async function createProject(options) {
     {
       title: `Copying Common files to ${options.name}`,
       task: () => copyCommonFiles(options),
+    },
+    {
+      title: `Creating Project files for ${options.name}`,
+      task: () =>
+        options.template.python
+          ? copyBackendFiles(options)
+          : copyFrontendFiles(options),
     },
     {
       title: `Copying Python settings ${options.name}`,
