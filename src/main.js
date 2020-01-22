@@ -4,23 +4,11 @@ import Listr from 'listr';
 import path from 'path';
 import { projectInstall } from 'pkg-install';
 import { promisify } from 'util';
-import {
-  createGitIgnore,
-  createHTML,
-  createReadme,
-  createVSCodeSettings,
-  createENVPy,
-} from './tasks/createFiles';
-import {
-  copyBackendFiles,
-  copyFrontendFiles,
-  copyTemplateFiles,
-  copyCommonFiles,
-  createProjectDir,
-} from './tasks/createStructure';
-import { generateRequirements } from './generate/generateRequirements';
-import { gitTasks } from './tasks/git';
 import { title } from './common/common';
+import { generateRequirements } from './generate/generateRequirements';
+import { createENVPy, createGitIgnore, createHTML, createReadme, createVSCodeSettings } from './tasks/createFiles';
+import { copyBackendFiles, copyCommonFiles, copyFrontendFiles, copyTemplateFiles, createProjectDir } from './tasks/createStructure';
+import { gitTasks } from './tasks/git';
 import { pipOutPut } from './tasks/virtualenv';
 const access = promisify(fs.access);
 
@@ -144,10 +132,12 @@ export async function createProject(options) {
     },
   ]);
 
-  await tasks.run().catch(err => {
-    console.error(err);
-  });
+  await tasks
+    .run()
+    .catch(err => {
+      console.error(err);
+    });
   title(`Created
-  ${options.name}`);
+${options.name}`);
   return true;
 }
