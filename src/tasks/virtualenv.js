@@ -23,10 +23,17 @@ async function activate(options) {
     requirements = '/requirements.txt';
   }
   await execa(`virtualenv ${targetDir}${osVar}`);
-  await execa(`${targetDir}${pip}`, ['install', `-r ${targetDir}${requirements}`]);
-  await execa(
-    `${targetDir}${pip}`, [`freeze --local >> ${targetDir}${requirements}`],
-  );
+  console.log(`${targetDir}${requirements}`);
+  await execa(`${targetDir}${pip}`, [
+    `install`,
+    `-r`,
+    `${options.pythonDir}${requirements}`,
+  ]);
+  await execa(`${targetDir}${pip}`, [
+    'freeze',
+    '>>',
+    `${targetDir}${requirements}`,
+  ]);
 }
 
 export async function pipOutPut(options) {
