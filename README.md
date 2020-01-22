@@ -11,3 +11,4 @@ TODO:
 - Gitpod support
 - Merge IFD and UFCD into "Frontend" folder
 - Python folder to be renamed to Backend
+- Remove folders on failure (fs.remove)
