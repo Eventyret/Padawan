@@ -6,8 +6,20 @@ import { projectInstall } from 'pkg-install';
 import { promisify } from 'util';
 import { title } from './common/common';
 import { generateRequirements } from './generate/generateRequirements';
-import { createENVPy, createGitIgnore, createHTML, createReadme, createVSCodeSettings } from './tasks/createFiles';
-import { copyBackendFiles, copyCommonFiles, copyFrontendFiles, copyTemplateFiles, createProjectDir } from './tasks/createStructure';
+import {
+  createENVPy,
+  createGitIgnore,
+  createHTML,
+  createReadme,
+  createVSCodeSettings,
+} from './tasks/createFiles';
+import {
+  copyBackendFiles,
+  copyCommonFiles,
+  copyFrontendFiles,
+  copyTemplateFiles,
+  createProjectDir,
+} from './tasks/createStructure';
 import { gitTasks } from './tasks/git';
 import { pipOutPut } from './tasks/virtualenv';
 const access = promisify(fs.access);
@@ -55,13 +67,12 @@ export async function createProject(options) {
     {
       title: `Creating Project files for ${options.name}`,
       task: () =>
-        options.template.python
-          ? copyBackendFiles(options)
-          : copyFrontendFiles(options),
+        //prettier-ignore
+        options.template.python ? copyBackendFiles(options) : copyFrontendFiles(options),
     },
     {
       title: `Copying Python settings ${options.name}`,
-      task: () => copyPythonFiles(options),
+      task: () => copyBackendFiles(options),
       skip: () =>
         // prettier-ignore
         !options.template.python ? 'Not a Python Project 🚫🐍' : false,
@@ -116,9 +127,21 @@ export async function createProject(options) {
       enabled: () => options.git,
     },
     {
-      title: 'Python Test',
+      title: 'Setting up Virtual Enviroment',
       task: () => pipOutPut(options),
       enabled: () => options.createENV,
+    },
+    {
+      title: 'Setting Flask up',
+      task: () => pipOutPut(options),
+      enabled: () => options.template.flask,
+      skip: () => !options.template.flask ? 'Not a Flask Project' : undefined,
+    },
+    {
+      title: 'Setting Django up',
+      task: () => pipOutPut(options),
+      enabled: () => options.template.django,
+      skip: () => !options.template.django ? 'Not a Django Project' : undefined,
     },
     {
       title: 'Install dependencies',
@@ -132,11 +155,9 @@ export async function createProject(options) {
     },
   ]);
 
-  await tasks
-    .run()
-    .catch(err => {
-      console.error(err);
-    });
+  await tasks.run().catch(err => {
+    console.error(err);
+  });
   title(`Created
 ${options.name}`);
   return true;
