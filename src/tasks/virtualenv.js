@@ -29,8 +29,14 @@ async function activate(options) {
     `-r`,
     `${options.pythonDir}${requirements}`,
   ]);
+  if (options.template.flask) {
+    await execa(`${targetDir}${pip}`, ['install', 'Flask']);
+  } else {
+    await execa(`${targetDir}${pip}`, ['install', 'Django']);
+  }
   await execa(`${targetDir}${pip}`, [
     'freeze',
+    '--local',
     '>>',
     `${targetDir}${requirements}`,
   ]);
