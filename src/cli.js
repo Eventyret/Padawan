@@ -78,7 +78,7 @@ async function promptForMissingOptions(options) {
         },
         {
           name: 'Full Stack Frameworks (MS4)',
-          value: { name: 'FSF', python: true, django: false, flask: true },
+          value: { name: 'FSF', python: true, django: true, flask: false },
         },
       ],
       default: defaultTemplate,
@@ -131,7 +131,7 @@ async function extraQuestions(options) {
 }
 async function envQuestions(options) {
   const questions = [];
-  if (!options.env && options.python) {
+  if (!options.env && options.template.python) {
     questions.push({
       type: 'confirm',
       name: 'createENV',
