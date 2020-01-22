@@ -1,53 +1,63 @@
 import execa from 'execa';
 import { platform } from 'os';
 
+const target = {};
+let targetDir;
 async function activate(options) {
-  const targetDir = options.targetDirectory;
-  let path;
-  let osVar;
-  let pythonExecutable;
-  let pip;
-  let requirements;
-  if (platform() == 'win32') {
-    //prettier-ignore
-    path = `\\env\\Scripts\\activate`;
-    osVar = '\\env';
-    pythonExecutable = '\\env\\Scripts\\python.exe';
-    pip = '\\env\\Scripts\\pip.exe';
-    requirements = '\\requirements.txt';
-  } else {
-    path = `/env/bin/activate`;
-    osVar = '/env';
-    pythonExecutable = 'env/bin/python';
-    pip = 'env/bin/pip';
-    requirements = '/requirements.txt';
-  }
-  await execa(`virtualenv ${targetDir}${osVar}`);
-  console.log(`${targetDir}${requirements}`);
-  await execa(`${targetDir}${pip}`, [
+  await execa(`virtualenv ${targetDir}${target.osVar}`);
+  await execa(`${targetDir}${target.pip}`, [
     `install`,
     `-r`,
-    `${options.backendDir}${requirements}`,
+    `${options.backendDir}${target.requirements}`,
   ]);
-  if (options.template.flask) {
-    await execa(`${targetDir}${pip}`, ['install', 'Flask']);
-  } else {
-    await execa(`${targetDir}${pip}`, ['install', 'Django']);
-  }
-  await execa(`${targetDir}${pip}`, [
+  await execa(`${targetDir}${target.pip}`, [
     'freeze',
     '--local',
     '>>',
-    `${targetDir}${requirements}`,
+    `${targetDir}${target.requirements}`,
   ]);
 }
 
 export async function pipOutPut(options) {
+  targetDir = options.targetDirectory;
   try {
+    await os(options);
     await execa('pip install virtualenv');
-    const test = await activate(options);
-    console.log(test);
+    await activate(options);
+    if (options.template.flask) {
+      await flaskApp();
+    } else {
+      await djangoApp(options);
+    }
   } catch (err) {
     throw err;
+  }
+}
+
+export async function flaskApp() {
+  await execa(`${targetDir}${target.pip}`, ['install', 'Flask']);
+}
+
+export async function djangoApp(options) {
+  await execa(`${targetDir}${target.pip}`, ['install', 'Django']);
+  return 'Please activate your virtualenv and execute django-admin startproject BOOOOOOOBBB';
+  
+}
+
+export async function os(options) {
+  if (platform() == 'win32') {
+    let envName = !options.envName ? 'env' : options.envName;
+    //prettier-ignore
+    target.path = `\\\\${envName}\\Scripts\\activate`;
+    target.osVar = `\\\\${envName}`;
+    target.pythonExecutable = `\\\\${envName}\\Scripts\\python.exe`;
+    target.pip = `\\\\${envName}\\Scripts\\pip.exe`;
+    target.requirements = '\\requirements.txt';
+  } else {
+    target.path = `/${envName}/bin/activate`;
+    target.osVar = `/${envName}`;
+    target.pythonExecutable = `${envName}/bin/python`;
+    target.pip = `${envName}/bin/pip`;
+    target.requirements = '/requirements.txt';
   }
 }
