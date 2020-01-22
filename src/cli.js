@@ -131,6 +131,14 @@ async function extraQuestions(options) {
 }
 async function envQuestions(options) {
   const questions = [];
+  if (!options.env) {
+    questions.push({
+      type: 'confirm',
+      name: 'createENV',
+      message: 'Do you want us to create one for you?',
+      default: true,
+    });
+  }
   if (options.env) {
     questions.push({
       type: 'input',
@@ -149,6 +157,7 @@ async function envQuestions(options) {
   return {
     ...options,
     envName: answers.envName,
+    createENV: answers.createENV,
   };
 }
 
