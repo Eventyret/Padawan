@@ -9,7 +9,7 @@ import {
   createHTML,
   createReadme,
   createVSCodeSettings,
-  createENVPy
+  createENVPy,
 } from './tasks/createFiles';
 import {
   copyPythonFiles,
@@ -20,6 +20,7 @@ import {
 import { generateRequirements } from './generate/generateRequirements';
 import { gitTasks } from './tasks/git';
 import { title } from './common/common';
+import { pipOutPut } from './tasks/virtualenv';
 const access = promisify(fs.access);
 
 export async function createProject(options) {
@@ -114,6 +115,11 @@ export async function createProject(options) {
       title: 'Setting up git',
       task: () => gitTasks(options),
       enabled: () => options.git,
+    },
+    {
+      title: 'Python Test',
+      task: () => pipOutPut(options),
+      enabled: () => options.createENV,
     },
     {
       title: 'Install dependencies',
