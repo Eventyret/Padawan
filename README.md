@@ -12,3 +12,5 @@ TODO:
 - Merge IFD and UFCD into "Frontend" folder
 - Python folder to be renamed to Backend
 - Remove folders on failure (fs.remove)
+- Virtualenv Install Flask
+- Virtulaenv install django
