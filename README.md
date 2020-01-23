@@ -1,4 +1,4 @@
-\*# Padawan
+# Padawan
 
 ![Padwan](assets/logo.png)
 
@@ -16,3 +16,7 @@ TODO:
 [x] - Virtulaenv install django
 [] - Seperate Django and flask install functions
 [x] - Reflect changes to cli menu
+[] - Add JSDoc Comments
+[] - Refactor `createFiles` and `createStructures` to `frontEnd` `backend`
+
+BUGS:
