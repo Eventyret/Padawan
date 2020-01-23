@@ -1,5 +1,5 @@
 from flask import Flask
-
+import os
 from os import path
 if path.exists("env.py"):
   import env 
@@ -17,4 +17,4 @@ def hello_world():
 if __name__ == '__main__':
     APP.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
-            os.environ.get('DEBUG'))
+            debug=os.environ.get('DEBUG'))
