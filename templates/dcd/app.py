@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 import os
 from os import path
 if path.exists("env.py"):
@@ -12,7 +12,7 @@ APP = Flask(__name__)
 
 @APP.route('/')
 def hello_world():
-    return 'Hello, World!'
+    return render_template('paegs/index.html')
 
 if __name__ == '__main__':
     APP.run(host=os.environ.get('IP'),
