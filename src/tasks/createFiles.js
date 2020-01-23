@@ -21,7 +21,7 @@ export async function createHTML(options) {
   const html = await generateHTML(options);
   let indexFileLocation = '/index.html';
   if (options.template.flask) {
-    indexFileLocation = '/templates/index.html';
+    indexFileLocation = '/templates/pages/index.html';
   }
 
   await write(options.targetDirectory + indexFileLocation, html);
