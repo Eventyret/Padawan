@@ -76,6 +76,7 @@ export async function createProject(options) {
       skip: () =>
         // prettier-ignore
         !options.template.python ? 'Not a Python Project 🚫🐍' : false,
+      enabled: () => options.template.python,
     },
     {
       title: `Copying template files to ${options.name}`,
@@ -90,13 +91,6 @@ export async function createProject(options) {
       task: () => createReadme(options),
     },
     {
-      title: 'Customizing git ignore file',
-      task: () => createGitIgnore(options),
-      skip: () =>
-        // prettier-ignore
-        !options.env ? 'No virtual enviroment created' : false,
-    },
-    {
       title: 'Generating requirements.txt file',
       task: () => generateRequirements(options),
       skip: () =>
@@ -109,6 +103,7 @@ export async function createProject(options) {
       skip: () =>
         // prettier-ignore
         !options.template.flask ? 'Not a Flask Project 🚫🐍' : false,
+      enabled: () => options.template.flask,
     },
     {
       title: 'Generating vscode settings',
@@ -135,13 +130,21 @@ export async function createProject(options) {
       title: 'Setting Flask up',
       task: () => pipOutPut(options),
       enabled: () => options.template.flask,
-      skip: () => !options.template.flask ? 'Not a Flask Project' : undefined,
+      skip: () => (!options.template.flask ? 'Not a Flask Project' : undefined),
     },
     {
       title: 'Setting Django up',
       task: () => pipOutPut(options),
       enabled: () => options.template.django,
-      skip: () => !options.template.django ? 'Not a Django Project' : undefined,
+      skip: () =>
+        !options.template.django ? 'Not a Django Project' : undefined,
+    },
+    {
+      title: 'Configuring gitignore file',
+      task: () => createGitIgnore(options),
+      skip: () =>
+        // prettier-ignore
+        !options.env ? 'No VirtualEnviroment created' : false,
     },
     {
       title: 'Install dependencies',
