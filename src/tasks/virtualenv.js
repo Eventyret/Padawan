@@ -38,7 +38,7 @@ export async function flaskApp() {
   await execa(`${targetDir}${target.pip}`, ['install', 'Flask']);
 }
 
-export async function djangoApp(options) {
+export async function djangoApp() {
   await execa(`${targetDir}${target.pip}`, ['install', 'Django']);
   return 'Please activate your virtualenv and execute django-admin startproject BOOOOOOOBBB';
   
