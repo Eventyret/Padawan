@@ -2,6 +2,7 @@ import fs from 'fs';
 import ncp from 'ncp';
 import path from 'path';
 import { promisify } from 'util';
+import inquirer from 'inquirer';
 
 const mkdir = promisify(fs.mkdir);
 const copy = promisify(ncp);
@@ -33,11 +34,21 @@ export async function createProjectDir(options) {
     process.cwd(),
     options.name.replace(/[^A-Z0-9]+/gi, '-').toLowerCase(),
   );
-  try {
-    const existing = await read(options.targetDirectory);
-    console.log(existing);
-    if(existing.length)
-  } catch (e) {
+  const existing = await read(options.targetDirectory);
+  if (existing.length > 0) {
     return mkdir(options.targetDirectory);
+  } else {
+    inquirer
+      .prompt([
+        {
+          type: 'confirm',
+          name: 'overwrite',
+          message: `${options.targetDirectory} exists - Do you want to overwrite it?`,
+          default: false,
+        },
+      ])
+      .then(answers => {
+        console.log(answers);
+      });
   }
 }
