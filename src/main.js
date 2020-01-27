@@ -22,8 +22,11 @@ import {
 } from './tasks/createStructure';
 import { gitTasks } from './tasks/git';
 import { pipOutPut } from './tasks/virtualenv';
-const access = promisify(fs.access);
+import rimraf from 'rimraf';
 
+const access = promisify(fs.access);
+const rm = promisify(rimraf);
+let errorToggle = false;
 export async function createProject(options) {
   options = {
     ...options,
@@ -159,9 +162,17 @@ export async function createProject(options) {
   ]);
 
   await tasks.run().catch(err => {
-    console.error(err);
+    title('Error');
+    console.log('Please restart the application it seems it failed.');
+    errorToggle = true;
+    console.log(err);
+    if (err !== 'It already exists') {
+      //rm(options.targetDirectory);
+    }
   });
-  title(`Created
-${options.name}`);
-  return true;
+  if (!errorToggle) {
+    title(`Created
+    ${options.name}`);
+    return true;
+  }
 }

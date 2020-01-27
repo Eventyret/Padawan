@@ -5,6 +5,7 @@ import { promisify } from 'util';
 
 const mkdir = promisify(fs.mkdir);
 const copy = promisify(ncp);
+const read = promisify(fs.readdir);
 
 export async function copyTemplateFiles(options) {
   return copy(options.templateDirectory, options.targetDirectory, {
@@ -30,8 +31,13 @@ export async function copyFrontendFiles(options) {
 export async function createProjectDir(options) {
   options.targetDirectory = path.resolve(
     process.cwd(),
-    options.name.replace(/\s+/g, '-').toLowerCase(),
+    options.name.replace(/[^A-Z0-9]+/gi, '-').toLowerCase(),
   );
-
-  return mkdir(options.targetDirectory);
+  try {
+    const existing = await read(options.targetDirectory);
+    console.log(existing);
+    if(existing.length)
+  } catch (e) {
+    return mkdir(options.targetDirectory);
+  }
 }
