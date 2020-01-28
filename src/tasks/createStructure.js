@@ -36,19 +36,7 @@ export async function createProjectDir(options) {
   );
   const existing = await read(options.targetDirectory);
   if (existing.length > 0) {
-    return mkdir(options.targetDirectory);
-  } else {
-    inquirer
-      .prompt([
-        {
-          type: 'confirm',
-          name: 'overwrite',
-          message: `${options.targetDirectory} exists - Do you want to overwrite it?`,
-          default: false,
-        },
-      ])
-      .then(answers => {
-        console.log(answers);
-      });
+    throw new Error('It already exists');
+    // return mkdir(options.targetDirectory);
   }
 }
