@@ -3,6 +3,7 @@ import fs from 'fs';
 import Listr from 'listr';
 import path from 'path';
 import { projectInstall } from 'pkg-install';
+import rimraf from 'rimraf';
 import { promisify } from 'util';
 import { title } from './common/common';
 import { generateRequirements } from './generate/generateRequirements';
@@ -22,7 +23,6 @@ import {
 } from './tasks/createStructure';
 import { gitTasks } from './tasks/git';
 import { pipOutPut } from './tasks/virtualenv';
-import rimraf from 'rimraf';
 
 const access = promisify(fs.access);
 const rm = promisify(rimraf);
@@ -61,19 +61,24 @@ export async function createProject(options) {
   const tasks = new Listr([
     {
       title: `Creating ${options.name} Project`,
-      task: (ctx, task) =>
-        createProjectDir(options).catch(() => {
-          ctx.existing = true;
-          task.title = `${task.title} (or not)`;
-          task.skip('Project already exists');
-          options.error = true;
-        }),
-      skip: ctx => ctx.existing === true && 'Project already exists',
+      task: (ctx, task) => {
+        createProjectDir(options)
+          .then(() => {
+            options.error = false;
+          })
+          .catch(() => {
+            task.title = `${task.title} failed`;
+            task.skip('Project already exists');
+            options.error = true;
+          });
+      },
+      skip: () => options.error,
     },
     {
       title: `Copying Common files to ${options.name}`,
       task: () => copyCommonFiles(options),
       enabled: () => !options.error,
+      skip: () => options.error,
     },
     {
       title: `Creating Project files for ${options.name}`,

@@ -2,7 +2,6 @@ import fs from 'fs';
 import ncp from 'ncp';
 import path from 'path';
 import { promisify } from 'util';
-import inquirer from 'inquirer';
 
 const mkdir = promisify(fs.mkdir);
 const copy = promisify(ncp);
@@ -35,8 +34,10 @@ export async function createProjectDir(options) {
     options.name.replace(/[^A-Z0-9]+/gi, '-').toLowerCase(),
   );
   const existing = await read(options.targetDirectory);
+  console.log(existing);
   if (existing.length > 0) {
     throw new Error('It already exists');
-    // return mkdir(options.targetDirectory);
+  } else {
+    return mkdir(options.targetDirectory);
   }
 }
