@@ -61,17 +61,26 @@ export async function createProject(options) {
   const tasks = new Listr([
     {
       title: `Creating ${options.name} Project`,
-      task: () => createProjectDir(options),
+      task: (ctx, task) =>
+        createProjectDir(options).catch(() => {
+          ctx.existing = true;
+          task.title = `${task.title} (or not)`;
+          task.skip('Project already exists');
+          options.error = true;
+        }),
+      skip: ctx => ctx.existing === true && 'Project already exists',
     },
     {
       title: `Copying Common files to ${options.name}`,
       task: () => copyCommonFiles(options),
+      enabled: () => !options.error,
     },
     {
       title: `Creating Project files for ${options.name}`,
       task: () =>
         //prettier-ignore
         options.template.python ? copyBackendFiles(options) : copyFrontendFiles(options),
+      enabled: () => !options.error,
     },
     {
       title: `Copying Python settings ${options.name}`,
@@ -79,19 +88,22 @@ export async function createProject(options) {
       skip: () =>
         // prettier-ignore
         !options.template.python ? 'Not a Python Project 🚫🐍' : false,
-      enabled: () => options.template.python,
+      enabled: () => options.template.python && !options.error,
     },
     {
       title: `Copying template files to ${options.name}`,
       task: () => copyTemplateFiles(options),
+      enabled: () => !options.error,
     },
     {
       title: 'Making Starting Templates',
       task: () => createHTML(options),
+      enabled: () => !options.error,
     },
     {
       title: 'Creating README file',
       task: () => createReadme(options),
+      enabled: () => !options.error,
     },
     {
       title: 'Generating requirements.txt file',
@@ -99,6 +111,7 @@ export async function createProject(options) {
       skip: () =>
         // prettier-ignore
         !options.template.python ? 'Not a Python Project 🚫🐍' : false,
+      enabled: () => !options.error,
     },
     {
       title: 'Generating python env file',
@@ -106,7 +119,7 @@ export async function createProject(options) {
       skip: () =>
         // prettier-ignore
         !options.template.flask ? 'Not a Flask Project 🚫🐍' : false,
-      enabled: () => options.template.flask,
+      enabled: () => options.template.flask && !options.error,
     },
     {
       title: 'Generating vscode settings',
@@ -118,27 +131,28 @@ export async function createProject(options) {
       skip: () =>
         // prettier-ignore
         !options.template.python ? 'Not a Python Project 🚫🐍' : false,
+      enabled: () => !options.error,
     },
     {
       title: 'Setting up git',
       task: () => gitTasks(options),
-      enabled: () => options.git,
+      enabled: () => options.git && !options.error,
     },
     {
       title: 'Setting up Virtual Enviroment',
       task: () => pipOutPut(options),
-      enabled: () => options.createENV,
+      enabled: () => options.createENV && !options.error,
     },
     {
       title: 'Setting Flask up',
       task: () => pipOutPut(options),
-      enabled: () => options.template.flask,
+      enabled: () => options.template.flask && !options.error,
       skip: () => (!options.template.flask ? 'Not a Flask Project' : undefined),
     },
     {
       title: 'Setting Django up',
       task: () => pipOutPut(options),
-      enabled: () => options.template.django,
+      enabled: () => options.template.django && !options.error,
       skip: () =>
         !options.template.django ? 'Not a Django Project' : undefined,
     },
@@ -148,6 +162,7 @@ export async function createProject(options) {
       skip: () =>
         // prettier-ignore
         !options.env ? 'No VirtualEnviroment created' : false,
+      enabled: () => !options.error,
     },
     {
       title: 'Install dependencies',
@@ -158,6 +173,7 @@ export async function createProject(options) {
       skip: () =>
         // prettier-ignore
         !options.runInstall ? 'Pass --install to automatically install dependencies' : undefined,
+      enabled: () => !options.error,
     },
   ]);
 
@@ -170,9 +186,12 @@ export async function createProject(options) {
       //rm(options.targetDirectory);
     }
   });
-  if (!errorToggle) {
+  if (!errorToggle && !options.error) {
     title(`Created
     ${options.name}`);
     return true;
+  }
+  if (options.error) {
+    console.log(`There was a problem please try again`);
   }
 }
