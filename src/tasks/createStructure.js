@@ -34,9 +34,9 @@ export async function createProjectDir(options) {
     options.name.replace(/[^A-Z0-9]+/gi, '-').toLowerCase(),
   );
   const existing = await read(options.targetDirectory);
-  console.log(existing);
   if (existing.length > 0) {
-    throw new Error('It already exists');
+    options.error = true;
+    return;
   } else {
     return mkdir(options.targetDirectory);
   }
