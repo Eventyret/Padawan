@@ -2,6 +2,8 @@ import { getOS } from '../common/common';
 import { platform } from 'os';
 const usrPlatform = platform();
 
+// TODO No need for workspace can be env\
+
 export async function generatePythonSettings(config) {
   const envPath = config.env ? await generatePath(config) : '';
   const usrOS = await getOS();
