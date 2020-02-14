@@ -61,16 +61,10 @@ export async function createProject(options) {
   const tasks = new Listr([
     {
       title: `Creating ${options.name} Project`,
-      task: (ctx, task) => {
-        createProjectDir(options)
-          .then(() => {
-            options.error = false;
-          })
-          .catch(() => {
-            task.title = `${task.title} failed`;
-            task.skip('Project already exists');
-            options.error = true;
-          });
+      task: () => {
+        createProjectDir(options).then(() => {
+          options.error = false;
+        });
       },
       skip: () => options.error,
     },
