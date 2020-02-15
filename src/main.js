@@ -121,7 +121,7 @@ export async function createProject(options) {
       task: () => generateRequirements(options),
       skip: () =>
         // prettier-ignore
-        ctx => ctx.exists || !options.template.python ? 'Not a Python Project 🚫🐍' : false,
+        !options.template.python ? 'Not a Python Project 🚫🐍' : false,
       enabled: () => !options.error,
     },
     {
@@ -172,22 +172,11 @@ export async function createProject(options) {
         !options.template.django ? 'Not a Django Project' : undefined,
     },
     {
-      title: 'Configuring gitignore file',
+      title: 'Configuring .gitignore',
       task: () => createGitIgnore(options),
-      skip: () =>
+      skip: ctx =>
         // prettier-ignore
-        !options.env ? 'No VirtualEnviroment created' : false,
-      enabled: () => !options.error,
-    },
-    {
-      title: 'Install dependencies',
-      task: () =>
-        projectInstall({
-          cwd: options.targetDirectory,
-        }),
-      skip: () =>
-        // prettier-ignore
-        !options.runInstall ? 'Pass --install to automatically install dependencies' : undefined,
+        ctx.exists || !options.env ? 'No VirtualEnviroment created' : false,
       enabled: () => !options.error,
     },
   ]);
