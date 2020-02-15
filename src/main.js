@@ -1,8 +1,8 @@
 import chalk from 'chalk';
+import clear from 'clear';
 import fs from 'fs';
 import Listr from 'listr';
 import path from 'path';
-import { projectInstall } from 'pkg-install';
 import rimraf from 'rimraf';
 import { promisify } from 'util';
 import { title } from './common/common';
@@ -23,7 +23,6 @@ import {
 } from './tasks/createStructure';
 import { gitTasks } from './tasks/git';
 import { pipOutPut } from './tasks/virtualenv';
-import clear from 'clear';
 
 const access = promisify(fs.access);
 const rm = promisify(rimraf);
@@ -75,16 +74,17 @@ export async function createProject(options) {
           }
         });
       },
+      skip: () => options.gitpod,
     },
     {
       title: `Copying Common files to ${options.name}`,
-      skip: ctx => ctx.exists,
+      skip: ctx => ctx.exists || options.gitpod,
       task: () => copyCommonFiles(options),
-      enabled: () => !options.error,
+      enabled: () => !options.gitpod || !options.error,
     },
     {
       title: `Creating Project files for ${options.name}`,
-      skip: ctx => ctx.exists,
+      skip: ctx => ctx.exists || options.gitpod,
       task: () =>
         //prettier-ignore
         options.template.python ? copyBackendFiles(options) : copyFrontendFiles(options),
@@ -95,81 +95,85 @@ export async function createProject(options) {
       task: () => copyBackendFiles(options),
       skip: ctx =>
         // prettier-ignore
-        ctx.exists || !options.template.python ? 'Not a Python Project 🚫🐍' : false,
-      enabled: () => options.template.python && !options.error,
+        ctx.exists || options.gitpod|| !options.template.python ? 'Not a Python Project 🚫🐍' : false,
+      enabled: () =>
+        !options.gitpod || (options.template.python && !options.error),
     },
     {
       title: `Copying template files to ${options.name}`,
       task: () => copyTemplateFiles(options),
-      enabled: () => !options.error,
-      skip: ctx => ctx.exists,
+      enabled: () => !options.gitpod || !options.error,
+      skip: ctx => ctx.exists || options.gitpod,
     },
     {
       title: 'Making Starting Templates',
       task: () => createHTML(options),
-      enabled: () => !options.error,
-      skip: ctx => ctx.exists,
+      enabled: () => !options.gitpod || !options.error,
+      skip: ctx => ctx.exists || options.gitpod,
     },
     {
       title: 'Creating README file',
       task: () => createReadme(options),
-      enabled: () => !options.error,
-      skip: ctx => ctx.exists,
+      enabled: () => !options.gitpod || !options.error,
+      skip: ctx => ctx.exists || options.gitpod,
     },
     {
       title: 'Generating requirements.txt file',
       task: () => generateRequirements(options),
       skip: () =>
         // prettier-ignore
-        !options.template.python ? 'Not a Python Project 🚫🐍' : false,
-      enabled: () => !options.error,
+        options.gitpod || !options.template.python ? 'Not a Python Project 🚫🐍' : false,
+      enabled: () => !options.gitpod || !options.error,
     },
     {
       title: 'Generating python env file',
       task: () => createENVPy(options),
       skip: () =>
         // prettier-ignore
-        !options.template.flask ? 'Not a Flask Project 🚫🐍' : false,
-      enabled: () => options.template.flask && !options.error,
+        options.gitpod || !options.template.flask ? 'Not a Flask Project 🚫🐍' : false,
+      enabled: () =>
+        !options.gitpod || (options.template.flask && !options.error),
     },
     {
       title: 'Generating vscode settings',
-      task: (ctx, task) =>
+      task: task =>
         createVSCodeSettings(options).catch(err => {
-          ctx.gitpod = false;
           task.skip(err.message);
         }),
-      skip: () =>
+      skip: ctx =>
         // prettier-ignore
-        !options.template.python ? 'Not a Python Project 🚫🐍' : false,
-      enabled: () => !options.error,
+        ctx.exists|| options.gitpod || !options.template.python ? 'Not a Python Project 🚫🐍' : false,
+      enabled: () => !options.gitpod || !options.error,
     },
     {
       title: 'Setting up git',
       task: () => gitTasks(options),
-      enabled: () => options.git && !options.error,
-      skip: ctx => ctx.exists,
+      enabled: () => !options.gitpod || (options.git && !options.error),
+      skip: ctx => ctx.exists || options.gitpod,
     },
     {
       title: 'Setting up Virtual Enviroment',
       task: () => pipOutPut(options),
-      enabled: () => options.createENV && !options.error,
-      skip: ctx => ctx.exists,
+      enabled: () => !options.gitpod || (options.createENV && !options.error),
+      skip: ctx => ctx.exists || options.gitpod || options.gitpod,
     },
     {
       title: 'Setting Flask up',
       task: () => pipOutPut(options),
-      enabled: () => options.template.flask && !options.error,
+      enabled: () =>
+        !options.gitpod || (options.template.flask && !options.error),
       skip: ctx =>
         // prettier-ignore
-        ctx.exists || !options.template.flask ? 'Not a Flask Project' : undefined,
+        ctx.exists || options.gitpod || !options.template.flask ? 'Not a Flask Project' : undefined,
     },
     {
       title: 'Setting Django up',
       task: () => pipOutPut(options),
-      enabled: () => options.template.django && !options.error,
-      skip: () =>
-        !options.template.django ? 'Not a Django Project' : undefined,
+      enabled: () =>
+        !options.gitpod || (options.template.django && !options.error),
+      skip: ctx =>
+        // prettier-ignore
+        ctx.exists || options.gitpod ||!options.template.django ? 'Not a Django Project' : undefined,
     },
     {
       title: 'Configuring .gitignore',
@@ -177,12 +181,12 @@ export async function createProject(options) {
       skip: ctx =>
         // prettier-ignore
         ctx.exists || !options.env ? 'No VirtualEnviroment created' : false,
-      enabled: () => !options.error,
+      enabled: () => !options.gitpod || !options.error,
     },
   ]);
 
   await tasks.run().catch(() => (errorToggle = true));
-  if (!errorToggle && !options.error) {
+  if (!errorToggle && !options.error && !options.gitpod) {
     title(`Created
     ${options.name}`);
     console.log('Tool created by Eventyret_Mentor ❤');
@@ -190,6 +194,12 @@ export async function createProject(options) {
       'If you liked this tool please do say thank you in Slack or mention the tool in your ReadmeI',
     );
     return true;
+  }
+  if(options.gitpod) {
+    clear();
+    title('Oh noes!');
+    console.log('Gitpod is not supported yet');
+    return false;
   }
   if (options.error) {
     clear();
