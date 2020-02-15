@@ -195,7 +195,7 @@ export async function createProject(options) {
     );
     return true;
   }
-  if(options.gitpod) {
+  if (options.gitpod) {
     clear();
     title('Oh noes!');
     console.log('Gitpod is not supported yet');
