@@ -121,9 +121,8 @@ export async function createProject(options) {
       task: () => generateRequirements(options),
       skip: () =>
         // prettier-ignore
-        !options.template.python ? 'Not a Python Project 🚫🐍' : false,
+        ctx => ctx.exists || !options.template.python ? 'Not a Python Project 🚫🐍' : false,
       enabled: () => !options.error,
-      skip: ctx => ctx.exists,
     },
     {
       title: 'Generating python env file',
@@ -162,9 +161,8 @@ export async function createProject(options) {
       task: () => pipOutPut(options),
       enabled: () => options.template.flask && !options.error,
       skip: ctx =>
-        ctx.exists || !options.template.flask
-          ? 'Not a Flask Project'
-          : undefined,
+        // prettier-ignore
+        ctx.exists || !options.template.flask ? 'Not a Flask Project' : undefined,
     },
     {
       title: 'Setting Django up',
@@ -199,7 +197,9 @@ export async function createProject(options) {
     title(`Created
     ${options.name}`);
     console.log('Tool created by Eventyret_Mentor ❤');
-    console.log('If you liked this tool please do say thank you in Slack or mention the tool in your ReadmeI')
+    console.log(
+      'If you liked this tool please do say thank you in Slack or mention the tool in your ReadmeI',
+    );
     return true;
   }
   if (options.error) {
