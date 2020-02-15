@@ -26,8 +26,9 @@ export async function pipOutPut(options) {
     await activate(options);
     if (options.template.flask) {
       await flaskApp();
+      options.env  = true;
     } else {
-      await djangoApp(options);
+      await djangoApp();
     }
   } catch (err) {
     throw err;
@@ -36,12 +37,12 @@ export async function pipOutPut(options) {
 
 export async function flaskApp() {
   await execa(`${targetDir}${target.pip}`, ['install', 'Flask']);
+  return;
 }
 
 export async function djangoApp() {
   await execa(`${targetDir}${target.pip}`, ['install', 'Django']);
   return 'Please activate your virtualenv and execute django-admin startproject BOOOOOOOBBB';
-  
 }
 
 export async function os(options) {
