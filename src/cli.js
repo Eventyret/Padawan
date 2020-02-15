@@ -114,7 +114,7 @@ async function promptForMissingOptions(options) {
 
 async function extraQuestions(options) {
   const questions = [];
-  if (options.template.python) {
+  if (options.template.python && !options.gitpod) {
     questions.push({
       type: 'confirm',
       name: 'env',
@@ -131,7 +131,7 @@ async function extraQuestions(options) {
 }
 async function envQuestions(options) {
   const questions = [];
-  if (!options.env && options.template.python) {
+  if (!options.env && options.template.python && !options.gitpod) {
     questions.push({
       type: 'confirm',
       name: 'createENV',
@@ -139,7 +139,7 @@ async function envQuestions(options) {
       default: true,
     });
   }
-  if (options.env) {
+  if (options.env && !options.gitpod) {
     questions.push({
       type: 'input',
       name: 'envName',
