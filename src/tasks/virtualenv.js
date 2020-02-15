@@ -24,9 +24,9 @@ export async function pipOutPut(options) {
     await os(options);
     await execa('pip install virtualenv');
     await activate(options);
+    options.env  = true;
     if (options.template.flask) {
       await flaskApp();
-      options.env  = true;
     } else {
       await djangoApp();
     }
