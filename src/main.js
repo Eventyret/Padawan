@@ -196,7 +196,6 @@ export async function createProject(options) {
     }
   } else {
     clear();
-    generateImage();
     title('Oh noes!');
     console.log('Gitpod is not supported yet');
     return false;
