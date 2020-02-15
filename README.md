@@ -4,8 +4,7 @@
 
 TODO:
 
-[ ] - Remove folder if it already exisits
-[ ] - Remove folders on failure (fs.remove)
+[x] - Dont start if folder already exists
 [ ] - Generate env.py for django projects
 [ ] - Gitpod support
 [x] - Pip install functionality
