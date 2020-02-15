@@ -3,7 +3,6 @@ import clear from 'clear';
 import fs from 'fs';
 import Listr from 'listr';
 import path from 'path';
-import rimraf from 'rimraf';
 import { promisify } from 'util';
 import { title } from './common/common';
 import { generateRequirements } from './generate/generateRequirements';
@@ -25,7 +24,6 @@ import { gitTasks } from './tasks/git';
 import { pipOutPut } from './tasks/virtualenv';
 
 const access = promisify(fs.access);
-const rm = promisify(rimraf);
 let errorToggle = false;
 export async function createProject(options) {
   options = {
@@ -63,8 +61,6 @@ export async function createProject(options) {
       title: `Creating ${options.name} Project`,
       task: (ctx, task) => {
         createProjectDir(options).catch(err => {
-          console.log('catch in ctx');
-          console.log(err);
           if (err.code === 'EEXIST') {
             options.error = true;
             task.skip('Folder Already exists');
@@ -102,19 +98,19 @@ export async function createProject(options) {
       title: `Copying template files to ${options.name}`,
       task: () => copyTemplateFiles(options),
       enabled: () => !options.error,
-      skip: ctx => ctx.exists
+      skip: ctx => ctx.exists,
     },
     {
       title: 'Making Starting Templates',
       task: () => createHTML(options),
       enabled: () => !options.error,
-      skip: ctx => ctx.exists
+      skip: ctx => ctx.exists,
     },
     {
       title: 'Creating README file',
       task: () => createReadme(options),
       enabled: () => !options.error,
-      skip: ctx => ctx.exists
+      skip: ctx => ctx.exists,
     },
     {
       title: 'Generating requirements.txt file',
@@ -147,13 +143,13 @@ export async function createProject(options) {
       title: 'Setting up git',
       task: () => gitTasks(options),
       enabled: () => options.git && !options.error,
-      skip: ctx => ctx.exists
+      skip: ctx => ctx.exists,
     },
     {
       title: 'Setting up Virtual Enviroment',
       task: () => pipOutPut(options),
       enabled: () => options.createENV && !options.error,
-      skip: ctx => ctx.exists
+      skip: ctx => ctx.exists,
     },
     {
       title: 'Setting Flask up',
@@ -181,8 +177,8 @@ export async function createProject(options) {
     },
   ]);
 
-   if(!options.gitpod){
-    await tasks.run().catch(() => errorToggle = true);
+  if (!options.gitpod) {
+    await tasks.run().catch(() => (errorToggle = true));
     if (!errorToggle && !options.error) {
       title(`Created
       ${options.name}`);
@@ -198,9 +194,9 @@ export async function createProject(options) {
       console.log(`${options.name} folder already exists`);
       return false;
     }
-    
   } else {
     clear();
+    generateImage();
     title('Oh noes!');
     console.log('Gitpod is not supported yet');
     return false;
