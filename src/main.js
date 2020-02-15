@@ -23,6 +23,7 @@ import {
 } from './tasks/createStructure';
 import { gitTasks } from './tasks/git';
 import { pipOutPut } from './tasks/virtualenv';
+import clear from 'clear';
 
 const access = promisify(fs.access);
 const rm = promisify(rimraf);
@@ -61,21 +62,29 @@ export async function createProject(options) {
   const tasks = new Listr([
     {
       title: `Creating ${options.name} Project`,
-      task: () => {
-        createProjectDir(options).then(() => {
-          options.error = false;
+      task: (ctx, task) => {
+        createProjectDir(options).catch(err => {
+          console.log('catch in ctx');
+          console.log(err);
+          if (err.code === 'EEXIST') {
+            options.error = true;
+            task.skip('Folder Already exists');
+            ctx.exists = true;
+          } else {
+            ctx.exists = false;
+          }
         });
       },
-      skip: () => options.error,
     },
     {
       title: `Copying Common files to ${options.name}`,
+      skip: ctx => ctx.exists,
       task: () => copyCommonFiles(options),
       enabled: () => !options.error,
-      skip: () => options.error,
     },
     {
       title: `Creating Project files for ${options.name}`,
+      skip: ctx => ctx.exists,
       task: () =>
         //prettier-ignore
         options.template.python ? copyBackendFiles(options) : copyFrontendFiles(options),
@@ -84,25 +93,28 @@ export async function createProject(options) {
     {
       title: `Copying Python settings ${options.name}`,
       task: () => copyBackendFiles(options),
-      skip: () =>
+      skip: ctx =>
         // prettier-ignore
-        !options.template.python ? 'Not a Python Project 🚫🐍' : false,
+        ctx.exists || !options.template.python ? 'Not a Python Project 🚫🐍' : false,
       enabled: () => options.template.python && !options.error,
     },
     {
       title: `Copying template files to ${options.name}`,
       task: () => copyTemplateFiles(options),
       enabled: () => !options.error,
+      skip: ctx => ctx.exists,
     },
     {
       title: 'Making Starting Templates',
       task: () => createHTML(options),
       enabled: () => !options.error,
+      skip: ctx => ctx.exists,
     },
     {
       title: 'Creating README file',
       task: () => createReadme(options),
       enabled: () => !options.error,
+      skip: ctx => ctx.exists,
     },
     {
       title: 'Generating requirements.txt file',
@@ -111,6 +123,7 @@ export async function createProject(options) {
         // prettier-ignore
         !options.template.python ? 'Not a Python Project 🚫🐍' : false,
       enabled: () => !options.error,
+      skip: ctx => ctx.exists,
     },
     {
       title: 'Generating python env file',
@@ -136,17 +149,22 @@ export async function createProject(options) {
       title: 'Setting up git',
       task: () => gitTasks(options),
       enabled: () => options.git && !options.error,
+      skip: ctx => ctx.exists,
     },
     {
       title: 'Setting up Virtual Enviroment',
       task: () => pipOutPut(options),
       enabled: () => options.createENV && !options.error,
+      skip: ctx => ctx.exists,
     },
     {
       title: 'Setting Flask up',
       task: () => pipOutPut(options),
       enabled: () => options.template.flask && !options.error,
-      skip: () => (!options.template.flask ? 'Not a Flask Project' : undefined),
+      skip: ctx =>
+        ctx.exists || !options.template.flask
+          ? 'Not a Flask Project'
+          : undefined,
     },
     {
       title: 'Setting Django up',
@@ -176,21 +194,18 @@ export async function createProject(options) {
     },
   ]);
 
-  await tasks.run().catch(err => {
-    title('Error');
-    console.log('Please restart the application it seems it failed.');
-    errorToggle = true;
-    console.log(err);
-    if (err !== 'It already exists') {
-      //rm(options.targetDirectory);
-    }
-  });
+  await tasks.run().catch(() => (errorToggle = true));
   if (!errorToggle && !options.error) {
     title(`Created
     ${options.name}`);
+    console.log('Tool created by Eventyret_Mentor ❤');
+    console.log('If you liked this tool please do say thank you in Slack or mention the tool in your ReadmeI')
     return true;
   }
   if (options.error) {
-    console.log(`There was a problem please try again`);
+    clear();
+    title('Error');
+    console.log(`${options.name} folder already exists`);
+    return false;
   }
 }

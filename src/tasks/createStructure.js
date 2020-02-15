@@ -33,16 +33,6 @@ export async function createProjectDir(options) {
     process.cwd(),
     options.name.replace(/[^A-Z0-9]+/gi, '-').toLowerCase(),
   );
-  try {
-    const existing = await read(options.targetDirectory);
-    console.log('executing existing')
-    if (existing.length > 0) {
-      options.error = true;
-      return;
-    } else {
-    }
-  } catch (err) {
-    console.log('we have an issue');
-    return mkdir(options.targetDirectory);
-  }
+  await read(options.targetDirectory);
+  return mkdir(options.targetDirectory);
 }
