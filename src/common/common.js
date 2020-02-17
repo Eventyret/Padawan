@@ -16,7 +16,7 @@ export async function getOS() {
   }
 }
 
-export async function title(text, color, font) {
+export async function title(text) {
   console.log(
     chalk.yellow(
       figlet.textSync(text, { horizontalLayout: 'full', font: 'Big' }),
