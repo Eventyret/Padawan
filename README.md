@@ -19,3 +19,5 @@ TODO:
 [] - Refactor `createFiles` and `createStructures` to `frontEnd` `backend`
 
 BUGS:
+
+- Virtualenv not working correctly

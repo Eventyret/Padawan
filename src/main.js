@@ -298,7 +298,6 @@ export async function createProject(options) {
   ]);
 
   if (!options.gitpod) {
-    await executeTasks(options);
     await vsCodeTasks.run().catch(() => (errorToggle = true));
     if (!errorToggle && !options.error) {
       title(`Created
