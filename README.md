@@ -2,7 +2,7 @@
 # Padawan
 
 <div align="center">
-  <img src="https://octodex.github.com/images/octobiwan.jpg" height="350" width="350">
+  <img src="https://upload.wikimedia.org/wikipedia/en/d/d7/Ahsoka_Tano.png" height="350" width="350">
 </div>
 
 ## What does it do and what does it need to fulfil
@@ -25,7 +25,7 @@ As a developer, I want all my resources, frequently used tools & information all
 - [Javascript](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics)
 - [NodeJS](https://www.nodejs.org)
 
-TODO:
+## TODO
 
 - [x] Dont start if folder already exists
 - [ ] Generate env.py for django projects
@@ -44,11 +44,11 @@ TODO:
 - [ ] Update readme
 - [ ] Release for NPM
 
-BUGS:
+## BUGS
 
-- Virtualenv not working correctly
+Please see [issues](https://github.com/Eventyret/Padawan/issues)
 
-## Contribute
+## [Contribute](CONTRIBUTING.md)
 
 ## Credits
 
