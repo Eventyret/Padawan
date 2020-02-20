@@ -107,7 +107,7 @@ async function promptForMissingOptions(options) {
     git: options.git || answers.git,
     name: answers.name,
     env: answers.env || false,
-    envName: answers.envName || '',
+    envName: answers.envName || 'env',
     gitpod: answers.gitpod,
   };
 }
@@ -163,7 +163,7 @@ async function envQuestions(options) {
 
 export async function cli(args) {
   clear();
-  title('Padawan');
+  title('Padawan', 'ANSI Shadow');
   let options = parseArgumentsIntoOptions(args);
   options = await promptForMissingOptions(options);
   options = await extraQuestions(options);
