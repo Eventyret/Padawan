@@ -1,6 +1,9 @@
 # Padawan
 
-![Padwan](assets/logo.png)
+<!-- markdownlint-disable MD033 -->
+<div align="center">
+  <img src="assets/logo-transparent.png">
+</div>
 
 TODO:
 
