@@ -300,11 +300,12 @@ export async function createProject(options) {
   if (!options.gitpod) {
     await vsCodeTasks.run().catch(() => (errorToggle = true));
     if (!errorToggle && !options.error) {
-      title(`Created
-      ${options.name}`);
+      title(`${options.name}`, 'Doom');
+      console.log('👆 Your project was created');
       console.log('Tool created by Eventyret_Mentor ❤');
       console.log(
-        'If you liked this tool please do say thank you in Slack or mention the tool in your ReadmeI',
+        `If you liked this tool please do say thank you 
+        in Slack or mention the tool in your Readme`,
       );
       return true;
     }
