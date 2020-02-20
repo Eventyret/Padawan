@@ -2,7 +2,7 @@
 # Padawan
 
 <div align="center">
-  <img src="https://octodex.github.com/images/octobiwan.jpg">
+  <img src="https://octodex.github.com/images/octobiwan.jpg" height="350" width="350">
 </div>
 
 ## What does it do and what does it need to fulfil
@@ -36,13 +36,13 @@ TODO:
 - [x] Python folder to be renamed to Backend
 - [x] Virtualenv Install Flask
 - [x] Virtulaenv install django
-- [] Seperate Django and flask install functions
+- [ ] Seperate Django and flask install functions
 - [x] Reflect changes to cli menu
-- [] Add JSDoc Comments
-- [] Refactor `createFiles` and `createStructures` to `frontEnd` `backend`
-- [] Add Badges to Readme
-- [] Update readme
-- [] Release for NPM
+- [ ] Add JSDoc Comments
+- [ ] Refactor `createFiles` and `createStructures` to `frontEnd` `backend`
+- [ ] Add Badges to Readme
+- [ ] Update readme
+- [ ] Release for NPM
 
 BUGS:
 
