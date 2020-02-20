@@ -1,13 +1,17 @@
-import { platform } from 'os';
-const usrPlatform = platform();
+import { getOS } from '../common/common';
+
+// TODO No need for workspace can be env\
 
 export async function generatePythonSettings(config) {
-  const envPath = config.env ? await generatePath(config) : '';
   const usrOS = await getOS();
+  // prettier-ignore
+  const envPath =
+    (config.env || config.createENV) ? await generatePath(config, usrOS) : '';
   const settings = `{
   ${envPath}
   "python.terminal.activateEnvironment": true,
   "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
   "python.linting.pylintArgs": ["--load-plugins=pylint_${
     config.template.django ? 'django' : 'flask'
   }"],
@@ -27,21 +31,10 @@ export async function generatePythonSettings(config) {
   return settings;
 }
 
-async function generatePath(config) {
-  if (usrPlatform === 'darwin' || usrPlatform === 'linux')
-    return `"python.pythonPath:\${workspaceFolder}/${config.envName}/bin/python",`;
-  if (usrPlatform === 'win32')
-    return `"python.pythonPath": "\${workspaceFolder}\\\\${config.envName}\\\\bin\\\\python.exe",`;
-}
-async function getOS() {
-  switch (usrPlatform) {
-    case 'win32':
-      return 'windows';
-    case 'darwin':
-      return 'osx';
-    case 'linux':
-      return 'linux';
-    default:
-      return false;
-  }
+async function generatePath(config, os) {
+  const envName = config.envName ? config.envName : 'env';
+  if (os === 'osx' || os === 'linux')
+    return `"python.pythonPath:${envName}/bin/python",`;
+  if (os === 'windows')
+    return `"python.pythonPath": "${envName}\\\\Scripts\\\\python.exe",`;
 }

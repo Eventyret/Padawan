@@ -1,4 +1,8 @@
 export async function generateHTML(config) {
+  const script =
+    config.template.name == 'IFD'
+      ? `<script src="assets/js/app.js"></script>`
+      : '';
   const head = `
   <!DOCTYPE html>
   <html lang="en">
@@ -18,7 +22,7 @@ export async function generateHTML(config) {
   <main className="container">
 	<section className="row">
 		<div className="col-12">
-			<img src="https://i.imgur.com/WuYuJu5.png" class="img-fluid mx-auto d-block" alt="Padwan tool"/>
+			<img src="https://i.imgur.com/zgnEzrJ.png" class="img-fluid mx-auto d-block" alt="Padwan tool"/>
 			<h2 class="text-center">Thank you for using the Padwan tool to setup your <b>${config.name}</b> Project</h2>
 		</div>
 	</section>
@@ -32,6 +36,7 @@ export async function generateHTML(config) {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  ${script}
 </body>
 
 </html>`;

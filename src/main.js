@@ -1,151 +1,324 @@
 import chalk from 'chalk';
+import clear from 'clear';
 import fs from 'fs';
-import Listr from 'listr';
-import ncp from 'ncp';
 import path from 'path';
-import { projectInstall } from 'pkg-install';
-import simplegit from 'simple-git/promise';
 import { promisify } from 'util';
-import { generateHTML } from './generateHTML';
-import { generatePythonSettings } from './generateSettings';
-const mkdir = promisify(fs.mkdir);
+import { title } from './common/common';
+import Listr from 'listr';
+import { generateRequirements } from './generate/generateRequirements';
+import {
+  createENVPy,
+  createGitIgnore,
+  createHTML,
+  createReadme,
+  createVSCodeSettings,
+} from './tasks/createFiles';
+import {
+  copyBackendFiles,
+  copyCommonFiles,
+  copyFrontendFiles,
+  copyTemplateFiles,
+  createProjectDir,
+} from './tasks/createStructure';
+import { gitTasks } from './tasks/git';
+import { pipOutPut } from './tasks/virtualenv';
+
 const access = promisify(fs.access);
-const copy = promisify(ncp);
-const write = promisify(fs.writeFile);
-const git = simplegit();
-const append = promisify(fs.appendFile);
-
-async function copyTemplateFiles(options) {
-  return copy(options.templateDirectory, options.targetDirectory, {
-    clobber: false,
-  });
-}
-async function copyCommonFiles(options) {
-  return copy(options.commonDir, options.targetDirectory, {
-    clobber: false,
-  });
-}
-
-async function createProjectDir(options) {
-  options.targetDirectory = path.resolve(
-    process.cwd(),
-    options.name.replace(/\s+/g, '-').toLowerCase(),
-  );
-  return mkdir(options.targetDirectory);
-}
-
-async function initGit(options) {
-  try {
-    await git.cwd(options.targetDirectory);
-    await git.init();
-    await git.add('.');
-    await git.commit('Initial commit made by Padwan Tool');
-  } catch (err) {
-    console.error(err.message);
-  }
-  return;
-}
-async function writeReadme(options) {
-  write(
-    options.targetDirectory + '/README.md',
-    `# Welcome to Project ${options.name} Project`,
-  );
-}
-async function generateGitIgnoreFile(options) {
-  append(options.targetDirectory + '/.gitignore', `\n${options.envName}/`);
-}
-
-async function writeStarterTemplate(options) {
-  const html = await generateHTML(options);
-  let indexFileLocation = '/index.html';
-  if (options.template.flask) {
-    indexFileLocation = '/templates/index.html';
-  }
-
-  await write(options.targetDirectory + indexFileLocation, html);
-}
-
-async function writeVSCodeSettings(options) {
-  const settings = await generatePythonSettings(options);
-  await write(options.targetDirectory + '/.vscode/settings.json', settings);
-}
-
+let errorToggle = false;
 export async function createProject(options) {
   options = {
     ...options,
     targetDirectory: options.targetDirectory || process.cwd(),
   };
+
   const templateDir = path.resolve(
     __dirname,
     '../templates',
     options.template.name.toLowerCase(),
   );
+
   const commonDir = path.resolve(__dirname, '../templates/common');
+  const backendDir = path.resolve(__dirname, '../templates/backend');
+  const frontendDir = path.resolve(__dirname, '../templates/frontend');
   options.templateDirectory = templateDir;
   options.commonDir = commonDir;
+  options.backendDir = backendDir;
+  options.frontendDir = frontendDir;
 
   try {
     await access(templateDir, fs.constants.R_OK);
     await access(commonDir, fs.constants.R_OK);
+    await access(backendDir, fs.constants.R_OK);
+    await access(frontendDir, fs.constants.R_OK);
   } catch (err) {
     console.log(err);
     console.error('%s Invalid template name', chalk.red.bold('ERROR'));
     process.exit(1);
   }
 
-  const tasks = new Listr([
+  const vsCodeTasks = new Listr([
     {
-      title: `Creating ${options.name} Project Structure`,
-      task: () => createProjectDir(options),
+      title: `Creating ${options.name} Project`,
+      task: (ctx, task) => {
+        createProjectDir(options).catch(err => {
+          if (err.code === 'EEXIST') {
+            options.error = true;
+            task.skip('Folder Already exists');
+            ctx.exists = true;
+          } else {
+            ctx.exists = false;
+          }
+        });
+      },
+      skip: () => options.gitpod,
     },
     {
-      title: 'Copying Common files for the Project',
+      title: `Copying Common files to ${options.name}`,
+      skip: ctx => ctx.exists,
       task: () => copyCommonFiles(options),
+      enabled: () => !options.error,
     },
     {
-      title: 'Copy project files',
+      title: `Creating Project files for ${options.name}`,
+      skip: ctx => ctx.exists,
+      task: () =>
+        //prettier-ignore
+        options.template.python ? copyBackendFiles(options) : copyFrontendFiles(options),
+      enabled: () => !options.error,
+    },
+    {
+      title: `Copying Python settings ${options.name}`,
+      task: () => copyBackendFiles(options),
+      skip: ctx =>
+        // prettier-ignore
+        ctx.exists || !options.template.python ? 'Not a Python Project 🚫🐍' : false,
+      enabled: () => options.template.python && !options.error,
+    },
+    {
+      title: `Copying template files to ${options.name}`,
       task: () => copyTemplateFiles(options),
+      enabled: () => !options.error,
+      skip: ctx => ctx.exists,
     },
     {
       title: 'Making Starting Templates',
-      task: () => writeStarterTemplate(options),
+      task: () => createHTML(options),
+      enabled: () => !options.error,
+      skip: ctx => ctx.exists,
     },
     {
       title: 'Creating README file',
-      task: () => writeReadme(options),
+      task: () => createReadme(options),
+      enabled: () => !options.error,
+      skip: ctx => ctx.exists,
     },
     {
-      title: 'Customizing git ignore file',
-      task: () => generateGitIgnoreFile(options),
+      title: 'Generating requirements.txt file',
+      task: () => generateRequirements(options),
       skip: () =>
         // prettier-ignore
-        !options.env ? 'No virtual enviroment created' : false,
+        options.gitpod || !options.template.python ? 'Not a Python Project 🚫🐍' : false,
+      enabled: () => !options.error,
+    },
+    {
+      title: 'Generating python env file',
+      task: () => createENVPy(options),
+      skip: () =>
+        // prettier-ignore
+        options.gitpod || !options.template.flask ? 'Not a Flask Project 🚫🐍' : false,
+      enabled: () => options.template.flask && !options.error,
     },
     {
       title: 'Generating vscode settings',
-      task: () => writeVSCodeSettings(options),
-      skip: () =>
+      task: task =>
+        createVSCodeSettings(options).catch(err => {
+          task.skip(err.message);
+        }),
+      skip: ctx =>
         // prettier-ignore
-        !options.template.python ? 'Not a Python Project' : false,
+        ctx.exists|| options.gitpod || !options.template.python ? 'Not a Python Project 🚫🐍' : false,
+      enabled: () => !options.error,
     },
     {
       title: 'Setting up git',
-      task: () => initGit(options),
-      enabled: () => options.git,
+      task: () => gitTasks(options),
+      enabled: () => options.git && !options.error,
+      skip: ctx => ctx.exists,
     },
     {
-      title: 'Install dependencies',
+      title: 'Setting up Virtual Enviroment',
+      task: () => pipOutPut(options),
+      enabled: () => options.createENV && !options.error,
+      skip: ctx => ctx.exists,
+    },
+    {
+      title: 'Setting Flask up',
+      task: () => pipOutPut(options),
+      enabled: () => options.template.flask && !options.error,
+      skip: ctx =>
+        // prettier-ignore
+        ctx.exists || !options.template.flask ? 'Not a Flask Project' : undefined || options.gitpod,
+    },
+    {
+      title: 'Setting Django up',
+      task: () => pipOutPut(options),
+      enabled: () => options.template.django && !options.error,
+      skip: ctx =>
+        // prettier-ignore
+        ctx.exists || !options.template.django ? 'Not a Django Project' : undefined || options.gitpod,
+    },
+    {
+      title: 'Configuring .gitignore',
+      task: () => createGitIgnore(options),
+      skip: ctx =>
+        // prettier-ignore
+        ctx.exists || !options.env ? 'No VirtualEnviroment created' : false || options.gitpod,
+      enabled: () => !options.error,
+    },
+  ]);
+  const gitPodTasks = new Listr([
+    {
+      title: `Creating ${options.name} Project`,
+      task: (ctx, task) => {
+        createProjectDir(options).catch(err => {
+          if (err.code === 'EEXIST') {
+            options.error = true;
+            task.skip('Folder Already exists');
+            ctx.exists = true;
+          } else {
+            ctx.exists = false;
+          }
+        });
+      },
+      skip: () => options.gitpod,
+    },
+    {
+      title: `Copying Common files to ${options.name}`,
+      skip: ctx => ctx.exists,
+      task: () => copyCommonFiles(options),
+      enabled: () => !options.error,
+    },
+    {
+      title: `Creating Project files for ${options.name}`,
+      skip: ctx => ctx.exists,
       task: () =>
-        projectInstall({
-          cwd: options.targetDirectory,
-        }),
+        //prettier-ignore
+        options.template.python ? copyBackendFiles(options) : copyFrontendFiles(options),
+      enabled: () => !options.error,
+    },
+    {
+      title: `Copying Python settings ${options.name}`,
+      task: () => copyBackendFiles(options),
+      skip: ctx =>
+        // prettier-ignore
+        ctx.exists || !options.template.python ? 'Not a Python Project 🚫🐍' : false,
+      enabled: () => options.template.python && !options.error,
+    },
+    {
+      title: `Copying template files to ${options.name}`,
+      task: () => copyTemplateFiles(options),
+      enabled: () => !options.error,
+      skip: ctx => ctx.exists,
+    },
+    {
+      title: 'Making Starting Templates',
+      task: () => createHTML(options),
+      enabled: () => !options.error,
+      skip: ctx => ctx.exists,
+    },
+    {
+      title: 'Creating README file',
+      task: () => createReadme(options),
+      enabled: () => !options.error,
+      skip: ctx => ctx.exists,
+    },
+    {
+      title: 'Generating requirements.txt file',
+      task: () => generateRequirements(options),
       skip: () =>
         // prettier-ignore
-        !options.runInstall ? 'Pass --install to automatically install dependencies' : undefined,
+        options.gitpod || !options.template.python ? 'Not a Python Project 🚫🐍' : false,
+      enabled: () => !options.error,
+    },
+    {
+      title: 'Generating python env file',
+      task: () => createENVPy(options),
+      skip: () =>
+        // prettier-ignore
+        options.gitpod || !options.template.flask ? 'Not a Flask Project 🚫🐍' : false,
+      enabled: () => options.template.flask && !options.error,
+    },
+    {
+      title: 'Generating vscode settings',
+      task: task =>
+        createVSCodeSettings(options).catch(err => {
+          task.skip(err.message);
+        }),
+      skip: ctx =>
+        // prettier-ignore
+        ctx.exists|| options.gitpod || !options.template.python ? 'Not a Python Project 🚫🐍' : false,
+      enabled: () => !options.error,
+    },
+    {
+      title: 'Setting up git',
+      task: () => gitTasks(options),
+      enabled: () => options.git && !options.error,
+      skip: ctx => ctx.exists,
+    },
+    {
+      title: 'Setting up Virtual Enviroment',
+      task: () => pipOutPut(options),
+      enabled: () => options.createENV && !options.error,
+      skip: ctx => ctx.exists,
+    },
+    {
+      title: 'Setting Flask up',
+      task: () => pipOutPut(options),
+      enabled: () => options.template.flask && !options.error,
+      skip: ctx =>
+        // prettier-ignore
+        ctx.exists || !options.template.flask ? 'Not a Flask Project' : undefined || options.gitpod,
+    },
+    {
+      title: 'Setting Django up',
+      task: () => pipOutPut(options),
+      enabled: () => options.template.django && !options.error,
+      skip: ctx =>
+        // prettier-ignore
+        ctx.exists || !options.template.django ? 'Not a Django Project' : undefined || options.gitpod,
+    },
+    {
+      title: 'Configuring .gitignore',
+      task: () => createGitIgnore(options),
+      skip: ctx =>
+        // prettier-ignore
+        ctx.exists || !options.env ? 'No VirtualEnviroment created' : false || options.gitpod,
+      enabled: () => !options.error,
     },
   ]);
 
-  await tasks.run();
-  console.log('%s Project ready', chalk.green.bold('DONE'));
-  return true;
+  if (!options.gitpod) {
+    await vsCodeTasks.run().catch(() => (errorToggle = true));
+    if (!errorToggle && !options.error) {
+      title(`${options.name}`, 'Doom');
+      console.log('👆 Your project was created');
+      console.log('Tool created by Eventyret_Mentor ❤');
+      console.log(
+        `If you liked this tool please do say thank you 
+        in Slack or mention the tool in your Readme`,
+      );
+      return true;
+    }
+    if (options.error) {
+      clear();
+      title('Error');
+      console.log(`${options.name} folder already exists`);
+      return false;
+    }
+  } else {
+    clear();
+    title('Oh noes!');
+    console.log('Gitpod is not supported yet');
+    return false;
+  }
 }

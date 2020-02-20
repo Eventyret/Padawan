@@ -1,8 +1,7 @@
 import arg from 'arg';
 import inquirer from 'inquirer';
-import chalk from 'chalk';
 import clear from 'clear';
-import figlet from 'figlet';
+import { title } from './common/common';
 import { createProject } from './main';
 
 function parseArgumentsIntoOptions(rawArgs) {
@@ -13,8 +12,10 @@ function parseArgumentsIntoOptions(rawArgs) {
       '--git': Boolean,
       '--install': Boolean,
       '--clean': Boolean,
+      '--gitpod': Boolean,
       '-n': '--name',
       '-g': '--git',
+      '-p': '--gitpod',
       '-s': '--skip',
       '-i': '--install',
       '-c': '--clean',
@@ -30,6 +31,7 @@ function parseArgumentsIntoOptions(rawArgs) {
     template: args._[0],
     runInstall: args['--install'] || false,
     clean: args['--clean'] || false,
+    gitpod: args['--gitpod'] || false,
   };
 }
 async function promptForMissingOptions(options) {
@@ -76,10 +78,18 @@ async function promptForMissingOptions(options) {
         },
         {
           name: 'Full Stack Frameworks (MS4)',
-          value: { name: 'FSF', python: true, django: false, flask: true },
+          value: { name: 'FSF', python: true, django: true, flask: false },
         },
       ],
       default: defaultTemplate,
+    });
+  }
+  if (!questions.gitpod) {
+    questions.push({
+      type: 'confirm',
+      name: 'gitpod',
+      message: 'Are you using Gitpod?',
+      default: false,
     });
   }
   if (!options.git) {
@@ -87,7 +97,7 @@ async function promptForMissingOptions(options) {
       type: 'confirm',
       name: 'git',
       message: 'Initialize a git repository?',
-      default: false,
+      default: true,
     });
   }
   const answers = await inquirer.prompt(questions);
@@ -97,13 +107,14 @@ async function promptForMissingOptions(options) {
     git: options.git || answers.git,
     name: answers.name,
     env: answers.env || false,
-    envName: answers.envName || '',
+    envName: answers.envName || 'env',
+    gitpod: answers.gitpod,
   };
 }
 
 async function extraQuestions(options) {
   const questions = [];
-  if (options.template.python) {
+  if (options.template.python && !options.gitpod) {
     questions.push({
       type: 'confirm',
       name: 'env',
@@ -120,7 +131,15 @@ async function extraQuestions(options) {
 }
 async function envQuestions(options) {
   const questions = [];
-  if (options.env) {
+  if (!options.env && options.template.python && !options.gitpod) {
+    questions.push({
+      type: 'confirm',
+      name: 'createENV',
+      message: 'Do you want us to create one for you?',
+      default: true,
+    });
+  }
+  if (options.env && !options.gitpod) {
     questions.push({
       type: 'input',
       name: 'envName',
@@ -138,24 +157,16 @@ async function envQuestions(options) {
   return {
     ...options,
     envName: answers.envName,
+    createENV: answers.createENV,
   };
-}
-
-function title() {
-  console.log(
-    chalk.yellow(
-      figlet.textSync('Padawan', { horizontalLayout: 'full', font: 'Big' }),
-    ),
-  );
 }
 
 export async function cli(args) {
   clear();
-  title();
+  title('Padawan', 'ANSI Shadow');
   let options = parseArgumentsIntoOptions(args);
   options = await promptForMissingOptions(options);
   options = await extraQuestions(options);
   options = await envQuestions(options);
   await createProject(options);
-  console.log(options);
 }
