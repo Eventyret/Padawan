@@ -61,6 +61,9 @@ If you wish to develop things please follow the guidelines in [Contribute](CONTR
 - [ ] Add Badges to Readme
 - [ ] Update readme
 - [ ] Release for NPM
+- [ ] Test in Linux Enviroment
+- [ ] Test in Mac Enviroment
+- [ ] Test in Windows Enviroment
 
 ## BUGS
 
