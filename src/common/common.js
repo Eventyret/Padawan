@@ -16,10 +16,10 @@ export async function getOS() {
   }
 }
 
-export async function title(text) {
+export async function title(text, font) {
   console.log(
     chalk.yellow(
-      figlet.textSync(text, { horizontalLayout: 'full', font: 'Big' }),
+      figlet.textSync(text, { horizontalLayout: 'full', font: font ? font :'Big' }),
     ),
   );
 }
