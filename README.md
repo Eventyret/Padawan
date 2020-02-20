@@ -35,19 +35,27 @@ These are the requirements to run the tool.
 - [NPM 6.12.1](npmjs.com)
 - [Python 3.x](https://www.python.org/)
 
+### Running the tool
+
+- Please install the tool using npm `npm install -g padawan`
+
+## Development
+
+If you wish to develop things please follow the guidelines in [Contribute](CONTRIBUTING.md)
+
 ## TODO
 
 - [x] Dont start if folder already exists
-- [ ] Generate env.py for django projects
-- [ ] Gitpod support
 - [x] Pip install functionality
 - [x] Virtualenv install functionality
 - [x] Merge IFD and UFCD into "Frontend" folder
 - [x] Python folder to be renamed to Backend
 - [x] Virtualenv Install Flask
 - [x] Virtulaenv install django
-- [ ] Seperate Django and flask install functions
 - [x] Reflect changes to cli menu
+- [ ] Generate env.py for django projects
+- [x] Seperate Django and flask install functions
+- [ ] Gitpod support
 - [ ] Add JSDoc Comments
 - [ ] Refactor `createFiles` and `createStructures` to `frontEnd` `backend`
 - [ ] Add Badges to Readme
