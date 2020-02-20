@@ -1,12 +1,12 @@
 import { getOS } from '../common/common';
-import { platform } from 'os';
-const usrPlatform = platform();
 
 // TODO No need for workspace can be env\
 
 export async function generatePythonSettings(config) {
-  const envPath = config.env ? await generatePath(config) : '';
   const usrOS = await getOS();
+  // prettier-ignore
+  const envPath =
+    (config.env || config.createENV) ? await generatePath(config, usrOS) : '';
   const settings = `{
   ${envPath}
   "python.terminal.activateEnvironment": true,
@@ -31,9 +31,9 @@ export async function generatePythonSettings(config) {
   return settings;
 }
 
-async function generatePath(config) {
-  if (usrPlatform === 'darwin' || usrPlatform === 'linux')
-    return `"python.pythonPath:\${workspaceFolder}/${config.envName}/bin/python",`;
-  if (usrPlatform === 'win32')
-    return `"python.pythonPath": "\${workspaceFolder}\\\\${config.envName}\\\\Scripts\\\\python.exe",`;
+async function generatePath(config, os) {
+  if (os === 'osx' || os === 'linux')
+    return `"python.pythonPath:${config.envName}/bin/python",`;
+  if (os === 'windows')
+    return `"python.pythonPath": "${config.envName}\\\\Scripts\\\\python.exe",`;
 }
