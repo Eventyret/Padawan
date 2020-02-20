@@ -1,8 +1,8 @@
+<!-- markdownlint-disable MD033 -->
 # Padawan
 
-<!-- markdownlint-disable MD033 -->
 <div align="center">
-  <img src="assets/padwan.png">
+  <img src="https://octodex.github.com/images/octobiwan.jpg">
 </div>
 
 ## What does it do and what does it need to fulfil
