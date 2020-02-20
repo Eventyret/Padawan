@@ -32,8 +32,9 @@ export async function generatePythonSettings(config) {
 }
 
 async function generatePath(config, os) {
+  const envName = config.envName ? config.envName : 'env';
   if (os === 'osx' || os === 'linux')
-    return `"python.pythonPath:${config.envName}/bin/python",`;
+    return `"python.pythonPath:${envName}/bin/python",`;
   if (os === 'windows')
-    return `"python.pythonPath": "${config.envName}\\\\Scripts\\\\python.exe",`;
+    return `"python.pythonPath": "${envName}\\\\Scripts\\\\python.exe",`;
 }
