@@ -1,5 +1,5 @@
 import execa from 'execa';
-import { platform } from 'os';
+import { getOS } from '../common/common';
 
 const target = {};
 let targetDir;
@@ -21,7 +21,8 @@ async function activate(options) {
 export async function pipOutPut(options) {
   targetDir = options.targetDirectory;
   try {
-    await os(options);
+    const usrOS = await getOS();
+    await os(options, usrOS);
     if (!options.gitpod) {
       await execa('pip install virtualenv');
       await activate(options);
@@ -47,9 +48,9 @@ export async function djangoApp() {
   return;
 }
 
-export async function os(options) {
-  if (platform() == 'win32') {
-    let envName = !options.envName ? 'env' : options.envName;
+export async function os(options, platform) {
+  let envName = !options.envName ? 'env' : options.envName;
+  if (platform == 'windows') {
     //prettier-ignore
     target.path = `\\\\${envName}\\Scripts\\activate`;
     target.osVar = `\\\\${envName}`;
