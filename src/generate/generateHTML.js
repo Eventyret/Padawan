@@ -22,7 +22,7 @@ export async function generateHTML(config) {
   <main className="container">
 	<section className="row">
 		<div className="col-12">
-			<img src="https://i.imgur.com/WuYuJu5.png" class="img-fluid mx-auto d-block" alt="Padwan tool"/>
+			<img src="https://i.imgur.com/zgnEzrJ.png" class="img-fluid mx-auto d-block" alt="Padwan tool"/>
 			<h2 class="text-center">Thank you for using the Padwan tool to setup your <b>${config.name}</b> Project</h2>
 		</div>
 	</section>
