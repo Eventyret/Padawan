@@ -1,7 +1,12 @@
 {
   "name": "@eventyret/padawan",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Bootstraping Milestone Projects with use of Vscode",
+  "homepage": "https://github.com/Eventyret/Padawan",
+  "bugs": {
+    "url": "https://github.com/Eventyret/Padawan/issues",
+    "email": "simen@dehlin.dev"
+  },
   "main": "src/index.js",
   "bin": {
     "@eventyret/padawan": "bin/padawan",
@@ -26,8 +31,16 @@
     "yoda",
     "padawan"
   ],
-  "author": "",
-  "license": "ISC",
+  "author":{
+    "name": "Simen Daehlin",
+    "email": "simen@dehlin.dev",
+    "url": "https://dehlin.dev"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Eventyret/Padawan.git"
+  },
   "dependencies": {
     "arg": "^4.1.2",
     "chalk": "^3.0.0",
