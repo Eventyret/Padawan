@@ -3,15 +3,16 @@ import { promisify } from 'util';
 import { generateHTML } from '../generate/generateHTML';
 import { generatePythonSettings } from '../generate/generateSettings';
 import { generateENVFile } from '../generate/generateENV';
+import { generateREADME, generateTESTING } from '../generate/generateMarkdown';
 
 const write = promisify(fs.writeFile);
 const append = promisify(fs.appendFile);
 
 export async function createReadme(options) {
-  write(
-    options.targetDirectory + '/README.md',
-    `# Welcome to Project ${options.name} Project`,
-  );
+  const readmeFile = await generateREADME(options);
+  const testFile = await generateTESTING(options);
+  await write(options.targetDirectory + '/README.md', readmeFile);
+  await write(options.targetDirectory + '/TESTING.md', testFile);
 }
 export async function createGitIgnore(options) {
   append(options.targetDirectory + '/.gitignore', `\n${options.envName}/`);
