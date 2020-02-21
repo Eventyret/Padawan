@@ -12,9 +12,9 @@ APP = Flask(__name__)
 
 @APP.route('/')
 def hello_world():
-    return render_template('paegs/index.html')
+    return render_template('pages/index.html')
 
 if __name__ == '__main__':
-    APP.run(host=os.environ.get('IP'),
+    APP.run(host=os.environ.get('HOSTNAME'),
             port=int(os.environ.get('PORT')),
-            debug=os.environ.get('DEBUG'))
+            debug=os.environ.get('DEV'))

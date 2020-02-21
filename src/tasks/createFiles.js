@@ -29,7 +29,7 @@ export async function createHTML(options) {
 }
 
 export async function createENVPy(options) {
-  await write(options.targetDirectory + '/env.py', generateENVFile());
+  await write(options.targetDirectory + '/env.py', generateENVFile(options));
 }
 
 export async function createVSCodeSettings(options) {
