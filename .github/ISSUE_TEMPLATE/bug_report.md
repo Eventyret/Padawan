@@ -11,23 +11,6 @@ assignees: ''
 **Current Behavior**
 A clear and concise description of the behavior.
 
-### Input Code
-
-- REPL or Repo link if applicable:
-
-```js
-var your => (code) => here;
-```
-
-**Expected behavior/code**
-A clear and concise description of what you expected to happen (or code).
-
-```js
-{
-  "your": { "config": "here" }
-}
-```
-
 ### Environment
 
 - Node/npm version: [e.g. Node 8/npm 5]
