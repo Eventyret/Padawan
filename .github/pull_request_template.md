@@ -18,7 +18,7 @@
 
 **Operating System:** …
 ** Node Version ** ...
-** NPM Version ** ..
+** NPM Version ** ...
 
 - [ ] Ensure that your changes don't break any changes
 - [ ] Ensure that your changes don't introduce console warnings
