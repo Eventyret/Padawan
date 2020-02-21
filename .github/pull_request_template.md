@@ -1,36 +1,24 @@
-<!-- markdownlint-disable MD041 -->
+<!-- markdownlint-disable MD041 MD026 -->
 
-## What did you implement
+(Thanks for sending a pull request! Please make sure you click the link above to view the contribution guidelines, then fill out the blanks below.)
 
-<!--
-Briefly describe the feature if no issue exists for this PR
--->
+## What does this implement/fix? Explain your changes.
 
-## How did you implement it
+…
 
-<!--
-If this is a nontrivial change please briefly describe your implementation so its easy for us to understand and review your code.
--->
+## Does this close any currently open issues?
 
-## How can this change be verified
+…
 
-<!--
-Add any applicable config, commands, screenshots or other resources
-to make it easy for us to verify this works. The easier you make it for us
-to review a PR, the faster we can review and merge it.
+## Any other comments?
 
-Examples:
-* Screenshots - Showing the difference between your output and the master
-* Example usage of an API
-* Example outputs
-* Other - Anything else that comes to mind to help us evaluate
--->
+…
 
-## Todos
+## Where has this been tested?
 
-<!--
-- [x] Example of ticked-off todo
--->
+**Operating System:** …
+** Node Version ** ...
+** NPM Version ** ..
 
 - [ ] Ensure that your changes don't break any changes
 - [ ] Ensure that your changes don't introduce console warnings
