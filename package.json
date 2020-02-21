@@ -1,6 +1,6 @@
 {
   "name": "@eventyret/padawan",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Bootstraping Milestone Projects with use of Vscode",
   "main": "src/index.js",
   "bin": {

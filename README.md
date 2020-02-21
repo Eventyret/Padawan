@@ -56,7 +56,7 @@ If you wish to develop things please follow the guidelines in [Contribute](CONTR
 - [x] Seperate Django and flask install functions
 - [x] Generate seperate Testing file
 - [x] Genereate README file
-- [ ] Generate env.py for django projects
+- [x] Generate env.py for django projects
 - [ ] Gitpod support
 - [ ] Add JSDoc Comments
 - [ ] Refactor `createFiles` and `createStructures` to `frontEnd` `backend`
