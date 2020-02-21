@@ -53,8 +53,10 @@ If you wish to develop things please follow the guidelines in [Contribute](CONTR
 - [x] Virtualenv Install Flask
 - [x] Virtulaenv install django
 - [x] Reflect changes to cli menu
-- [ ] Generate env.py for django projects
 - [x] Seperate Django and flask install functions
+- [x] Generate seperate Testing file
+- [x] Genereate README file
+- [ ] Generate env.py for django projects
 - [ ] Gitpod support
 - [ ] Add JSDoc Comments
 - [ ] Refactor `createFiles` and `createStructures` to `frontEnd` `backend`
@@ -73,4 +75,5 @@ Please see [issues](https://github.com/Eventyret/Padawan/issues)
 
 ## Credits
 
-- Padwan Logo taken from [Wikipedia]("https://upload.wikimedia.org/wikipedia/en/d/d7/Ahsoka_Tano.png)
+- Padwan Logo taken from [Wikipedia](https://upload.wikimedia.org/wikipedia/en/d/d7/Ahsoka_Tano.png)
+- Readme template from [Code Insitute](https://github.com/Code-Institute-Solutions/readme-template/blob/master/README.md)
