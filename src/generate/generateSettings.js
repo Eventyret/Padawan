@@ -24,8 +24,8 @@ export async function generatePythonSettings(config) {
         .toString(36)
         .substring(2, 15)}",
       "DEV": "1",
-      ${config.template.flask ? flaskOnly() : null}
-      "HOSTNAME": "0.0.0.0"
+      "HOSTNAME": "0.0.0.0",
+      ${config.template.flask ? await flaskSettings() : await djangoSettings()}
     }
   }`;
   return settings;
@@ -39,16 +39,16 @@ async function generatePath(config, os) {
     return `"python.pythonPath": "${envName}\\\\Scripts\\\\python.exe",`;
 }
 
-async function flaskOnly() {
+async function flaskSettings() {
   return `
   "MONGO_URI": "YOUR MONGO URI GOES HERE"`;
 }
-async function djangoOnly() {
+async function djangoSettings() {
   return `
   "STRIPE_PUBLISHABLE": "",
   "STRIPE_SECRET": "",
   "AWS_ACCESS_KEY_ID": "",
   "AWS_SECRET_ACCESS_KEY: "",
   "AWS_STORAGE_BUCKET_NAME": ""
-  `
+  `;
 }
