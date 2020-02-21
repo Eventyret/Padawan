@@ -50,7 +50,6 @@ export async function createProject(options) {
     await access(backendDir, fs.constants.R_OK);
     await access(frontendDir, fs.constants.R_OK);
   } catch (err) {
-    console.log(err);
     console.error('%s Invalid template name', chalk.red.bold('ERROR'));
     process.exit(1);
   }
@@ -181,7 +180,7 @@ export async function createProject(options) {
       title(`${options.name}`, 'ANSI Shadow');
       console.log('This tool was created by Eventyret');
       console.log(
-        `If you liked this tool please do say thank you  in Slack or mention the tool in your Readme`,
+        `If you liked this tool please do say thank you in Slack or mention the tool in your Readme`,
       );
       return true;
     }
@@ -192,7 +191,7 @@ export async function createProject(options) {
       return false;
     }
   } else {
-    title('Oh noes!');
+    title('Oh noes!', 'ANSI Shadow');
     console.log('Gitpod is not supported yet');
     return false;
   }
