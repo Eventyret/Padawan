@@ -43,31 +43,7 @@ These are the requirements to run the tool.
 
 If you wish to develop things please follow the guidelines in [Contribute](CONTRIBUTING.md)
 
-## TODO
-
-- [x] Dont start if folder already exists
-- [x] Pip install functionality
-- [x] Virtualenv install functionality
-- [x] Merge IFD and UFCD into "Frontend" folder
-- [x] Python folder to be renamed to Backend
-- [x] Virtualenv Install Flask
-- [x] Virtulaenv install django
-- [x] Reflect changes to cli menu
-- [x] Seperate Django and flask install functions
-- [x] Generate seperate Testing file
-- [x] Genereate README file
-- [x] Generate env.py for django projects
-- [ ] Gitpod support
-- [ ] Add JSDoc Comments
-- [ ] Refactor `createFiles` and `createStructures` to `frontEnd` `backend`
-- [ ] Add Badges to Readme
-- [ ] Update readme
-- [ ] Release for NPM
-- [ ] Test in Linux Enviroment
-- [ ] Test in Mac Enviroment
-- [ ] Test in Windows Enviroment
-
-## BUGS
+## BUGS & TODO
 
 Please see [issues](https://github.com/Eventyret/Padawan/issues)
 
@@ -77,3 +53,5 @@ Please see [issues](https://github.com/Eventyret/Padawan/issues)
 
 - Padwan Logo taken from [Wikipedia](https://upload.wikimedia.org/wikipedia/en/d/d7/Ahsoka_Tano.png)
 - Readme template from [Code Insitute](https://github.com/Code-Institute-Solutions/readme-template/blob/master/README.md)
+
+https://github.com/Eventyret/Padawan/issues/new?assignees=Eventyret&labels=enhancement&milestone=First%20Release&projects=Padawan
