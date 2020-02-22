@@ -6,6 +6,11 @@
   <img src="https://upload.wikimedia.org/wikipedia/en/d/d7/Ahsoka_Tano.png" height="350" width="350">
 </div>
 
+![NPM](https://img.shields.io/npm/l/@eventyret/padawan?style=for-the-badge)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/eventyret/padawan/develop?style=for-the-badge)
+![npm](https://img.shields.io/npm/v/@eventyret/padawan?style=for-the-badge)
+![Maintenance](https://img.shields.io/maintenance/yes/2020?style=for-the-badge)
+
 ## What does it do and what does it need to fulfil
 
 A nodeJS tool provided for students of Code Institute.
