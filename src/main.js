@@ -12,6 +12,7 @@ import {
   createHTML,
   createReadme,
   createVSCodeSettings,
+  createProcfile,
 } from './tasks/createFiles';
 import {
   copyBackendFiles,
@@ -21,7 +22,7 @@ import {
   createProjectDir,
 } from './tasks/createStructure';
 import { gitTasks } from './tasks/git';
-import { pipOutPut } from './tasks/virtualenv';
+import { pipOutPut, flaskApp, djangoApp } from './tasks/virtualenv';
 
 const access = promisify(fs.access);
 let errorToggle = false;
@@ -151,19 +152,27 @@ export async function createProject(options) {
     },
     {
       title: 'Setting Flask up',
-      task: () => pipOutPut(options),
-      enabled: () => options.template.flask && !options.error,
+      task: () => flaskApp(options),
+      enabled: () => options.template.flask && options.env && !options.error,
       skip: ctx =>
         // prettier-ignore
         ctx.exists || !options.template.flask ? 'Not a Flask Project' : undefined || options.gitpod,
     },
     {
       title: 'Setting Django up',
-      task: () => pipOutPut(options),
-      enabled: () => options.template.django && !options.error,
+      task: () => djangoApp(options),
+      enabled: () => options.template.django && options.env && !options.error,
       skip: ctx =>
         // prettier-ignore
         ctx.exists || !options.template.django ? 'Not a Django Project' : undefined || options.gitpod,
+    },
+    {
+      title: 'Configuring Procfile',
+      task: () => createProcfile(options),
+      enabled: () =>  (options.template.flask || options.template.django) && !options.error,
+      skip: ctx =>
+        // prettier-ignore
+        ctx.exists || options.gitpod,
     },
     {
       title: 'Configuring .gitignore',

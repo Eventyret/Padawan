@@ -18,6 +18,10 @@ export async function createGitIgnore(options) {
   if(!options.envName) return;
   append(options.targetDirectory + '/.gitignore', `\n${options.envName}/`);
 }
+export async function createProcfile(options) {
+  let content = options.template.flask ? `web: python app.py` : `web: gunicorn ${options.name.replace(/[^A-Z0-9]+/gi, '-').toLowerCase()}.wsgi:application`;
+  write(options.targetDirectory + '/Procfile', content);
+}
 
 export async function createHTML(options) {
   const html = await generateHTML(options);
