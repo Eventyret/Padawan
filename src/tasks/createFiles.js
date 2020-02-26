@@ -15,6 +15,7 @@ export async function createReadme(options) {
   await write(options.targetDirectory + '/TESTING.md', testFile);
 }
 export async function createGitIgnore(options) {
+  if(!options.envName) return;
   append(options.targetDirectory + '/.gitignore', `\n${options.envName}/`);
 }
 
