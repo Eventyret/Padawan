@@ -28,11 +28,6 @@ export async function pipOutPut(options) {
       await activate(options);
     }
     options.env = true;
-    if (options.template.flask) {
-      await flaskApp();
-    } else {
-      await djangoApp();
-    }
   } catch (err) {
     throw err;
   }
