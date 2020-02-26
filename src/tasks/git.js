@@ -6,7 +6,7 @@ export async function gitTasks(options) {
     await git.cwd(options.targetDirectory);
     await git.init();
     await git.add('.');
-    await git.commit('Initial commit made by Padwan Tool');
+    await git.commit('Initial commit made by The Lazy Padwan');
   } catch (err) {
     console.error(err.message);
   }
