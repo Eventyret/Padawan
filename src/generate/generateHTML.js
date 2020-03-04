@@ -1,8 +1,5 @@
 export async function generateHTML(config) {
-  const script =
-    config.template.name == 'IFD'
-      ? `<script src="assets/js/app.js"></script>`
-      : '';
+  const script = config.template.name == 'IFD' ? `<script src="assets/js/app.js"></script>`: '';
   const head = `
   <!DOCTYPE html>
   <html lang="en">
