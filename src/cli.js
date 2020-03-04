@@ -66,11 +66,11 @@ async function promptForMissingOptions(options) {
       choices: [
         {
           name: 'User Centric Frontend (MS1)',
-          value: { name: 'UCFD', python: false, django: false, flask: false },
+          value: { name: 'frontend', python: false, django: false, flask: false },
         },
         {
           name: 'Interactive Frontend (MS2)',
-          value: { name: 'IFD', python: false, django: false, flask: false },
+          value: { name: 'frontend', python: false, django: false, flask: false },
         },
         {
           name: 'Data Centric Development (MS3)',
