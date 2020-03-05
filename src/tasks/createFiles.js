@@ -19,17 +19,14 @@ export async function createGitIgnore(options) {
   append(options.targetDirectory + '/.gitignore', `\n${options.envName}/`);
 }
 export async function createProcfile(options) {
-  let content = options.template.flask ? `web: python app.py` : `web: gunicorn ${options.name.replace(/[^A-Z0-9]+/gi, '-').toLowerCase()}.wsgi:application`;
+  const content = options.template.flask ? `web: python app.py` : `web: gunicorn ${options.name.replace(/[^A-Z0-9]+/gi, '-').toLowerCase()}.wsgi:application`;
   write(options.targetDirectory + '/Procfile', content);
 }
 
 export async function createHTML(options) {
   const html = await generateHTML(options);
+  if(options.template.flask || options.template.django) return;
   let indexFileLocation = '/index.html';
-  if (options.template.flask) {
-    indexFileLocation = '/templates/pages/index.html';
-  }
-
   await write(options.targetDirectory + indexFileLocation, html);
 }
 
