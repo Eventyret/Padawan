@@ -151,6 +151,14 @@ export async function createProject(options) {
       skip: ctx => ctx.exists,
     },
     {
+      title: 'Configuring Procfile',
+      task: () => createProcfile(options),
+      enabled: () =>  (options.template.flask || options.template.django) && !options.error,
+      skip: ctx =>
+        // prettier-ignore
+        ctx.exists || options.gitpod,
+    },
+    {
       title: 'Setting Flask up',
       task: () => flaskApp(options),
       enabled: () => options.template.flask && options.env && !options.error,
@@ -165,14 +173,6 @@ export async function createProject(options) {
       skip: ctx =>
         // prettier-ignore
         ctx.exists || !options.template.django ? 'Not a Django Project' : undefined || options.gitpod,
-    },
-    {
-      title: 'Configuring Procfile',
-      task: () => createProcfile(options),
-      enabled: () =>  (options.template.flask || options.template.django) && !options.error,
-      skip: ctx =>
-        // prettier-ignore
-        ctx.exists || options.gitpod,
     },
     {
       title: 'Configuring .gitignore',
