@@ -14,11 +14,14 @@
 ## What does it do and what does it need to fulfil
 
 A nodeJS tool provided for students of Code Institute. The tool will create the boilerplate for your current milestone project.
+This will speed up development as you can can focus more on your code rather then how the folder structure etc is.
+
+### Supported milestones
 
 - User Centric Frontend (Milestone 1)
 - Interactive Frontend (Milestone 2)
 - Data Centric Development (Milestone 3)
-- Full Stack Frameworks (Milestone 3)
+- Full Stack Frameworks (Milestone 4)
 
 ## User Stories
 
@@ -43,8 +46,9 @@ These are the requirements to run the tool.
 
 ### Running the tool
 
+1. Please make sure you have python 3.x installed on your system. (You can test this by typing `python --version` in a terminal)
 1. Please install the tool using npm `npm install -g @eventyret/padawan`
-2. You can now use `padwan` or `padawan` to start the application
+1. You can now use `padwan` or `padawan` to start the application
 
 ## Development
 
