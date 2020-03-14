@@ -14,8 +14,6 @@
 ## What does it do and what does it need to fulfil
 
 A nodeJS tool provided for students of Code Institute. The tool will create the boilerplate for your current milestone project.
-This is ment as a best practice tool and things can and will change over time.
-The idea here is for students to see how a good structure is and from there be able to reuse this.
 
 - User Centric Frontend (Milestone 1)
 - Interactive Frontend (Milestone 2)
