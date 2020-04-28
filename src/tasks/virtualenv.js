@@ -23,7 +23,7 @@ export async function pipOutPut(options) {
   try {
     const usrOS = await getOS();
     await os(options, usrOS);
-    if (!options.gitpod) {
+    if (!options.gitpod && usrOS === "windows") {
       await execa('pip install virtualenv');
       await activate(options);
     }
