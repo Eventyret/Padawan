@@ -5,17 +5,8 @@ const target = {};
 let targetDir;
 async function activate(options) {
   await execa(`virtualenv ${targetDir}${target.osVar}`);
-  await execa(`${targetDir}${target.pip}`, [
-    `install`,
-    `-r`,
-    `${options.backendDir}${target.requirements}`,
-  ]);
-  await execa(`${targetDir}${target.pip}`, [
-    'freeze',
-    '--local',
-    '>>',
-    `${targetDir}${target.requirements}`,
-  ]);
+  await execa(`${targetDir}${target.pip}`, [`install`, `-r`, `${options.backendDir}${target.requirements}`]);
+  await execa(`${targetDir}${target.pip}`, ['freeze', '--local', '>>', `${targetDir}${target.requirements}`]);
 }
 
 export async function pipOutPut(options) {
@@ -25,6 +16,9 @@ export async function pipOutPut(options) {
     await os(options, usrOS);
     if (!options.gitpod && usrOS === "windows") {
       await execa('pip install virtualenv');
+      await activate(options);
+    } else {    
+      await execa('pip3', ['install', 'virtualenv'])
       await activate(options);
     }
     options.env = true;
@@ -44,6 +38,7 @@ export async function djangoApp() {
 }
 
 export async function os(options, platform) {
+  console.log(platform);
   let envName = !options.envName ? 'env' : options.envName;
   if (platform == 'windows') {
     //prettier-ignore
