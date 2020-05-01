@@ -34,14 +34,13 @@ export async function generatePythonSettings(config) {
 async function generatePath(config, os) {
   const envName = config.envName ? config.envName : 'env';
   if (os === 'osx' || os === 'linux')
-    return `"python.pythonPath:${envName}/bin/python",`;
+    return `"python.pythonPath": "${envName}/bin/python3",`;
   if (os === 'windows')
     return `"python.pythonPath": "${envName}\\\\Scripts\\\\python.exe",`;
 }
 
 async function flaskSettings() {
-  return `
-  "MONGO_URI": "YOUR MONGO URI GOES HERE"`;
+  return `"MONGO_URI": "YOUR MONGO URI GOES HERE"`;
 }
 async function djangoSettings() {
   return `

@@ -6,25 +6,34 @@
   <img src="https://upload.wikimedia.org/wikipedia/en/d/d7/Ahsoka_Tano.png" height="350" width="350">
 </div>
 
+![NPM](https://img.shields.io/npm/l/@eventyret/padawan?style=for-the-badge)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/eventyret/padawan/develop?style=for-the-badge)
+![npm](https://img.shields.io/npm/v/@eventyret/padawan?style=for-the-badge)
+![Maintenance](https://img.shields.io/maintenance/yes/2020?style=for-the-badge)
+
 ## What does it do and what does it need to fulfil
 
-A nodeJS tool provided for students of Code Institute.
-This tool will scaffold out the following milestones
+A nodeJS tool provided for students of Code Institute. The tool will create the boilerplate for your current milestone project.
+This will speed up development as you can can focus more on your code rather then how the folder structure etc is.
 
-- User Centric Frontend
-- Interactive Frontend
-- Data Centric Development
-- Full Stack Frameworks
+### Supported milestones
+
+- User Centric Frontend (Milestone 1)
+- Interactive Frontend (Milestone 2)
+- Data Centric Development (Milestone 3)
+- Full Stack Frameworks (Milestone 4)
 
 ## User Stories
 
-As a student, I want a quick and easy to scaffold out my project.
-As a student, I want to use Vscode as my Primary IDE
-As a student, I want to use Gitpod as my Primary IDE
+- As a student, I want a quick way to setup my project.
+- As a student, I want to create a boilerplate project.
+- As a student, I want to use Vscode as my Primary IDE
+- As a student, I want to use Gitpod as my Primary IDE
 
 ## Technologies Used
 
 - [Javascript](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/JavaScript_basics)
+
 - [NodeJS](https://www.nodejs.org)
 
 ## Requirements
@@ -37,7 +46,9 @@ These are the requirements to run the tool.
 
 ### Running the tool
 
-- Please install the tool using npm `npm install -g padawan`
+1. Please make sure you have python 3.x installed on your system. (You can test this by typing `python --version` in a terminal)
+1. Please install the tool using npm `npm install -g @eventyret/padawan`
+1. You can now use `padwan` or `padawan` to start the application
 
 ## Development
 
@@ -53,5 +64,3 @@ Please see [issues](https://github.com/Eventyret/Padawan/issues)
 
 - Padwan Logo taken from [Wikipedia](https://upload.wikimedia.org/wikipedia/en/d/d7/Ahsoka_Tano.png)
 - Readme template from [Code Insitute](https://github.com/Code-Institute-Solutions/readme-template/blob/master/README.md)
-
-https://github.com/Eventyret/Padawan/issues/new?assignees=Eventyret&labels=enhancement&milestone=First%20Release&projects=Padawan
