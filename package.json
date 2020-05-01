@@ -43,15 +43,16 @@
   },
   "dependencies": {
     "arg": "^4.1.3",
+    "async-shelljs": "^0.1.4",
     "chalk": "^3.0.0",
     "clear": "^0.1.0",
     "esm": "^3.2.25",
-    "execa": "^4.0.0",
     "figlet": "^1.3.0",
     "inquirer": "^7.1.0",
     "listr": "^0.14.3",
     "ncp": "^2.0.0",
     "pkg-install": "^1.0.0",
+    "shelljs": "^0.8.4",
     "simple-git": "^1.132.0"
   }
 }

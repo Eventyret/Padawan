@@ -1,21 +1,17 @@
-import execa from 'execa';
+import { asyncExec } from 'async-shelljs';
 import { getOS } from '../common/common';
 
 const target = {};
 let targetDir;
 async function activate(options) {
-  await execa(`virtualenv ${targetDir}${target.osVar}`);
-  await execa(`${targetDir}${target.pip}`, [
-    `install`,
-    `-r`,
-    `${options.backendDir}${target.requirements}`,
-  ]);
-  await execa(`${targetDir}${target.pip}`, [
-    'freeze',
-    '--local',
-    '>>',
-    `${targetDir}${target.requirements}`,
-  ]);
+  try {
+    const devNul = await getDevNul();
+    await asyncExec(`virtualenv ${targetDir}${target.osVar}`);
+    await asyncExec(`${targetDir}${target.pip} install -r ${options.backendDir}${target.requirements} > ${devNul}`);
+    await asyncExec(`${targetDir}${target.pip} freeze --local >> ${options.backendDir}${target.requirements} > ${devNul}`);
+  } catch (err) {
+    throw err;
+  }
 }
 
 export async function pipOutPut(options) {
@@ -23,24 +19,32 @@ export async function pipOutPut(options) {
   try {
     const usrOS = await getOS();
     await os(options, usrOS);
-    if (!options.gitpod) {
-      await execa('pip install virtualenv');
+    if (!options.gitpod && usrOS === 'windows') {
+      await asyncExec('pip install virtualenv');
+      await activate(options);
+    } else {
+      await asyncExec('pip3 install virtualenv > /dev/null 2>&1');
       await activate(options);
     }
     options.env = true;
   } catch (err) {
-    throw err;
   }
 }
 
 export async function flaskApp() {
-  await execa(`${targetDir}${target.pip}`, ['install', 'Flask']);
+  const devNul = await getDevNul();
+  await asyncExec(`${targetDir}${target.pip} install Flask > ${devNul}`);
   return;
 }
 
 export async function djangoApp() {
-  await execa(`${targetDir}${target.pip}`, ['install', 'Django']);
+  const devNul = await getDevNul();
+  await asyncExec(`${targetDir}${target.pip} install Django > ${devNul}`);
   return;
+}
+
+async function getDevNul() {
+  return (await getOS()) === 'windows' ? 'NUL' : '/dev/null 2>&1';
 }
 
 export async function os(options, platform) {
@@ -55,8 +59,8 @@ export async function os(options, platform) {
   } else {
     target.path = `/${envName}/bin/activate`;
     target.osVar = `/${envName}`;
-    target.pythonExecutable = `${envName}/bin/python`;
-    target.pip = `${envName}/bin/pip`;
+    target.pythonExecutable = `/${envName}/bin/python3`;
+    target.pip = `/${envName}/bin/pip3`;
     target.requirements = '/requirements.txt';
   }
 }
