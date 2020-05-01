@@ -1,4 +1,3 @@
-import execa from 'execa';
 import { asyncExec } from 'async-shelljs';
 import { getOS } from '../common/common';
 
@@ -6,11 +5,12 @@ const target = {};
 let targetDir;
 async function activate(options) {
   try {
+    const devNul = await getDevNul();
     await asyncExec(`virtualenv ${targetDir}${target.osVar}`);
-    await asyncExec(`${targetDir}${target.pip} install -r ${options.backendDir}${target.requirements} > /dev/null 2>&1`);
-    await asyncExec(`${targetDir}${target.pip} freeze --local >> ${options.backendDir}${target.requirements} > /dev/null 2>&1`);
-  } catch(error) {
-    console.log(error, "Problem in Activate Function")
+    await asyncExec(`${targetDir}${target.pip} install -r ${options.backendDir}${target.requirements} > ${devNul}`);
+    await asyncExec(`${targetDir}${target.pip} freeze --local >> ${options.backendDir}${target.requirements} > ${devNul}`);
+  } catch (err) {
+    throw err;
   }
 }
 
@@ -20,7 +20,7 @@ export async function pipOutPut(options) {
     const usrOS = await getOS();
     await os(options, usrOS);
     if (!options.gitpod && usrOS === 'windows') {
-      await execa('pip install virtualenv');
+      await asyncExec('pip install virtualenv');
       await activate(options);
     } else {
       await asyncExec('pip3 install virtualenv > /dev/null 2>&1');
@@ -28,22 +28,26 @@ export async function pipOutPut(options) {
     }
     options.env = true;
   } catch (err) {
-    console.log("This is a caught error")
   }
 }
 
 export async function flaskApp() {
-  await asyncExec(`${targetDir}${target.pip} install Flask > /dev/null 2>&1`);
+  const devNul = await getDevNul();
+  await asyncExec(`${targetDir}${target.pip} install Flask > ${devNul}`);
   return;
 }
 
 export async function djangoApp() {
-  await asyncExec(`${targetDir}${target.pip} install Django > /dev/null 2>&1`);
+  const devNul = await getDevNul();
+  await asyncExec(`${targetDir}${target.pip} install Django > ${devNul}`);
   return;
 }
 
+async function getDevNul() {
+  return (await getOS()) === 'windows' ? 'NUL' : '/dev/null 2>&1';
+}
+
 export async function os(options, platform) {
-  console.log(platform);
   let envName = !options.envName ? 'env' : options.envName;
   if (platform == 'windows') {
     //prettier-ignore
