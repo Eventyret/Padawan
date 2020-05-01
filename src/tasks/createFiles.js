@@ -20,7 +20,7 @@ export async function createGitIgnore(options) {
 }
 export async function createProcfile(options) {
   const content = options.template.flask ? `web: python app.py` : `web: gunicorn ${options.name.replace(/[^A-Z0-9]+/gi, '-').toLowerCase()}.wsgi:application`;
-  write(options.targetDirectory + '/Procfile', content);
+  await write(options.targetDirectory + '/Procfile', content);
 }
 
 export async function createHTML(options) {
