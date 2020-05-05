@@ -1,7 +1,11 @@
 // prettier-ignore
+/**
+ * Generate environmental variables
+ * for env.py
+ * @param {Object} options 
+ */
 export function generateENVFile(options) {
   return `import os
-
 os.environ["HOSTNAME"] = "0.0.0.0"
 os.environ["SECRET_KEY"] =  "${Math.random()
    .toString(36)
@@ -13,6 +17,9 @@ os.environ["DEV"]: "1"
 ${options.template.flask ? flaskOnly() : djangoOnly()}` // jshint ignore:line
 }
 
+/**
+ * Generate variables only used by flask
+ */
 function flaskOnly() {
   return `os.environ["MONGO_URI"] ="YOUR MONGO URI GOES HERE"
 os.environ["MONGO_DBNAME"] ="YOUR MONGO DB NAME GOES HERE"
@@ -20,6 +27,9 @@ os.environ["PORT"] ="5000"
 `;
 }
 
+/**
+ * Generate variables only used by Django
+ */
 function djangoOnly() {
   return `os.environ["STRIPE_PUBLISHABLE"] = ""
 os.environ["STRIPE_SECRET"] = ""
