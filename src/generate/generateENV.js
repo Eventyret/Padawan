@@ -2,7 +2,8 @@
 /**
  * Generate environmental variables
  * for env.py
- * @param {Object} options 
+ * @param {Object} options
+ * @returns {String} Hostname and random generated string
  */
 export function generateENVFile(options) {
   return `import os
@@ -19,6 +20,7 @@ ${options.template.flask ? flaskOnly() : djangoOnly()}` // jshint ignore:line
 
 /**
  * Generate variables only used by flask
+ * @returns {String} MongoDB information and Port
  */
 function flaskOnly() {
   return `os.environ["MONGO_URI"] ="YOUR MONGO URI GOES HERE"
@@ -29,6 +31,7 @@ os.environ["PORT"] ="5000"
 
 /**
  * Generate variables only used by Django
+ * @returns {String} Stripe & AWS information
  */
 function djangoOnly() {
   return `os.environ["STRIPE_PUBLISHABLE"] = ""
