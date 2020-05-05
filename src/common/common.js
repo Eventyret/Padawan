@@ -2,6 +2,10 @@ import chalk from 'chalk';
 import figlet from 'figlet';
 import { platform } from 'os';
 
+/**
+ * This will return the name of the platform
+ * @returns {string} - Name of platform
+ */
 export async function getOS() {
   const usrPlatform = platform();
   switch (usrPlatform) {
@@ -16,6 +20,11 @@ export async function getOS() {
   }
 }
 
+/**
+ * Creating custom title
+ * @param {String} text - The text to display
+ * @param {String} font - The Font used
+ */
 export async function title(text, font) {
   console.log(
     chalk.yellow(
