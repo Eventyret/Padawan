@@ -12,11 +12,16 @@ const read = promisify(fs.readdir);
  * @param {Object) options 
  */
 export async function copyFiles(options, type) {
-  return copy(checkCopyType(type), options.targetDirectory, {
+  await copy(checkCopyType(options, type), options.targetDirectory, {
     clobber: false,
   });
 }
 
+/**
+ * Creates the main Project directory.
+ * @param {Object} options 
+ * @returns {Promise} Target Directory if created
+ */
 export async function createProjectDir(options) {
   options.targetDirectory = path.resolve(
     process.cwd(),
@@ -26,6 +31,11 @@ export async function createProjectDir(options) {
   return mkdir(options.targetDirectory);
 }
 
+/**
+ *  Checks what folder to copy
+ * @param {Object} options 
+ * @param {String} type - Name of the folder 
+ */
 function checkCopyType(options, type){
   switch (type) {
     case "templates":
