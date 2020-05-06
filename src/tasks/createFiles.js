@@ -8,12 +8,18 @@ import { generateREADME, generateTESTING } from '../generate/generateMarkdown';
 const write = promisify(fs.writeFile);
 const append = promisify(fs.appendFile);
 
-export async function createReadme(options) {
+/**
+ * Generates README and Markdown files
+ * @param {Object} options 
+ */
+export async function createMarkdown(options) {
   const readmeFile = await generateREADME(options);
   const testFile = await generateTESTING(options);
   await write(options.targetDirectory + '/README.md', readmeFile);
   await write(options.targetDirectory + '/TESTING.md', testFile);
 }
+
+
 export async function createGitIgnore(options) {
   if(!options.envName) return;
   append(options.targetDirectory + '/.gitignore', `\n${options.envName}/`);

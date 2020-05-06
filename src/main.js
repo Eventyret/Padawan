@@ -10,7 +10,7 @@ import {
   createENVPy,
   createGitIgnore,
   createHTML,
-  createReadme,
+  createMarkdown,
   createVSCodeSettings,
   createProcfile,
 } from './tasks/createFiles';
@@ -106,8 +106,8 @@ export async function createProject(options) {
       skip: ctx => ctx.exists,
     },
     {
-      title: 'Creating README file',
-      task: () => createReadme(options),
+      title: 'Creating README and TESTING.md 📢📑',
+      task: () => createMarkdown(options),
       enabled: () => !options.error,
       skip: ctx => ctx.exists,
     },
