@@ -40,7 +40,7 @@ export async function createProcfile(options) {
  * Generates HTML for projects
  * @param {Object} options 
  */
-export async function creaeHTML(options) {
+export async function createHTML(options) {
   const html = await generateHTML(options);
   if(options.template.flask || options.template.django) return;
   let indexFileLocation = '/index.html';
