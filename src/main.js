@@ -145,18 +145,18 @@ export async function createProject(options) {
       skip: ctx => ctx.exists,
     },
     {
-      title: 'Setting up Virtual Enviroment',
-      task: () => pipOutPut(options),
-      enabled: () => options.createENV && !options.error,
-      skip: ctx => ctx.exists,
-    },
-    {
       title: 'Configuring Procfile',
       task: () => createProcfile(options),
       enabled: () =>  (options.template.flask || options.template.django) && !options.error,
       skip: ctx =>
         // prettier-ignore
         ctx.exists || options.gitpod,
+    },
+    {
+      title: 'Setting up Virtual Enviroment',
+      task: () => pipOutPut(options),
+      enabled: () => options.createENV && !options.error,
+      skip: ctx => ctx.exists,
     },
     {
       title: 'Setting Flask up',
