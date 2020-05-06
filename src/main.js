@@ -9,7 +9,7 @@ import { generateRequirements } from './generate/generateRequirements';
 import { createENVPy, createGitIgnore, createHTML, createMarkdown, createVSCodeSettings, createProcfile } from './tasks/createFiles';
 import { createProjectDir, copyFiles } from './tasks/createStructure';
 import { gitTasks } from './tasks/git';
-import { pipOutPut, flaskApp, djangoApp } from './tasks/virtualenv';
+import { installVirtualEnv, flaskApp, djangoApp } from './tasks/virtualenv';
 
 const access = promisify(fs.access);
 let errorToggle = false;
@@ -137,7 +137,7 @@ export async function createProject(options) {
     },
     {
       title: 'Setting up Virtual Enviroment',
-      task: () => pipOutPut(options),
+      task: () => installVirtualEnv(options),
       enabled: () => options.createENV && !options.error,
       skip: (ctx) => ctx.exists,
     },
