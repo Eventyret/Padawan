@@ -1,7 +1,11 @@
 import { getOS } from '../common/common';
 
-// TODO No need for workspace can be env\
-
+/**
+ * Generates python specific vscode settings.
+ * This includes a secret key and linting
+ * @param {Object} config
+ * @returns Customized vscode settings per OS.
+ */
 export async function generatePythonSettings(config) {
   const usrOS = await getOS();
   // prettier-ignore
@@ -31,6 +35,12 @@ export async function generatePythonSettings(config) {
   return settings;
 }
 
+/**
+ * Generates correct path for virtual enviroment
+ * @param {Object} config 
+ * @param {String} os 
+ * @returns {String} Customized OS path for virutal enviroment
+ */
 async function generatePath(config, os) {
   const envName = config.envName ? config.envName : 'env';
   if (os === 'osx' || os === 'linux')
@@ -39,15 +49,22 @@ async function generatePath(config, os) {
     return `"python.pythonPath": "${envName}\\\\Scripts\\\\python.exe",`;
 }
 
+/**
+ * Flask specific settings
+ * @returns {String} Mongo URI Settings
+ */
 async function flaskSettings() {
   return `"MONGO_URI": "YOUR MONGO URI GOES HERE"`;
 }
+
+/**
+ * Django specific settings
+ * @returns {String} Stripe & AWS Settings
+ */
 async function djangoSettings() {
-  return `
-  "STRIPE_PUBLISHABLE": "",
+  return `"STRIPE_PUBLISHABLE": "",
   "STRIPE_SECRET": "",
   "AWS_ACCESS_KEY_ID": "",
   "AWS_SECRET_ACCESS_KEY: "",
-  "AWS_STORAGE_BUCKET_NAME": ""
-  `;
+  "AWS_STORAGE_BUCKET_NAME": ""`;
 }
