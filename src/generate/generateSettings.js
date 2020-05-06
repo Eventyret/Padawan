@@ -39,7 +39,7 @@ export async function generatePythonSettings(config) {
  * Generates correct path for virtual enviroment
  * @param {Object} config 
  * @param {String} os 
- * @returns {String} Customized OS path for virutal enviroment
+ * @returns {Promise<String>} Customized OS path for virutal enviroment
  */
 async function generatePath(config, os) {
   const envName = config.envName ? config.envName : 'env';
@@ -51,7 +51,7 @@ async function generatePath(config, os) {
 
 /**
  * Flask specific settings
- * @returns {String} Mongo URI Settings
+ * @returns {Promise<String>} Mongo URI Settings
  */
 async function flaskSettings() {
   return `"MONGO_URI": "YOUR MONGO URI GOES HERE"`;
@@ -59,7 +59,7 @@ async function flaskSettings() {
 
 /**
  * Django specific settings
- * @returns {String} Stripe & AWS Settings
+ * @returns {Pormise<String>} Stripe & AWS Settings
  */
 async function djangoSettings() {
   return `"STRIPE_PUBLISHABLE": "",

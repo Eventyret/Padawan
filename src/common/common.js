@@ -4,7 +4,7 @@ import { platform } from 'os';
 
 /**
  * This will return the name of the platform
- * @returns {string} - Name of platform
+ * @returns {Promise<String>} - Name of platform
  */
 export async function getOS() {
   const usrPlatform = platform();

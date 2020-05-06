@@ -3,9 +3,9 @@
  * Generate environmental variables
  * for env.py
  * @param {Object} options
- * @returns {String} Hostname and random generated string
+ * @returns {Promise<String>} Hostname and random generated string
  */
-export function generateENVFile(options) {
+export async function generateENVFile(options) {
   return `import os
 os.environ["HOSTNAME"] = "0.0.0.0"
 os.environ["SECRET_KEY"] =  "${Math.random()
