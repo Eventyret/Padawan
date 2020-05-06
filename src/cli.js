@@ -4,32 +4,33 @@ import clear from 'clear';
 import { title } from './common/common';
 import { createProject } from './main';
 
+/**
+ *
+ * @param {String[]} rawArgs
+ */
 function parseArgumentsIntoOptions(rawArgs) {
   const args = arg(
     {
       '--name': String,
       '--skip': Boolean,
       '--git': Boolean,
-      '--install': Boolean,
       '--clean': Boolean,
       '--gitpod': Boolean,
       '-n': '--name',
       '-g': '--git',
       '-p': '--gitpod',
       '-s': '--skip',
-      '-i': '--install',
       '-c': '--clean',
     },
     {
       argv: rawArgs.slice(2),
-    },
+    }
   );
   return {
     name: args['--name'],
     skipPrompts: args['--skip'] || false,
     git: args['--git'] || false,
     template: args._[0],
-    runInstall: args['--install'] || false,
     clean: args['--clean'] || false,
     gitpod: args['--gitpod'] || false,
   };
@@ -49,7 +50,7 @@ async function promptForMissingOptions(options) {
       type: 'input',
       name: 'name',
       message: 'What is the name of this amazing project: ',
-      validate: function(value) {
+      validate: function (value) {
         if (value.length) {
           return true;
         } else {
@@ -74,7 +75,7 @@ async function promptForMissingOptions(options) {
         },
         {
           name: 'Data Centric Development (MS3)',
-          value: { name: 'DCD', python: true, django: false, flask: true, js:true },
+          value: { name: 'DCD', python: true, django: false, flask: true, js: true },
         },
         {
           name: 'Full Stack Frameworks (MS4)',
@@ -144,7 +145,7 @@ async function envQuestions(options) {
       type: 'input',
       name: 'envName',
       message: 'What is the name of the folder for your virtual enviroment',
-      validate: function(value) {
+      validate: function (value) {
         if (value.length) {
           return true;
         } else {
