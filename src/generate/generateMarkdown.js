@@ -2,7 +2,7 @@
 /**
  * Generates the Boilerplate for the Readme file
  * @param {Object} config
-  * @returns {String} Custom boilerplate for README.md
+  * @returns {Promise<String>} Custom boilerplate for README.md
  */
 export async function generateREADME(config) {
   return `
