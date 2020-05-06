@@ -3,7 +3,12 @@ import { getOS } from '../common/common';
 
 const target = {};
 let targetDir;
-async function activate(options) {
+
+/**
+ * Using virtualenv to freeze and install correct pip packages
+ * @param {Object} options 
+ */
+async function pipInstallAndFreeze(options) {
   try {
     const devNul = await getDevNul();
     await asyncExec(`virtualenv ${targetDir}${target.osVar}`);
@@ -14,40 +19,60 @@ async function activate(options) {
   }
 }
 
-export async function pipOutPut(options) {
+// TODO: Check if python3 is installed
+/**
+ * Installing and using virtualenv
+ * @param {Object} options 
+ */
+export async function installVirtualEnv(options) {
   targetDir = options.targetDirectory;
   try {
     const usrOS = await getOS();
-    await os(options, usrOS);
+    await targetOS(options, usrOS);
     if (!options.gitpod && usrOS === 'windows') {
       await asyncExec('pip install virtualenv');
-      await activate(options);
+      await pipInstallAndFreeze(options);
     } else {
       await asyncExec('pip3 install virtualenv > /dev/null 2>&1');
-      await activate(options);
+      await pipInstallAndFreeze(options);
     }
     options.env = true;
   } catch (err) {
   }
 }
 
+/**
+ * Install Flask into the virtual environment
+ */
 export async function flaskApp() {
   const devNul = await getDevNul();
   await asyncExec(`${targetDir}${target.pip} install Flask > ${devNul}`);
   return;
 }
 
+/**
+ * Installs Django into the virtual environment
+ */
 export async function djangoApp() {
   const devNul = await getDevNul();
   await asyncExec(`${targetDir}${target.pip} install Django > ${devNul}`);
   return;
 }
 
+/**
+ * Checks if we want to use dev/null or Nul
+ * @returns {Promise<String>} Nul or dev/null
+ */
 async function getDevNul() {
   return (await getOS()) === 'windows' ? 'NUL' : '/dev/null 2>&1';
 }
 
-export async function os(options, platform) {
+/**
+ * Sets up the correct targets for use depending on OS
+ * @param {Object} options 
+ * @param {String} platform 
+ */
+export async function targetOS(options, platform) {
   let envName = !options.envName ? 'env' : options.envName;
   if (platform == 'windows') {
     //prettier-ignore
