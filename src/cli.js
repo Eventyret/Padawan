@@ -5,10 +5,10 @@ import { title } from './common/common';
 import { createProject } from './main';
 
 /**
- *
+ *  Input taken directly from the user
  * @param {String[]} rawArgs
  */
-function parseArgumentsIntoOptions(rawArgs) {
+async function parseArgumentsIntoOptions(rawArgs) {
   const args = arg(
     {
       '--name': String,
@@ -35,6 +35,10 @@ function parseArgumentsIntoOptions(rawArgs) {
     gitpod: args['--gitpod'] || false,
   };
 }
+/**
+ * 
+ * @param {Object} options 
+ */
 async function promptForMissingOptions(options) {
   const defaultTemplate = 'UCFD';
   if (options.skipPrompts) {
@@ -112,8 +116,11 @@ async function promptForMissingOptions(options) {
     gitpod: answers.gitpod,
   };
 }
-
-async function extraQuestions(options) {
+/**
+ * Checking if the user has created a virtual enviroment before
+ * @param {Object} options 
+ */
+async function doesEnvExistForProject(options) {
   const questions = [];
   if (options.template.python && !options.gitpod) {
     questions.push({
@@ -130,6 +137,11 @@ async function extraQuestions(options) {
     env: answers.env,
   };
 }
+/**
+ *  Questions if the user wants us to create a virtual enviroment
+ * or if the user has one already what is the name of the folder.
+ * @param {Object} options 
+ */
 async function envQuestions(options) {
   const questions = [];
   if (!options.env && options.template.python && !options.gitpod) {
@@ -162,12 +174,16 @@ async function envQuestions(options) {
   };
 }
 
+/**
+ * Starting the main program
+ * @param {String[]} args 
+ */
 export async function cli(args) {
   clear();
   title('Padawan', 'ANSI Shadow');
   let options = parseArgumentsIntoOptions(args);
   options = await promptForMissingOptions(options);
-  options = await extraQuestions(options);
+  options = await doesEnvExistForProject(options);
   options = await envQuestions(options);
   await createProject(options);
 }
