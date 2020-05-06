@@ -13,6 +13,11 @@ import { installVirtualEnv, flaskApp, djangoApp } from './tasks/virtualenv';
 
 const access = promisify(fs.access);
 let errorToggle = false;
+
+/**
+ * Main function to create a project
+ * @param {Object} options 
+ */
 export async function createProject(options) {
   options = {
     ...options,
