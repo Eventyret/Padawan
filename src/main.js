@@ -15,9 +15,6 @@ import {
   createProcfile,
 } from './tasks/createFiles';
 import {
-  copyBackendFiles,
-  copyCommonFiles,
-  copyFrontendFiles,
   copyTemplateFiles,
   createProjectDir,
 } from './tasks/createStructure';
@@ -74,7 +71,7 @@ export async function createProject(options) {
     {
       title: `Copying Common files to ${options.name}`,
       skip: ctx => ctx.exists,
-      task: () => copyCommonFiles(options),
+      task: () => copyFiles(options, "common"),
       enabled: () => !options.error,
     },
     {
@@ -82,12 +79,12 @@ export async function createProject(options) {
       skip: ctx => ctx.exists,
       task: () =>
         //prettier-ignore
-        options.template.python ? copyBackendFiles(options) : copyFrontendFiles(options),
+        options.template.python ? copyFiles(options, "backend") : copyFiles(options, "frontend"),
       enabled: () => !options.error,
     },
     {
       title: `Copying Python settings ${options.name}`,
-      task: () => copyBackendFiles(options),
+      task: () => copyFiles(options, "backend"),
       skip: ctx =>
         // prettier-ignore
         ctx.exists || !options.template.python ? 'Not a Python Project 🚫🐍' : false,
@@ -95,7 +92,7 @@ export async function createProject(options) {
     },
     {
       title: `Copying template files to ${options.name}`,
-      task: () => copyTemplateFiles(options),
+      task: () => copyFiles(options, "templates"),
       enabled: () => !options.error,
       skip: ctx => ctx.exists,
     },

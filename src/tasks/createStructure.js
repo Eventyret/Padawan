@@ -7,23 +7,12 @@ const mkdir = promisify(fs.mkdir);
 const copy = promisify(ncp);
 const read = promisify(fs.readdir);
 
-export async function copyTemplateFiles(options) {
-  return copy(options.templateDirectory, options.targetDirectory, {
-    clobber: false,
-  });
-}
-export async function copyCommonFiles(options) {
-  return copy(options.commonDir, options.targetDirectory, {
-    clobber: false,
-  });
-}
-export async function copyBackendFiles(options) {
-  return copy(options.backendDir, options.targetDirectory, {
-    clobber: false,
-  });
-}
-export async function copyFrontendFiles(options) {
-  return copy(options.frontendDir, options.targetDirectory, {
+/**
+ * Copies the setup folder per project.
+ * @param {Object) options 
+ */
+export async function copyFiles(options, type) {
+  return copy(checkCopyType(type), options.targetDirectory, {
     clobber: false,
   });
 }
@@ -35,4 +24,20 @@ export async function createProjectDir(options) {
   );
   await read(options.targetDirectory);
   return mkdir(options.targetDirectory);
+}
+
+function checkCopyType(options, type){
+  switch (type) {
+    case "templates":
+      return  options.templateDirectory
+    case "common":
+    return options.commonDir
+    case "backend":
+    return options.backendDir
+    case "frontend":
+    return options.frontendDir
+    
+    default:
+      return null
+  }
 }
