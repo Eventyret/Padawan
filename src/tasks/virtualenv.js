@@ -72,7 +72,7 @@ async function getDevNul() {
  * @param {Object} options 
  * @param {String} platform 
  */
-export async function targetOS(options, platform) {
+async function targetOS(options, platform) {
   let envName = !options.envName ? 'env' : options.envName;
   if (platform == 'windows') {
     //prettier-ignore
