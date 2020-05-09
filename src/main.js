@@ -127,18 +127,18 @@ export async function createProject(options) {
       enabled: () => !options.error,
     },
     {
-      title: 'Setting up git',
-      task: () => gitTasks(options),
-      enabled: () => options.git && !options.error,
-      skip: (ctx) => ctx.exists,
-    },
-    {
       title: 'Configuring Procfile',
       task: () => createProcfile(options),
       enabled: () => (options.template.flask || options.template.django) && !options.error,
       skip: (ctx) =>
         // prettier-ignore
         ctx.exists || options.gitpod,
+    },
+    {
+      title: 'Setting up git',
+      task: () => gitTasks(options),
+      enabled: () => options.git && !options.error,
+      skip: (ctx) => ctx.exists,
     },
     {
       title: 'Setting up Virtual Enviroment',
