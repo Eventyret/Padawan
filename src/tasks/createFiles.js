@@ -32,7 +32,7 @@ export async function createGitIgnore(options) {
  * @param {Object} options 
  */
 export async function createProcfile(options) {
-  const content = options.template.flask ? `web: python app.py` : `web: gunicorn ${options.name.replace(/[^A-Z0-9]+/gi, '-').toLowerCase()}.wsgi:application`;
+  const content = await options.template.flask ? `web: python app.py` : `web: gunicorn ${options.name.replace(/[^A-Z0-9]+/gi, '-').toLowerCase()}.wsgi:application`;
   await append(options.targetDirectory + '/Procfile', content);
 }
 
@@ -52,7 +52,7 @@ export async function createHTML(options) {
  * @param {Object} options 
  */
 export async function createENVPy(options) {
-  await write(options.targetDirectory + '/env.py', generateENVFile(options));
+  await write(options.targetDirectory + '/env.py', await generateENVFile(options));
 }
 
 /**
