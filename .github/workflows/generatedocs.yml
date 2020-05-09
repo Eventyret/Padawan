@@ -8,7 +8,7 @@ on:
 
 jobs:
   generate_docs:
-    name: Documentation
+    name: Generate Documentation
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 12
       - run: npm ci
-      - name: Generate Docs
+      - name: Generate Documentation with JSDoc
         uses: andstor/jsdoc-action@v1
         with:
           source_dir: ./src
