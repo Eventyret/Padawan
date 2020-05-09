@@ -17,6 +17,7 @@
     "access": "public"
   },
   "scripts": {
+    "docs": "jsdoc -c jsdoc.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
@@ -53,6 +54,10 @@
     "ncp": "^2.0.0",
     "pkg-install": "^1.0.0",
     "shelljs": "^0.8.4",
-    "simple-git": "^2.2.0"
+    "simple-git": "^2.4.0"
+  },
+  "devDependencies": {
+    "clean-jsdoc-theme": "^2.2.11",
+    "jsdoc": "^3.6.4"
   }
 }
