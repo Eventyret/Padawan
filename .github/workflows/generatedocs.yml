@@ -10,12 +10,16 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Build
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: npm ci
+      - name: Generate Docs
         uses: andstor/jsdoc-action@v1
         with:
           source_dir: ./src
           output_dir: ./docs
           config_file: jsdoc.json
+          
+          
