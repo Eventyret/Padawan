@@ -16,19 +16,19 @@ export async function getOS() {
     case 'linux':
       return 'linux';
     default:
-      return false;
+      return;
   }
 }
 
 /**
  * Creating custom title
  * @param {String} text - The text to display
- * @param {String} font - The Font used
+ * @param {*} font - The Font used
  */
 export async function title(text, font) {
   console.log(
     chalk.yellow(
-      figlet.textSync(text, { horizontalLayout: 'full', font: font ? font :'Big' }),
+      figlet.textSync(text, { horizontalLayout: 'full', font : font ? font :'Big' }),
     ),
   );
 }

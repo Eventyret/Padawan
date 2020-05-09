@@ -148,7 +148,7 @@ export async function createProject(options) {
     },
     {
       title: 'Setting Flask up',
-      task: () => flaskApp(options),
+      task: () => flaskApp(),
       enabled: () => options.template.flask && options.env && !options.error,
       skip: (ctx) =>
         // prettier-ignore
@@ -156,7 +156,7 @@ export async function createProject(options) {
     },
     {
       title: 'Setting Django up',
-      task: () => djangoApp(options),
+      task: () => djangoApp(),
       enabled: () => options.template.django && options.env && !options.error,
       skip: (ctx) =>
         // prettier-ignore
@@ -181,7 +181,7 @@ export async function createProject(options) {
     }
     if (options.error) {
       clear();
-      title('Error');
+      title('Error', 'ANSI Shadow');
       console.log(`${options.name} folder already exists`);
       return false;
     }
