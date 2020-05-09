@@ -1,3 +1,9 @@
+// TODO: Rewrite better UI / UX
+/**
+ * Generates the Boilerplate for the Readme file
+ * @param {Object} config
+  * @returns {Promise<String>} Custom boilerplate for README.md
+ */
 export async function generateREADME(config) {
   return `
 # ${config.name}
@@ -77,6 +83,11 @@ In addition, if it is not obvious, you should also describe how to run your code
   `
 }
 
+// TODO: Rewrite with better testing
+/**
+ *  Generates the Testing.md for the project with boilerplate
+ * @returns {String} Full boilerplate for Testing.md
+ */
 export async function generateTESTING() {
   return `# Testing
 

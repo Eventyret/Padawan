@@ -1,0 +1,26 @@
+name: Documentation
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - master
+
+jobs:
+  generate_docs:
+    name: Generate Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: npm ci
+      - name: Generate Documentation with JSDoc
+        uses: andstor/jsdoc-action@v1
+        with:
+          source_dir: ./src
+          output_dir: ./docs
+          config_file: jsdoc.json
+          
+          

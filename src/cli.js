@@ -4,36 +4,41 @@ import clear from 'clear';
 import { title } from './common/common';
 import { createProject } from './main';
 
-function parseArgumentsIntoOptions(rawArgs) {
+/**
+ *  Input taken directly from the user
+ * @param {String[]} rawArgs
+ */
+async function parseArgumentsIntoOptions(rawArgs) {
   const args = arg(
     {
       '--name': String,
       '--skip': Boolean,
       '--git': Boolean,
-      '--install': Boolean,
       '--clean': Boolean,
       '--gitpod': Boolean,
       '-n': '--name',
       '-g': '--git',
       '-p': '--gitpod',
       '-s': '--skip',
-      '-i': '--install',
       '-c': '--clean',
     },
     {
       argv: rawArgs.slice(2),
-    },
+    }
   );
   return {
     name: args['--name'],
     skipPrompts: args['--skip'] || false,
     git: args['--git'] || false,
     template: args._[0],
-    runInstall: args['--install'] || false,
     clean: args['--clean'] || false,
     gitpod: args['--gitpod'] || false,
   };
 }
+/**
+ * 
+ * @param {Object} options 
+ */
 async function promptForMissingOptions(options) {
   const defaultTemplate = 'UCFD';
   if (options.skipPrompts) {
@@ -49,7 +54,7 @@ async function promptForMissingOptions(options) {
       type: 'input',
       name: 'name',
       message: 'What is the name of this amazing project: ',
-      validate: function(value) {
+      validate: function (value) {
         if (value.length) {
           return true;
         } else {
@@ -74,7 +79,7 @@ async function promptForMissingOptions(options) {
         },
         {
           name: 'Data Centric Development (MS3)',
-          value: { name: 'DCD', python: true, django: false, flask: true, js:true },
+          value: { name: 'DCD', python: true, django: false, flask: true, js: true },
         },
         {
           name: 'Full Stack Frameworks (MS4)',
@@ -111,8 +116,11 @@ async function promptForMissingOptions(options) {
     gitpod: answers.gitpod,
   };
 }
-
-async function extraQuestions(options) {
+/**
+ * Checking if the user has created a virtual enviroment before
+ * @param {Object} options 
+ */
+async function doesEnvExistForProject(options) {
   const questions = [];
   if (options.template.python && !options.gitpod) {
     questions.push({
@@ -129,6 +137,11 @@ async function extraQuestions(options) {
     env: answers.env,
   };
 }
+/**
+ *  Questions if the user wants us to create a virtual enviroment
+ * or if the user has one already what is the name of the folder.
+ * @param {Object} options 
+ */
 async function envQuestions(options) {
   const questions = [];
   if (!options.env && options.template.python && !options.gitpod) {
@@ -144,7 +157,7 @@ async function envQuestions(options) {
       type: 'input',
       name: 'envName',
       message: 'What is the name of the folder for your virtual enviroment',
-      validate: function(value) {
+      validate: function (value) {
         if (value.length) {
           return true;
         } else {
@@ -161,12 +174,16 @@ async function envQuestions(options) {
   };
 }
 
+/**
+ * Starting the main program
+ * @param {String[]} args 
+ */
 export async function cli(args) {
   clear();
   title('Padawan', 'ANSI Shadow');
   let options = parseArgumentsIntoOptions(args);
   options = await promptForMissingOptions(options);
-  options = await extraQuestions(options);
+  options = await doesEnvExistForProject(options);
   options = await envQuestions(options);
   await createProject(options);
 }
