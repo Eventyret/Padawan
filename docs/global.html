@@ -2,22 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Global</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Global</title>
 
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="scripts/search.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.5/fuse.min.js"></script> -->
+    <script src="scripts/fuse.js"></script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/ionicons.min.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
-</head>
+    <link type="text/css" rel="stylesheet" href="styles/clean-jsdoc-theme.css">
+    
+    
+    
+<svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none">
+    <defs>
+        <symbol id="copy-icon" viewbox="0 0 488.3 488.3">
+            <g>
+                <path d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z"/>
+                <path d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z"/>
+            </g>
+        </symbol>
+    </defs>
+</svg>
 
+</head>
 <body>
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html"><div class="text">Home</div></a></h2><div class="search-box"><input type="text" placeholder="Search..." id="search-box" /><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-list-div"><h3><a href="global.html">Global</a></h3><ul><li><a href="global.html#checkCopyType">checkCopyType</a></li><li><a href="global.html#cli">cli</a></li><li><a href="global.html#copyFiles">copyFiles</a></li><li><a href="global.html#createENVPy">createENVPy</a></li><li><a href="global.html#createGitIgnore">createGitIgnore</a></li><li><a href="global.html#createHTML">createHTML</a></li><li><a href="global.html#createMarkdown">createMarkdown</a></li><li><a href="global.html#createProcfile">createProcfile</a></li><li><a href="global.html#createProject">createProject</a></li><li><a href="global.html#createProjectDir">createProjectDir</a></li><li><a href="global.html#createVSCodeSettings">createVSCodeSettings</a></li><li><a href="global.html#djangoApp">djangoApp</a></li><li><a href="global.html#djangoOnly">djangoOnly</a></li><li><a href="global.html#djangoSettings">djangoSettings</a></li><li><a href="global.html#doesEnvExistForProject">doesEnvExistForProject</a></li><li><a href="global.html#envQuestions">envQuestions</a></li><li><a href="global.html#flaskApp">flaskApp</a></li><li><a href="global.html#flaskOnly">flaskOnly</a></li><li><a href="global.html#flaskSettings">flaskSettings</a></li><li><a href="global.html#generateENVFile">generateENVFile</a></li><li><a href="global.html#generateHTML">generateHTML</a></li><li><a href="global.html#generatePath">generatePath</a></li><li><a href="global.html#generatePythonSettings">generatePythonSettings</a></li><li><a href="global.html#generateREADME">generateREADME</a></li><li><a href="global.html#generateRequirements">generateRequirements</a></li><li><a href="global.html#generateTESTING">generateTESTING</a></li><li><a href="global.html#getDevNul">getDevNul</a></li><li><a href="global.html#getOS">getOS</a></li><li><a href="global.html#gitTasks">gitTasks</a></li><li><a href="global.html#installVirtualEnv">installVirtualEnv</a></li><li><a href="global.html#parseArgumentsIntoOptions">parseArgumentsIntoOptions</a></li><li><a href="global.html#pipInstallAndFreeze">pipInstallAndFreeze</a></li><li><a href="global.html#promptForMissingOptions">promptForMissingOptions</a></li><li><a href="global.html#targetOS">targetOS</a></li><li><a href="global.html#title">title</a></li></ul></div>
+</nav>
 
 <div id="main">
-
+    
     <h1 class="page-title">Global</h1>
+    
 
     
 
@@ -26,12 +57,7 @@
 
 <section>
 
-<header>
-    
-        <h2></h2>
-        
-    
-</header>
+
 
 <article>
     <div class="container-overview">
@@ -39,44 +65,6 @@
         
 
         
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
         
     
     </div>
@@ -87,9 +75,7 @@
 
     
 
-    
-
-    
+     
 
     
 
@@ -103,17 +89,15 @@
 
     
 
-    
     <h4 class="name" id="checkCopyType"><span class="type-signature"></span>checkCopyType<span class="signature">(options, type)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Checks what folder to copy</p>
-</div>
+    <div class="description">
+        <p>Checks what folder to copy</p>
+    </div>
 
 
 
@@ -123,8 +107,9 @@
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -194,6 +179,7 @@
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -226,10 +212,12 @@
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tasks_createStructure.js.html">tasks/createStructure.js</a>, <a href="tasks_createStructure.js.html#line39">line 39</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="tasks_createStructure.js.html">tasks/createStructure.js</a>, <a href="tasks_createStructure.js.html#line39">line 39</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -254,26 +242,20 @@
 
 
 
-
-
-
-
         
             
 
     
 
-    
     <h4 class="name" id="cli"><span class="type-signature"></span>cli<span class="signature">(args)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Starting the main program</p>
-</div>
+    <div class="description">
+        <p>Starting the main program</p>
+    </div>
 
 
 
@@ -283,8 +265,9 @@
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -331,6 +314,7 @@
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -363,10 +347,12 @@
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cli.js.html">cli.js</a>, <a href="cli.js.html#line181">line 181</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="cli.js.html">cli.js</a>, <a href="cli.js.html#line181">line 181</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -391,26 +377,20 @@
 
 
 
-
-
-
-
         
             
 
     
 
-    
     <h4 class="name" id="copyFiles"><span class="type-signature"></span>copyFiles<span class="signature">({Object))</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Copies the setup folder per project.</p>
-</div>
+    <div class="description">
+        <p>Copies the setup folder per project.</p>
+    </div>
 
 
 
@@ -420,8 +400,9 @@
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -463,6 +444,7 @@
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -495,10 +477,12 @@
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tasks_createStructure.js.html">tasks/createStructure.js</a>, <a href="tasks_createStructure.js.html#line14">line 14</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="tasks_createStructure.js.html">tasks/createStructure.js</a>, <a href="tasks_createStructure.js.html#line14">line 14</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -523,26 +507,20 @@
 
 
 
-
-
-
-
         
             
 
     
 
-    
     <h4 class="name" id="createENVPy"><span class="type-signature"></span>createENVPy<span class="signature">(options)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Generates env.py used for python projects</p>
-</div>
+    <div class="description">
+        <p>Generates env.py used for python projects</p>
+    </div>
 
 
 
@@ -552,8 +530,9 @@
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -600,6 +579,7 @@
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -632,10 +612,12 @@
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tasks_createFiles.js.html">tasks/createFiles.js</a>, <a href="tasks_createFiles.js.html#line54">line 54</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="tasks_createFiles.js.html">tasks/createFiles.js</a>, <a href="tasks_createFiles.js.html#line54">line 54</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -660,26 +642,20 @@
 
 
 
-
-
-
-
         
             
 
     
 
-    
     <h4 class="name" id="createGitIgnore"><span class="type-signature"></span>createGitIgnore<span class="signature">(options)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Generates a custom .gitignore file depending on project</p>
-</div>
+    <div class="description">
+        <p>Generates a custom .gitignore file depending on project</p>
+    </div>
 
 
 
@@ -689,8 +665,9 @@
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -737,6 +714,7 @@
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -769,10 +747,12 @@
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tasks_createFiles.js.html">tasks/createFiles.js</a>, <a href="tasks_createFiles.js.html#line26">line 26</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="tasks_createFiles.js.html">tasks/createFiles.js</a>, <a href="tasks_createFiles.js.html#line26">line 26</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -797,26 +777,20 @@
 
 
 
-
-
-
-
         
             
 
     
 
-    
     <h4 class="name" id="createHTML"><span class="type-signature"></span>createHTML<span class="signature">(options)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Generates HTML for projects</p>
-</div>
+    <div class="description">
+        <p>Generates HTML for projects</p>
+    </div>
 
 
 
@@ -826,8 +800,9 @@
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -874,6 +849,7 @@
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -906,10 +882,12 @@
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tasks_createFiles.js.html">tasks/createFiles.js</a>, <a href="tasks_createFiles.js.html#line43">line 43</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="tasks_createFiles.js.html">tasks/createFiles.js</a>, <a href="tasks_createFiles.js.html#line43">line 43</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -934,26 +912,20 @@
 
 
 
-
-
-
-
         
             
 
     
 
-    
     <h4 class="name" id="createMarkdown"><span class="type-signature"></span>createMarkdown<span class="signature">(options)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Generates README and Markdown files</p>
-</div>
+    <div class="description">
+        <p>Generates README and Markdown files</p>
+    </div>
 
 
 
@@ -963,8 +935,9 @@
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -1011,6 +984,7 @@
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -1043,10 +1017,12 @@
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tasks_createFiles.js.html">tasks/createFiles.js</a>, <a href="tasks_createFiles.js.html#line15">line 15</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="tasks_createFiles.js.html">tasks/createFiles.js</a>, <a href="tasks_createFiles.js.html#line15">line 15</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -1071,26 +1047,20 @@
 
 
 
-
-
-
-
         
             
 
     
 
-    
     <h4 class="name" id="createProcfile"><span class="type-signature"></span>createProcfile<span class="signature">(options)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Generates a custom Procfile depending on project</p>
-</div>
+    <div class="description">
+        <p>Generates a custom Procfile depending on project</p>
+    </div>
 
 
 
@@ -1100,8 +1070,9 @@
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -1148,6 +1119,7 @@
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -1180,10 +1152,12 @@
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tasks_createFiles.js.html">tasks/createFiles.js</a>, <a href="tasks_createFiles.js.html#line34">line 34</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="tasks_createFiles.js.html">tasks/createFiles.js</a>, <a href="tasks_createFiles.js.html#line34">line 34</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -1208,26 +1182,20 @@
 
 
 
-
-
-
-
         
             
 
     
 
-    
     <h4 class="name" id="createProject"><span class="type-signature"></span>createProject<span class="signature">(options)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Main function to create a project</p>
-</div>
+    <div class="description">
+        <p>Main function to create a project</p>
+    </div>
 
 
 
@@ -1237,8 +1205,9 @@
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -1285,6 +1254,7 @@
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -1317,10 +1287,12 @@
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="main.js.html">main.js</a>, <a href="main.js.html#line21">line 21</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="main.js.html">main.js</a>, <a href="main.js.html#line21">line 21</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -1345,26 +1317,20 @@
 
 
 
-
-
-
-
         
             
 
     
 
-    
     <h4 class="name" id="createProjectDir"><span class="type-signature"></span>createProjectDir<span class="signature">(options)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Creates the main Project directory.</p>
-</div>
+    <div class="description">
+        <p>Creates the main Project directory.</p>
+    </div>
 
 
 
@@ -1374,8 +1340,9 @@
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -1422,6 +1389,7 @@
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -1454,10 +1422,12 @@
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tasks_createStructure.js.html">tasks/createStructure.js</a>, <a href="tasks_createStructure.js.html#line25">line 25</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="tasks_createStructure.js.html">tasks/createStructure.js</a>, <a href="tasks_createStructure.js.html#line25">line 25</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -1479,18 +1449,17 @@
 
 
 
-
-
-<h5>Returns:</h5>
-
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
         
+            
 <div class="param-desc">
     <p>Target Directory if created</p>
 </div>
 
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -1501,9 +1470,8 @@
 
     </dd>
 </dl>
-
-    
-
+ 
+    </div>
 
 
 
@@ -1513,17 +1481,15 @@
 
     
 
-    
     <h4 class="name" id="createVSCodeSettings"><span class="type-signature"></span>createVSCodeSettings<span class="signature">(options)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Generates vscode settings per project.</p>
-</div>
+    <div class="description">
+        <p>Generates vscode settings per project.</p>
+    </div>
 
 
 
@@ -1533,8 +1499,9 @@
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -1581,6 +1548,7 @@
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -1613,10 +1581,12 @@
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tasks_createFiles.js.html">tasks/createFiles.js</a>, <a href="tasks_createFiles.js.html#line62">line 62</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="tasks_createFiles.js.html">tasks/createFiles.js</a>, <a href="tasks_createFiles.js.html#line62">line 62</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -1641,26 +1611,20 @@
 
 
 
-
-
-
-
         
             
 
     
 
-    
     <h4 class="name" id="djangoApp"><span class="type-signature"></span>djangoApp<span class="signature">()</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Installs Django into the virtual environment</p>
-</div>
+    <div class="description">
+        <p>Installs Django into the virtual environment</p>
+    </div>
 
 
 
@@ -1701,10 +1665,12 @@
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tasks_virtualenv.js.html">tasks/virtualenv.js</a>, <a href="tasks_virtualenv.js.html#line56">line 56</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="tasks_virtualenv.js.html">tasks/virtualenv.js</a>, <a href="tasks_virtualenv.js.html#line56">line 56</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -1713,10 +1679,6 @@
 
     
 </dl>
-
-
-
-
 
 
 
@@ -1738,17 +1700,15 @@
 
     
 
-    
     <h4 class="name" id="djangoOnly"><span class="type-signature"></span>djangoOnly<span class="signature">()</span><span class="type-signature"> &rarr; {String}</span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Generate variables only used by Django</p>
-</div>
+    <div class="description">
+        <p>Generate variables only used by Django</p>
+    </div>
 
 
 
@@ -1789,10 +1749,12 @@
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="generate_generateENV.js.html">generate/generateENV.js</a>, <a href="generate_generateENV.js.html#line36">line 36</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="generate_generateENV.js.html">generate/generateENV.js</a>, <a href="generate_generateENV.js.html#line36">line 36</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -1814,18 +1776,17 @@
 
 
 
-
-
-<h5>Returns:</h5>
-
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
         
+            
 <div class="param-desc">
     <p>Stripe &amp; AWS information</p>
 </div>
 
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -1836,9 +1797,8 @@
 
     </dd>
 </dl>
-
-    
-
+ 
+    </div>
 
 
 
@@ -1848,17 +1808,15 @@
 
     
 
-    
     <h4 class="name" id="djangoSettings"><span class="type-signature">(async) </span>djangoSettings<span class="signature">()</span><span class="type-signature"> &rarr; {Pormise.&lt;String>}</span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Django specific settings</p>
-</div>
+    <div class="description">
+        <p>Django specific settings</p>
+    </div>
 
 
 
@@ -1899,10 +1857,12 @@
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="generate_generateSettings.js.html">generate/generateSettings.js</a>, <a href="generate_generateSettings.js.html#line64">line 64</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="generate_generateSettings.js.html">generate/generateSettings.js</a>, <a href="generate_generateSettings.js.html#line64">line 64</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -1924,18 +1884,17 @@
 
 
 
-
-
-<h5>Returns:</h5>
-
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
         
+            
 <div class="param-desc">
     <p>Stripe &amp; AWS Settings</p>
 </div>
 
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -1946,9 +1905,8 @@
 
     </dd>
 </dl>
-
-    
-
+ 
+    </div>
 
 
 
@@ -1958,17 +1916,15 @@
 
     
 
-    
     <h4 class="name" id="doesEnvExistForProject"><span class="type-signature">(async) </span>doesEnvExistForProject<span class="signature">(options)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Checking if the user has created a virtual enviroment before</p>
-</div>
+    <div class="description">
+        <p>Checking if the user has created a virtual enviroment before</p>
+    </div>
 
 
 
@@ -1978,8 +1934,9 @@
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -2026,6 +1983,7 @@
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -2058,10 +2016,12 @@
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cli.js.html">cli.js</a>, <a href="cli.js.html#line123">line 123</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="cli.js.html">cli.js</a>, <a href="cli.js.html#line123">line 123</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -2086,27 +2046,21 @@
 
 
 
-
-
-
-
         
             
 
     
 
-    
     <h4 class="name" id="envQuestions"><span class="type-signature">(async) </span>envQuestions<span class="signature">(options)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Questions if the user wants us to create a virtual enviroment
+    <div class="description">
+        <p>Questions if the user wants us to create a virtual enviroment
 or if the user has one already what is the name of the folder.</p>
-</div>
+    </div>
 
 
 
@@ -2116,8 +2070,9 @@ or if the user has one already what is the name of the folder.</p>
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -2164,6 +2119,7 @@ or if the user has one already what is the name of the folder.</p>
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -2196,10 +2152,12 @@ or if the user has one already what is the name of the folder.</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cli.js.html">cli.js</a>, <a href="cli.js.html#line145">line 145</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="cli.js.html">cli.js</a>, <a href="cli.js.html#line145">line 145</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -2224,26 +2182,20 @@ or if the user has one already what is the name of the folder.</p>
 
 
 
-
-
-
-
         
             
 
     
 
-    
     <h4 class="name" id="flaskApp"><span class="type-signature"></span>flaskApp<span class="signature">()</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Install Flask into the virtual environment</p>
-</div>
+    <div class="description">
+        <p>Install Flask into the virtual environment</p>
+    </div>
 
 
 
@@ -2284,10 +2236,12 @@ or if the user has one already what is the name of the folder.</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tasks_virtualenv.js.html">tasks/virtualenv.js</a>, <a href="tasks_virtualenv.js.html#line47">line 47</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="tasks_virtualenv.js.html">tasks/virtualenv.js</a>, <a href="tasks_virtualenv.js.html#line47">line 47</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -2296,10 +2250,6 @@ or if the user has one already what is the name of the folder.</p>
 
     
 </dl>
-
-
-
-
 
 
 
@@ -2321,17 +2271,15 @@ or if the user has one already what is the name of the folder.</p>
 
     
 
-    
     <h4 class="name" id="flaskOnly"><span class="type-signature"></span>flaskOnly<span class="signature">()</span><span class="type-signature"> &rarr; {String}</span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Generate variables only used by flask</p>
-</div>
+    <div class="description">
+        <p>Generate variables only used by flask</p>
+    </div>
 
 
 
@@ -2372,10 +2320,12 @@ or if the user has one already what is the name of the folder.</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="generate_generateENV.js.html">generate/generateENV.js</a>, <a href="generate_generateENV.js.html#line25">line 25</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="generate_generateENV.js.html">generate/generateENV.js</a>, <a href="generate_generateENV.js.html#line25">line 25</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -2397,18 +2347,17 @@ or if the user has one already what is the name of the folder.</p>
 
 
 
-
-
-<h5>Returns:</h5>
-
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
         
+            
 <div class="param-desc">
     <p>MongoDB information and Port</p>
 </div>
 
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -2419,9 +2368,8 @@ or if the user has one already what is the name of the folder.</p>
 
     </dd>
 </dl>
-
-    
-
+ 
+    </div>
 
 
 
@@ -2431,17 +2379,15 @@ or if the user has one already what is the name of the folder.</p>
 
     
 
-    
     <h4 class="name" id="flaskSettings"><span class="type-signature">(async) </span>flaskSettings<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;String>}</span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Flask specific settings</p>
-</div>
+    <div class="description">
+        <p>Flask specific settings</p>
+    </div>
 
 
 
@@ -2482,10 +2428,12 @@ or if the user has one already what is the name of the folder.</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="generate_generateSettings.js.html">generate/generateSettings.js</a>, <a href="generate_generateSettings.js.html#line56">line 56</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="generate_generateSettings.js.html">generate/generateSettings.js</a>, <a href="generate_generateSettings.js.html#line56">line 56</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -2507,18 +2455,17 @@ or if the user has one already what is the name of the folder.</p>
 
 
 
-
-
-<h5>Returns:</h5>
-
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
         
+            
 <div class="param-desc">
     <p>Mongo URI Settings</p>
 </div>
 
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -2529,9 +2476,8 @@ or if the user has one already what is the name of the folder.</p>
 
     </dd>
 </dl>
-
-    
-
+ 
+    </div>
 
 
 
@@ -2541,18 +2487,16 @@ or if the user has one already what is the name of the folder.</p>
 
     
 
-    
     <h4 class="name" id="generateENVFile"><span class="type-signature"></span>generateENVFile<span class="signature">(options)</span><span class="type-signature"> &rarr; {Promise.&lt;String>}</span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Generate environmental variables
+    <div class="description">
+        <p>Generate environmental variables
 for env.py</p>
-</div>
+    </div>
 
 
 
@@ -2562,8 +2506,9 @@ for env.py</p>
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -2610,6 +2555,7 @@ for env.py</p>
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -2642,10 +2588,12 @@ for env.py</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="generate_generateENV.js.html">generate/generateENV.js</a>, <a href="generate_generateENV.js.html#line8">line 8</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="generate_generateENV.js.html">generate/generateENV.js</a>, <a href="generate_generateENV.js.html#line8">line 8</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -2667,18 +2615,17 @@ for env.py</p>
 
 
 
-
-
-<h5>Returns:</h5>
-
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
         
+            
 <div class="param-desc">
     <p>Hostname and random generated string</p>
 </div>
 
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -2689,9 +2636,8 @@ for env.py</p>
 
     </dd>
 </dl>
-
-    
-
+ 
+    </div>
 
 
 
@@ -2701,17 +2647,15 @@ for env.py</p>
 
     
 
-    
     <h4 class="name" id="generateHTML"><span class="type-signature"></span>generateHTML<span class="signature">(config)</span><span class="type-signature"> &rarr; {Promise.&lt;String>}</span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>This will generate the html for Milestone 1 and Milestone 2</p>
-</div>
+    <div class="description">
+        <p>This will generate the html for Milestone 1 and Milestone 2</p>
+    </div>
 
 
 
@@ -2721,8 +2665,9 @@ for env.py</p>
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -2769,6 +2714,7 @@ for env.py</p>
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -2801,10 +2747,12 @@ for env.py</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="generate_generateHTML.js.html">generate/generateHTML.js</a>, <a href="generate_generateHTML.js.html#line7">line 7</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="generate_generateHTML.js.html">generate/generateHTML.js</a>, <a href="generate_generateHTML.js.html#line7">line 7</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -2826,18 +2774,17 @@ for env.py</p>
 
 
 
-
-
-<h5>Returns:</h5>
-
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
         
+            
 <div class="param-desc">
     <p>Customized HTML 5 Boiler template</p>
 </div>
 
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -2848,9 +2795,8 @@ for env.py</p>
 
     </dd>
 </dl>
-
-    
-
+ 
+    </div>
 
 
 
@@ -2860,17 +2806,15 @@ for env.py</p>
 
     
 
-    
     <h4 class="name" id="generatePath"><span class="type-signature">(async) </span>generatePath<span class="signature">(config, os)</span><span class="type-signature"> &rarr; {Promise.&lt;String>}</span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Generates correct path for virtual enviroment</p>
-</div>
+    <div class="description">
+        <p>Generates correct path for virtual enviroment</p>
+    </div>
 
 
 
@@ -2880,8 +2824,9 @@ for env.py</p>
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -2951,6 +2896,7 @@ for env.py</p>
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -2983,10 +2929,12 @@ for env.py</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="generate_generateSettings.js.html">generate/generateSettings.js</a>, <a href="generate_generateSettings.js.html#line44">line 44</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="generate_generateSettings.js.html">generate/generateSettings.js</a>, <a href="generate_generateSettings.js.html#line44">line 44</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -3008,18 +2956,17 @@ for env.py</p>
 
 
 
-
-
-<h5>Returns:</h5>
-
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
         
+            
 <div class="param-desc">
     <p>Customized OS path for virutal enviroment</p>
 </div>
 
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -3030,9 +2977,8 @@ for env.py</p>
 
     </dd>
 </dl>
-
-    
-
+ 
+    </div>
 
 
 
@@ -3042,18 +2988,16 @@ for env.py</p>
 
     
 
-    
     <h4 class="name" id="generatePythonSettings"><span class="type-signature"></span>generatePythonSettings<span class="signature">(config)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Generates python specific vscode settings.
+    <div class="description">
+        <p>Generates python specific vscode settings.
 This includes a secret key and linting</p>
-</div>
+    </div>
 
 
 
@@ -3063,8 +3007,9 @@ This includes a secret key and linting</p>
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -3111,6 +3056,7 @@ This includes a secret key and linting</p>
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -3143,10 +3089,12 @@ This includes a secret key and linting</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="generate_generateSettings.js.html">generate/generateSettings.js</a>, <a href="generate_generateSettings.js.html#line9">line 9</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="generate_generateSettings.js.html">generate/generateSettings.js</a>, <a href="generate_generateSettings.js.html#line9">line 9</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -3168,19 +3116,17 @@ This includes a secret key and linting</p>
 
 
 
-
-
-<h5>Returns:</h5>
-
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
         
+            
 <div class="param-desc">
     <p>Customized vscode settings per OS.</p>
 </div>
 
 
-
-    
-
+ 
+    </div>
 
 
 
@@ -3190,17 +3136,15 @@ This includes a secret key and linting</p>
 
     
 
-    
     <h4 class="name" id="generateREADME"><span class="type-signature"></span>generateREADME<span class="signature">(config)</span><span class="type-signature"> &rarr; {Promise.&lt;String>}</span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Generates the Boilerplate for the Readme file</p>
-</div>
+    <div class="description">
+        <p>Generates the Boilerplate for the Readme file</p>
+    </div>
 
 
 
@@ -3210,8 +3154,9 @@ This includes a secret key and linting</p>
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -3258,6 +3203,7 @@ This includes a secret key and linting</p>
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -3290,10 +3236,12 @@ This includes a secret key and linting</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="generate_generateMarkdown.js.html">generate/generateMarkdown.js</a>, <a href="generate_generateMarkdown.js.html#line7">line 7</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="generate_generateMarkdown.js.html">generate/generateMarkdown.js</a>, <a href="generate_generateMarkdown.js.html#line7">line 7</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -3315,18 +3263,17 @@ This includes a secret key and linting</p>
 
 
 
-
-
-<h5>Returns:</h5>
-
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
         
+            
 <div class="param-desc">
     <p>Custom boilerplate for README.md</p>
 </div>
 
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -3337,9 +3284,8 @@ This includes a secret key and linting</p>
 
     </dd>
 </dl>
-
-    
-
+ 
+    </div>
 
 
 
@@ -3349,17 +3295,15 @@ This includes a secret key and linting</p>
 
     
 
-    
     <h4 class="name" id="generateRequirements"><span class="type-signature"></span>generateRequirements<span class="signature">(options)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Generates the requirements.txt for Milestone 3 or Milestone 4</p>
-</div>
+    <div class="description">
+        <p>Generates the requirements.txt for Milestone 3 or Milestone 4</p>
+    </div>
 
 
 
@@ -3369,8 +3313,9 @@ This includes a secret key and linting</p>
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -3417,6 +3362,7 @@ This includes a secret key and linting</p>
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -3449,10 +3395,12 @@ This includes a secret key and linting</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="generate_generateRequirements.js.html">generate/generateRequirements.js</a>, <a href="generate_generateRequirements.js.html#line10">line 10</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="generate_generateRequirements.js.html">generate/generateRequirements.js</a>, <a href="generate_generateRequirements.js.html#line10">line 10</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -3461,10 +3409,6 @@ This includes a secret key and linting</p>
 
     
 </dl>
-
-
-
-
 
 
 
@@ -3486,17 +3430,15 @@ This includes a secret key and linting</p>
 
     
 
-    
     <h4 class="name" id="generateTESTING"><span class="type-signature"></span>generateTESTING<span class="signature">()</span><span class="type-signature"> &rarr; {String}</span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Generates the Testing.md for the project with boilerplate</p>
-</div>
+    <div class="description">
+        <p>Generates the Testing.md for the project with boilerplate</p>
+    </div>
 
 
 
@@ -3537,10 +3479,12 @@ This includes a secret key and linting</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="generate_generateMarkdown.js.html">generate/generateMarkdown.js</a>, <a href="generate_generateMarkdown.js.html#line91">line 91</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="generate_generateMarkdown.js.html">generate/generateMarkdown.js</a>, <a href="generate_generateMarkdown.js.html#line91">line 91</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -3562,18 +3506,17 @@ This includes a secret key and linting</p>
 
 
 
-
-
-<h5>Returns:</h5>
-
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
         
+            
 <div class="param-desc">
     <p>Full boilerplate for Testing.md</p>
 </div>
 
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -3584,9 +3527,8 @@ This includes a secret key and linting</p>
 
     </dd>
 </dl>
-
-    
-
+ 
+    </div>
 
 
 
@@ -3596,17 +3538,15 @@ This includes a secret key and linting</p>
 
     
 
-    
     <h4 class="name" id="getDevNul"><span class="type-signature">(async) </span>getDevNul<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;String>}</span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Checks if we want to use dev/null or Nul</p>
-</div>
+    <div class="description">
+        <p>Checks if we want to use dev/null or Nul</p>
+    </div>
 
 
 
@@ -3647,10 +3587,12 @@ This includes a secret key and linting</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tasks_virtualenv.js.html">tasks/virtualenv.js</a>, <a href="tasks_virtualenv.js.html#line66">line 66</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="tasks_virtualenv.js.html">tasks/virtualenv.js</a>, <a href="tasks_virtualenv.js.html#line66">line 66</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -3672,18 +3614,17 @@ This includes a secret key and linting</p>
 
 
 
-
-
-<h5>Returns:</h5>
-
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
         
+            
 <div class="param-desc">
     <p>Nul or dev/null</p>
 </div>
 
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -3694,9 +3635,8 @@ This includes a secret key and linting</p>
 
     </dd>
 </dl>
-
-    
-
+ 
+    </div>
 
 
 
@@ -3706,17 +3646,15 @@ This includes a secret key and linting</p>
 
     
 
-    
     <h4 class="name" id="getOS"><span class="type-signature"></span>getOS<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;String>}</span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>This will return the name of the platform</p>
-</div>
+    <div class="description">
+        <p>This will return the name of the platform</p>
+    </div>
 
 
 
@@ -3757,10 +3695,12 @@ This includes a secret key and linting</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="common_common.js.html">common/common.js</a>, <a href="common_common.js.html#line9">line 9</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="common_common.js.html">common/common.js</a>, <a href="common_common.js.html#line9">line 9</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -3782,11 +3722,10 @@ This includes a secret key and linting</p>
 
 
 
-
-
-<h5>Returns:</h5>
-
+    <div class="method-member-container mt-20">
+    <strong>Returns:</strong>
         
+            
 <div class="param-desc">
     <ul>
 <li>Name of platform</li>
@@ -3795,7 +3734,7 @@ This includes a secret key and linting</p>
 
 
 
-<dl>
+<dl class="param-type">
     <dt>
         Type
     </dt>
@@ -3806,9 +3745,8 @@ This includes a secret key and linting</p>
 
     </dd>
 </dl>
-
-    
-
+ 
+    </div>
 
 
 
@@ -3818,17 +3756,15 @@ This includes a secret key and linting</p>
 
     
 
-    
     <h4 class="name" id="gitTasks"><span class="type-signature"></span>gitTasks<span class="signature">(options)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Will execute git init and git add with a commit</p>
-</div>
+    <div class="description">
+        <p>Will execute git init and git add with a commit</p>
+    </div>
 
 
 
@@ -3838,8 +3774,9 @@ This includes a secret key and linting</p>
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -3886,6 +3823,7 @@ This includes a secret key and linting</p>
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -3918,10 +3856,12 @@ This includes a secret key and linting</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tasks_git.js.html">tasks/git.js</a>, <a href="tasks_git.js.html#line8">line 8</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="tasks_git.js.html">tasks/git.js</a>, <a href="tasks_git.js.html#line8">line 8</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -3946,26 +3886,20 @@ This includes a secret key and linting</p>
 
 
 
-
-
-
-
         
             
 
     
 
-    
     <h4 class="name" id="installVirtualEnv"><span class="type-signature"></span>installVirtualEnv<span class="signature">(options)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Installing and using virtualenv</p>
-</div>
+    <div class="description">
+        <p>Installing and using virtualenv</p>
+    </div>
 
 
 
@@ -3975,8 +3909,9 @@ This includes a secret key and linting</p>
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -4023,6 +3958,7 @@ This includes a secret key and linting</p>
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -4055,10 +3991,12 @@ This includes a secret key and linting</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tasks_virtualenv.js.html">tasks/virtualenv.js</a>, <a href="tasks_virtualenv.js.html#line27">line 27</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="tasks_virtualenv.js.html">tasks/virtualenv.js</a>, <a href="tasks_virtualenv.js.html#line27">line 27</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -4083,26 +4021,20 @@ This includes a secret key and linting</p>
 
 
 
-
-
-
-
         
             
 
     
 
-    
     <h4 class="name" id="parseArgumentsIntoOptions"><span class="type-signature">(async) </span>parseArgumentsIntoOptions<span class="signature">(rawArgs)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Input taken directly from the user</p>
-</div>
+    <div class="description">
+        <p>Input taken directly from the user</p>
+    </div>
 
 
 
@@ -4112,8 +4044,9 @@ This includes a secret key and linting</p>
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -4160,6 +4093,7 @@ This includes a secret key and linting</p>
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -4192,10 +4126,12 @@ This includes a secret key and linting</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cli.js.html">cli.js</a>, <a href="cli.js.html#line11">line 11</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="cli.js.html">cli.js</a>, <a href="cli.js.html#line11">line 11</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -4220,26 +4156,20 @@ This includes a secret key and linting</p>
 
 
 
-
-
-
-
         
             
 
     
 
-    
     <h4 class="name" id="pipInstallAndFreeze"><span class="type-signature">(async) </span>pipInstallAndFreeze<span class="signature">(options)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Using virtualenv to freeze and install correct pip packages</p>
-</div>
+    <div class="description">
+        <p>Using virtualenv to freeze and install correct pip packages</p>
+    </div>
 
 
 
@@ -4249,8 +4179,9 @@ This includes a secret key and linting</p>
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -4297,6 +4228,7 @@ This includes a secret key and linting</p>
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -4329,10 +4261,12 @@ This includes a secret key and linting</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tasks_virtualenv.js.html">tasks/virtualenv.js</a>, <a href="tasks_virtualenv.js.html#line11">line 11</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="tasks_virtualenv.js.html">tasks/virtualenv.js</a>, <a href="tasks_virtualenv.js.html#line11">line 11</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -4357,18 +4291,12 @@ This includes a secret key and linting</p>
 
 
 
-
-
-
-
         
             
 
     
 
-    
     <h4 class="name" id="promptForMissingOptions"><span class="type-signature">(async) </span>promptForMissingOptions<span class="signature">(options)</span><span class="type-signature"></span></h4>
-    
 
     
 
@@ -4382,8 +4310,9 @@ This includes a secret key and linting</p>
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -4430,6 +4359,7 @@ This includes a secret key and linting</p>
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -4462,10 +4392,12 @@ This includes a secret key and linting</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="cli.js.html">cli.js</a>, <a href="cli.js.html#line42">line 42</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="cli.js.html">cli.js</a>, <a href="cli.js.html#line42">line 42</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -4490,26 +4422,20 @@ This includes a secret key and linting</p>
 
 
 
-
-
-
-
         
             
 
     
 
-    
     <h4 class="name" id="targetOS"><span class="type-signature">(async) </span>targetOS<span class="signature">(options, platform)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Sets up the correct targets for use depending on OS</p>
-</div>
+    <div class="description">
+        <p>Sets up the correct targets for use depending on OS</p>
+    </div>
 
 
 
@@ -4519,8 +4445,9 @@ This includes a secret key and linting</p>
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -4590,6 +4517,7 @@ This includes a secret key and linting</p>
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -4622,10 +4550,12 @@ This includes a secret key and linting</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="tasks_virtualenv.js.html">tasks/virtualenv.js</a>, <a href="tasks_virtualenv.js.html#line75">line 75</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="tasks_virtualenv.js.html">tasks/virtualenv.js</a>, <a href="tasks_virtualenv.js.html#line75">line 75</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -4650,26 +4580,20 @@ This includes a secret key and linting</p>
 
 
 
-
-
-
-
         
             
 
     
 
-    
     <h4 class="name" id="title"><span class="type-signature"></span>title<span class="signature">(text, font)</span><span class="type-signature"></span></h4>
-    
 
     
 
 
 
-<div class="description">
-    <p>Creating custom title</p>
-</div>
+    <div class="description">
+        <p>Creating custom title</p>
+    </div>
 
 
 
@@ -4679,8 +4603,9 @@ This includes a secret key and linting</p>
 
 
 
-    <h5>Parameters:</h5>
-    
+    <div class="method-member-container flex flex-col w-100 overflow-auto mt-20">
+        <strong>Parameters:</strong>
+        
 
 <table class="params">
     <thead>
@@ -4733,7 +4658,7 @@ This includes a secret key and linting</p>
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type">*</span>
 
 
             
@@ -4750,6 +4675,7 @@ This includes a secret key and linting</p>
     </tbody>
 </table>
 
+    </div>
 
 
 
@@ -4782,10 +4708,12 @@ This includes a secret key and linting</p>
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="common_common.js.html">common/common.js</a>, <a href="common_common.js.html#line28">line 28</a>
-    </li></ul></dd>
+        <div class="details-item-container">
+            <dt class="tag-source">Source:</dt>
+            <dd class="tag-source"><ul class="dummy"><li>
+                <a href="common_common.js.html">common/common.js</a>, <a href="common_common.js.html#line28">line 28</a>
+            </li></ul></dd>
+        </div>
     
 
     
@@ -4794,10 +4722,6 @@ This includes a secret key and linting</p>
 
     
 </dl>
-
-
-
-
 
 
 
@@ -4829,17 +4753,20 @@ This includes a secret key and linting</p>
 
 </div>
 
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#checkCopyType">checkCopyType</a></li><li><a href="global.html#cli">cli</a></li><li><a href="global.html#copyFiles">copyFiles</a></li><li><a href="global.html#createENVPy">createENVPy</a></li><li><a href="global.html#createGitIgnore">createGitIgnore</a></li><li><a href="global.html#createHTML">createHTML</a></li><li><a href="global.html#createMarkdown">createMarkdown</a></li><li><a href="global.html#createProcfile">createProcfile</a></li><li><a href="global.html#createProject">createProject</a></li><li><a href="global.html#createProjectDir">createProjectDir</a></li><li><a href="global.html#createVSCodeSettings">createVSCodeSettings</a></li><li><a href="global.html#djangoApp">djangoApp</a></li><li><a href="global.html#djangoOnly">djangoOnly</a></li><li><a href="global.html#djangoSettings">djangoSettings</a></li><li><a href="global.html#doesEnvExistForProject">doesEnvExistForProject</a></li><li><a href="global.html#envQuestions">envQuestions</a></li><li><a href="global.html#flaskApp">flaskApp</a></li><li><a href="global.html#flaskOnly">flaskOnly</a></li><li><a href="global.html#flaskSettings">flaskSettings</a></li><li><a href="global.html#generateENVFile">generateENVFile</a></li><li><a href="global.html#generateHTML">generateHTML</a></li><li><a href="global.html#generatePath">generatePath</a></li><li><a href="global.html#generatePythonSettings">generatePythonSettings</a></li><li><a href="global.html#generateREADME">generateREADME</a></li><li><a href="global.html#generateRequirements">generateRequirements</a></li><li><a href="global.html#generateTESTING">generateTESTING</a></li><li><a href="global.html#getDevNul">getDevNul</a></li><li><a href="global.html#getOS">getOS</a></li><li><a href="global.html#gitTasks">gitTasks</a></li><li><a href="global.html#installVirtualEnv">installVirtualEnv</a></li><li><a href="global.html#parseArgumentsIntoOptions">parseArgumentsIntoOptions</a></li><li><a href="global.html#pipInstallAndFreeze">pipInstallAndFreeze</a></li><li><a href="global.html#promptForMissingOptions">promptForMissingOptions</a></li><li><a href="global.html#targetOS">targetOS</a></li><li><a href="global.html#title">title</a></li></ul>
-</nav>
-
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sat May 09 2020 13:31:00 GMT+0100 (British Summer Time)
+  
 </footer>
 
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+<script>
+var list = [{"title":"checkCopyType","link":"<a href=\"global.html#checkCopyType\">Global &rtrif; checkCopyType</a>"},{"title":"cli","link":"<a href=\"global.html#cli\">Global &rtrif; cli</a>"},{"title":"copyFiles","link":"<a href=\"global.html#copyFiles\">Global &rtrif; copyFiles</a>"},{"title":"createENVPy","link":"<a href=\"global.html#createENVPy\">Global &rtrif; createENVPy</a>"},{"title":"createGitIgnore","link":"<a href=\"global.html#createGitIgnore\">Global &rtrif; createGitIgnore</a>"},{"title":"createHTML","link":"<a href=\"global.html#createHTML\">Global &rtrif; createHTML</a>"},{"title":"createMarkdown","link":"<a href=\"global.html#createMarkdown\">Global &rtrif; createMarkdown</a>"},{"title":"createProcfile","link":"<a href=\"global.html#createProcfile\">Global &rtrif; createProcfile</a>"},{"title":"createProject","link":"<a href=\"global.html#createProject\">Global &rtrif; createProject</a>"},{"title":"createProjectDir","link":"<a href=\"global.html#createProjectDir\">Global &rtrif; createProjectDir</a>"},{"title":"createVSCodeSettings","link":"<a href=\"global.html#createVSCodeSettings\">Global &rtrif; createVSCodeSettings</a>"},{"title":"djangoApp","link":"<a href=\"global.html#djangoApp\">Global &rtrif; djangoApp</a>"},{"title":"djangoOnly","link":"<a href=\"global.html#djangoOnly\">Global &rtrif; djangoOnly</a>"},{"title":"djangoSettings","link":"<a href=\"global.html#djangoSettings\">Global &rtrif; djangoSettings</a>"},{"title":"doesEnvExistForProject","link":"<a href=\"global.html#doesEnvExistForProject\">Global &rtrif; doesEnvExistForProject</a>"},{"title":"envQuestions","link":"<a href=\"global.html#envQuestions\">Global &rtrif; envQuestions</a>"},{"title":"flaskApp","link":"<a href=\"global.html#flaskApp\">Global &rtrif; flaskApp</a>"},{"title":"flaskOnly","link":"<a href=\"global.html#flaskOnly\">Global &rtrif; flaskOnly</a>"},{"title":"flaskSettings","link":"<a href=\"global.html#flaskSettings\">Global &rtrif; flaskSettings</a>"},{"title":"generateENVFile","link":"<a href=\"global.html#generateENVFile\">Global &rtrif; generateENVFile</a>"},{"title":"generateHTML","link":"<a href=\"global.html#generateHTML\">Global &rtrif; generateHTML</a>"},{"title":"generatePath","link":"<a href=\"global.html#generatePath\">Global &rtrif; generatePath</a>"},{"title":"generatePythonSettings","link":"<a href=\"global.html#generatePythonSettings\">Global &rtrif; generatePythonSettings</a>"},{"title":"generateREADME","link":"<a href=\"global.html#generateREADME\">Global &rtrif; generateREADME</a>"},{"title":"generateRequirements","link":"<a href=\"global.html#generateRequirements\">Global &rtrif; generateRequirements</a>"},{"title":"generateTESTING","link":"<a href=\"global.html#generateTESTING\">Global &rtrif; generateTESTING</a>"},{"title":"getDevNul","link":"<a href=\"global.html#getDevNul\">Global &rtrif; getDevNul</a>"},{"title":"getOS","link":"<a href=\"global.html#getOS\">Global &rtrif; getOS</a>"},{"title":"gitTasks","link":"<a href=\"global.html#gitTasks\">Global &rtrif; gitTasks</a>"},{"title":"installVirtualEnv","link":"<a href=\"global.html#installVirtualEnv\">Global &rtrif; installVirtualEnv</a>"},{"title":"parseArgumentsIntoOptions","link":"<a href=\"global.html#parseArgumentsIntoOptions\">Global &rtrif; parseArgumentsIntoOptions</a>"},{"title":"pipInstallAndFreeze","link":"<a href=\"global.html#pipInstallAndFreeze\">Global &rtrif; pipInstallAndFreeze</a>"},{"title":"promptForMissingOptions","link":"<a href=\"global.html#promptForMissingOptions\">Global &rtrif; promptForMissingOptions</a>"},{"title":"targetOS","link":"<a href=\"global.html#targetOS\">Global &rtrif; targetOS</a>"},{"title":"title","link":"<a href=\"global.html#title\">Global &rtrif; title</a>"}];
+setupSearch(list)
+</script>
+
+ 
+<script type="text/javascript" src="scripts/misc.js"></script>
 </body>
 </html>

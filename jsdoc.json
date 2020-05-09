@@ -10,7 +10,11 @@
 		"monospaceLinks": true
 	},
 	"opts": {
-		"recurse": true,
-		"destination": "./docs/"
+		"encoding": "utf8",
+        "readme": "./README.md",
+        "destination": "./docs/",
+        "recurse": true,
+        "verbose": true,
+        "template": "./node_modules/clean-jsdoc-theme"
 	}
 }

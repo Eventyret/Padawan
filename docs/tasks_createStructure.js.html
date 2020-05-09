@@ -2,22 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: tasks/createStructure.js</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>tasks/createStructure.js</title>
 
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="scripts/search.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.5/fuse.min.js"></script> -->
+    <script src="scripts/fuse.js"></script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/ionicons.min.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
-</head>
+    <link type="text/css" rel="stylesheet" href="styles/clean-jsdoc-theme.css">
+    
+    
+    
+<svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none">
+    <defs>
+        <symbol id="copy-icon" viewbox="0 0 488.3 488.3">
+            <g>
+                <path d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z"/>
+                <path d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z"/>
+            </g>
+        </symbol>
+    </defs>
+</svg>
 
+</head>
 <body>
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html"><div class="text">Home</div></a></h2><div class="search-box"><input type="text" placeholder="Search..." id="search-box" /><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-list-div"><h3><a href="global.html">Global</a></h3><ul><li><a href="global.html#checkCopyType">checkCopyType</a></li><li><a href="global.html#cli">cli</a></li><li><a href="global.html#copyFiles">copyFiles</a></li><li><a href="global.html#createENVPy">createENVPy</a></li><li><a href="global.html#createGitIgnore">createGitIgnore</a></li><li><a href="global.html#createHTML">createHTML</a></li><li><a href="global.html#createMarkdown">createMarkdown</a></li><li><a href="global.html#createProcfile">createProcfile</a></li><li><a href="global.html#createProject">createProject</a></li><li><a href="global.html#createProjectDir">createProjectDir</a></li><li><a href="global.html#createVSCodeSettings">createVSCodeSettings</a></li><li><a href="global.html#djangoApp">djangoApp</a></li><li><a href="global.html#djangoOnly">djangoOnly</a></li><li><a href="global.html#djangoSettings">djangoSettings</a></li><li><a href="global.html#doesEnvExistForProject">doesEnvExistForProject</a></li><li><a href="global.html#envQuestions">envQuestions</a></li><li><a href="global.html#flaskApp">flaskApp</a></li><li><a href="global.html#flaskOnly">flaskOnly</a></li><li><a href="global.html#flaskSettings">flaskSettings</a></li><li><a href="global.html#generateENVFile">generateENVFile</a></li><li><a href="global.html#generateHTML">generateHTML</a></li><li><a href="global.html#generatePath">generatePath</a></li><li><a href="global.html#generatePythonSettings">generatePythonSettings</a></li><li><a href="global.html#generateREADME">generateREADME</a></li><li><a href="global.html#generateRequirements">generateRequirements</a></li><li><a href="global.html#generateTESTING">generateTESTING</a></li><li><a href="global.html#getDevNul">getDevNul</a></li><li><a href="global.html#getOS">getOS</a></li><li><a href="global.html#gitTasks">gitTasks</a></li><li><a href="global.html#installVirtualEnv">installVirtualEnv</a></li><li><a href="global.html#parseArgumentsIntoOptions">parseArgumentsIntoOptions</a></li><li><a href="global.html#pipInstallAndFreeze">pipInstallAndFreeze</a></li><li><a href="global.html#promptForMissingOptions">promptForMissingOptions</a></li><li><a href="global.html#targetOS">targetOS</a></li><li><a href="global.html#title">title</a></li></ul></div>
+</nav>
 
 <div id="main">
-
-    <h1 class="page-title">Source: tasks/createStructure.js</h1>
+    
+    <h1 class="page-title">tasks/createStructure.js</h1>
+    
 
     
 
@@ -87,17 +118,20 @@ function checkCopyType(options, type){
 
 </div>
 
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#checkCopyType">checkCopyType</a></li><li><a href="global.html#cli">cli</a></li><li><a href="global.html#copyFiles">copyFiles</a></li><li><a href="global.html#createENVPy">createENVPy</a></li><li><a href="global.html#createGitIgnore">createGitIgnore</a></li><li><a href="global.html#createHTML">createHTML</a></li><li><a href="global.html#createMarkdown">createMarkdown</a></li><li><a href="global.html#createProcfile">createProcfile</a></li><li><a href="global.html#createProject">createProject</a></li><li><a href="global.html#createProjectDir">createProjectDir</a></li><li><a href="global.html#createVSCodeSettings">createVSCodeSettings</a></li><li><a href="global.html#djangoApp">djangoApp</a></li><li><a href="global.html#djangoOnly">djangoOnly</a></li><li><a href="global.html#djangoSettings">djangoSettings</a></li><li><a href="global.html#doesEnvExistForProject">doesEnvExistForProject</a></li><li><a href="global.html#envQuestions">envQuestions</a></li><li><a href="global.html#flaskApp">flaskApp</a></li><li><a href="global.html#flaskOnly">flaskOnly</a></li><li><a href="global.html#flaskSettings">flaskSettings</a></li><li><a href="global.html#generateENVFile">generateENVFile</a></li><li><a href="global.html#generateHTML">generateHTML</a></li><li><a href="global.html#generatePath">generatePath</a></li><li><a href="global.html#generatePythonSettings">generatePythonSettings</a></li><li><a href="global.html#generateREADME">generateREADME</a></li><li><a href="global.html#generateRequirements">generateRequirements</a></li><li><a href="global.html#generateTESTING">generateTESTING</a></li><li><a href="global.html#getDevNul">getDevNul</a></li><li><a href="global.html#getOS">getOS</a></li><li><a href="global.html#gitTasks">gitTasks</a></li><li><a href="global.html#installVirtualEnv">installVirtualEnv</a></li><li><a href="global.html#parseArgumentsIntoOptions">parseArgumentsIntoOptions</a></li><li><a href="global.html#pipInstallAndFreeze">pipInstallAndFreeze</a></li><li><a href="global.html#promptForMissingOptions">promptForMissingOptions</a></li><li><a href="global.html#targetOS">targetOS</a></li><li><a href="global.html#title">title</a></li></ul>
-</nav>
-
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sat May 09 2020 13:31:00 GMT+0100 (British Summer Time)
+  
 </footer>
 
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+<script>
+var list = [{"title":"checkCopyType","link":"<a href=\"global.html#checkCopyType\">Global &rtrif; checkCopyType</a>"},{"title":"cli","link":"<a href=\"global.html#cli\">Global &rtrif; cli</a>"},{"title":"copyFiles","link":"<a href=\"global.html#copyFiles\">Global &rtrif; copyFiles</a>"},{"title":"createENVPy","link":"<a href=\"global.html#createENVPy\">Global &rtrif; createENVPy</a>"},{"title":"createGitIgnore","link":"<a href=\"global.html#createGitIgnore\">Global &rtrif; createGitIgnore</a>"},{"title":"createHTML","link":"<a href=\"global.html#createHTML\">Global &rtrif; createHTML</a>"},{"title":"createMarkdown","link":"<a href=\"global.html#createMarkdown\">Global &rtrif; createMarkdown</a>"},{"title":"createProcfile","link":"<a href=\"global.html#createProcfile\">Global &rtrif; createProcfile</a>"},{"title":"createProject","link":"<a href=\"global.html#createProject\">Global &rtrif; createProject</a>"},{"title":"createProjectDir","link":"<a href=\"global.html#createProjectDir\">Global &rtrif; createProjectDir</a>"},{"title":"createVSCodeSettings","link":"<a href=\"global.html#createVSCodeSettings\">Global &rtrif; createVSCodeSettings</a>"},{"title":"djangoApp","link":"<a href=\"global.html#djangoApp\">Global &rtrif; djangoApp</a>"},{"title":"djangoOnly","link":"<a href=\"global.html#djangoOnly\">Global &rtrif; djangoOnly</a>"},{"title":"djangoSettings","link":"<a href=\"global.html#djangoSettings\">Global &rtrif; djangoSettings</a>"},{"title":"doesEnvExistForProject","link":"<a href=\"global.html#doesEnvExistForProject\">Global &rtrif; doesEnvExistForProject</a>"},{"title":"envQuestions","link":"<a href=\"global.html#envQuestions\">Global &rtrif; envQuestions</a>"},{"title":"flaskApp","link":"<a href=\"global.html#flaskApp\">Global &rtrif; flaskApp</a>"},{"title":"flaskOnly","link":"<a href=\"global.html#flaskOnly\">Global &rtrif; flaskOnly</a>"},{"title":"flaskSettings","link":"<a href=\"global.html#flaskSettings\">Global &rtrif; flaskSettings</a>"},{"title":"generateENVFile","link":"<a href=\"global.html#generateENVFile\">Global &rtrif; generateENVFile</a>"},{"title":"generateHTML","link":"<a href=\"global.html#generateHTML\">Global &rtrif; generateHTML</a>"},{"title":"generatePath","link":"<a href=\"global.html#generatePath\">Global &rtrif; generatePath</a>"},{"title":"generatePythonSettings","link":"<a href=\"global.html#generatePythonSettings\">Global &rtrif; generatePythonSettings</a>"},{"title":"generateREADME","link":"<a href=\"global.html#generateREADME\">Global &rtrif; generateREADME</a>"},{"title":"generateRequirements","link":"<a href=\"global.html#generateRequirements\">Global &rtrif; generateRequirements</a>"},{"title":"generateTESTING","link":"<a href=\"global.html#generateTESTING\">Global &rtrif; generateTESTING</a>"},{"title":"getDevNul","link":"<a href=\"global.html#getDevNul\">Global &rtrif; getDevNul</a>"},{"title":"getOS","link":"<a href=\"global.html#getOS\">Global &rtrif; getOS</a>"},{"title":"gitTasks","link":"<a href=\"global.html#gitTasks\">Global &rtrif; gitTasks</a>"},{"title":"installVirtualEnv","link":"<a href=\"global.html#installVirtualEnv\">Global &rtrif; installVirtualEnv</a>"},{"title":"parseArgumentsIntoOptions","link":"<a href=\"global.html#parseArgumentsIntoOptions\">Global &rtrif; parseArgumentsIntoOptions</a>"},{"title":"pipInstallAndFreeze","link":"<a href=\"global.html#pipInstallAndFreeze\">Global &rtrif; pipInstallAndFreeze</a>"},{"title":"promptForMissingOptions","link":"<a href=\"global.html#promptForMissingOptions\">Global &rtrif; promptForMissingOptions</a>"},{"title":"targetOS","link":"<a href=\"global.html#targetOS\">Global &rtrif; targetOS</a>"},{"title":"title","link":"<a href=\"global.html#title\">Global &rtrif; title</a>"}];
+setupSearch(list)
+</script>
+
+ 
+<script type="text/javascript" src="scripts/misc.js"></script>
 </body>
 </html>
