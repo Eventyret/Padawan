@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: cli.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: cli.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import arg from 'arg';
+import inquirer from 'inquirer';
+import clear from 'clear';
+import { title } from './common/common';
+import { createProject } from './main';
+
+/**
+ *  Input taken directly from the user
+ * @param {String[]} rawArgs
+ */
+async function parseArgumentsIntoOptions(rawArgs) {
+  const args = arg(
+    {
+      '--name': String,
+      '--skip': Boolean,
+      '--git': Boolean,
+      '--clean': Boolean,
+      '--gitpod': Boolean,
+      '-n': '--name',
+      '-g': '--git',
+      '-p': '--gitpod',
+      '-s': '--skip',
+      '-c': '--clean',
+    },
+    {
+      argv: rawArgs.slice(2),
+    }
+  );
+  return {
+    name: args['--name'],
+    skipPrompts: args['--skip'] || false,
+    git: args['--git'] || false,
+    template: args._[0],
+    clean: args['--clean'] || false,
+    gitpod: args['--gitpod'] || false,
+  };
+}
+/**
+ * 
+ * @param {Object} options 
+ */
+async function promptForMissingOptions(options) {
+  const defaultTemplate = 'UCFD';
+  if (options.skipPrompts) {
+    return {
+      ...options,
+      template: options.template.name || defaultTemplate,
+      clean: options.template || false,
+    };
+  }
+  const questions = [];
+  if (!options.name) {
+    questions.push({
+      type: 'input',
+      name: 'name',
+      message: 'What is the name of this amazing project: ',
+      validate: function (value) {
+        if (value.length) {
+          return true;
+        } else {
+          return 'Need to give your project a name';
+        }
+      },
+    });
+  }
+  if (!options.template) {
+    questions.push({
+      type: 'list',
+      name: 'template',
+      message: 'What milestone will you be working on?',
+      choices: [
+        {
+          name: 'User Centric Frontend (MS1)',
+          value: { name: 'frontend', python: false, django: false, flask: false, js: false },
+        },
+        {
+          name: 'Interactive Frontend (MS2)',
+          value: { name: 'frontend', python: false, django: false, flask: false, js: true },
+        },
+        {
+          name: 'Data Centric Development (MS3)',
+          value: { name: 'DCD', python: true, django: false, flask: true, js: true },
+        },
+        {
+          name: 'Full Stack Frameworks (MS4)',
+          value: { name: 'FSF', python: true, django: true, flask: false, js: true },
+        },
+      ],
+      default: defaultTemplate,
+    });
+  }
+  if (!questions.gitpod) {
+    questions.push({
+      type: 'confirm',
+      name: 'gitpod',
+      message: 'Are you using Gitpod?',
+      default: false,
+    });
+  }
+  if (!options.git) {
+    questions.push({
+      type: 'confirm',
+      name: 'git',
+      message: 'Initialize a git repository?',
+      default: true,
+    });
+  }
+  const answers = await inquirer.prompt(questions);
+  return {
+    ...options,
+    template: options.template || answers.template,
+    git: options.git || answers.git,
+    name: answers.name,
+    env: answers.env || false,
+    envName: answers.envName || 'env',
+    gitpod: answers.gitpod,
+  };
+}
+/**
+ * Checking if the user has created a virtual enviroment before
+ * @param {Object} options 
+ */
+async function doesEnvExistForProject(options) {
+  const questions = [];
+  if (options.template.python &amp;&amp; !options.gitpod) {
+    questions.push({
+      type: 'confirm',
+      name: 'env',
+      message: 'Have you created a virtual enviroment for your project',
+      default: false,
+    });
+  }
+
+  const answers = await inquirer.prompt(questions);
+  return {
+    ...options,
+    env: answers.env,
+  };
+}
+/**
+ *  Questions if the user wants us to create a virtual enviroment
+ * or if the user has one already what is the name of the folder.
+ * @param {Object} options 
+ */
+async function envQuestions(options) {
+  const questions = [];
+  if (!options.env &amp;&amp; options.template.python &amp;&amp; !options.gitpod) {
+    questions.push({
+      type: 'confirm',
+      name: 'createENV',
+      message: 'Do you want us to create one for you?',
+      default: true,
+    });
+  }
+  if (options.env &amp;&amp; !options.gitpod) {
+    questions.push({
+      type: 'input',
+      name: 'envName',
+      message: 'What is the name of the folder for your virtual enviroment',
+      validate: function (value) {
+        if (value.length) {
+          return true;
+        } else {
+          return 'We need to know your virtual enviroment folder name';
+        }
+      },
+    });
+  }
+  const answers = await inquirer.prompt(questions);
+  return {
+    ...options,
+    envName: answers.envName,
+    createENV: answers.createENV,
+  };
+}
+
+/**
+ * Starting the main program
+ * @param {String[]} args 
+ */
+export async function cli(args) {
+  clear();
+  title('Padawan', 'ANSI Shadow');
+  let options = parseArgumentsIntoOptions(args);
+  options = await promptForMissingOptions(options);
+  options = await doesEnvExistForProject(options);
+  options = await envQuestions(options);
+  await createProject(options);
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#checkCopyType">checkCopyType</a></li><li><a href="global.html#cli">cli</a></li><li><a href="global.html#copyFiles">copyFiles</a></li><li><a href="global.html#createENVPy">createENVPy</a></li><li><a href="global.html#createGitIgnore">createGitIgnore</a></li><li><a href="global.html#createHTML">createHTML</a></li><li><a href="global.html#createMarkdown">createMarkdown</a></li><li><a href="global.html#createProcfile">createProcfile</a></li><li><a href="global.html#createProject">createProject</a></li><li><a href="global.html#createProjectDir">createProjectDir</a></li><li><a href="global.html#createVSCodeSettings">createVSCodeSettings</a></li><li><a href="global.html#djangoApp">djangoApp</a></li><li><a href="global.html#djangoOnly">djangoOnly</a></li><li><a href="global.html#djangoSettings">djangoSettings</a></li><li><a href="global.html#doesEnvExistForProject">doesEnvExistForProject</a></li><li><a href="global.html#envQuestions">envQuestions</a></li><li><a href="global.html#flaskApp">flaskApp</a></li><li><a href="global.html#flaskOnly">flaskOnly</a></li><li><a href="global.html#flaskSettings">flaskSettings</a></li><li><a href="global.html#generateENVFile">generateENVFile</a></li><li><a href="global.html#generateHTML">generateHTML</a></li><li><a href="global.html#generatePath">generatePath</a></li><li><a href="global.html#generatePythonSettings">generatePythonSettings</a></li><li><a href="global.html#generateREADME">generateREADME</a></li><li><a href="global.html#generateRequirements">generateRequirements</a></li><li><a href="global.html#generateTESTING">generateTESTING</a></li><li><a href="global.html#getDevNul">getDevNul</a></li><li><a href="global.html#getOS">getOS</a></li><li><a href="global.html#gitTasks">gitTasks</a></li><li><a href="global.html#installVirtualEnv">installVirtualEnv</a></li><li><a href="global.html#parseArgumentsIntoOptions">parseArgumentsIntoOptions</a></li><li><a href="global.html#pipInstallAndFreeze">pipInstallAndFreeze</a></li><li><a href="global.html#promptForMissingOptions">promptForMissingOptions</a></li><li><a href="global.html#targetOS">targetOS</a></li><li><a href="global.html#title">title</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sat May 09 2020 13:31:00 GMT+0100 (British Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

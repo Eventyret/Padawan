@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: main.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: main.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import chalk from 'chalk';
+import clear from 'clear';
+import fs from 'fs';
+import path from 'path';
+import { promisify } from 'util';
+import { title } from './common/common';
+import Listr from 'listr';
+import { generateRequirements } from './generate/generateRequirements';
+import { createENVPy, createGitIgnore, createHTML, createMarkdown, createVSCodeSettings, createProcfile } from './tasks/createFiles';
+import { createProjectDir, copyFiles } from './tasks/createStructure';
+import { gitTasks } from './tasks/git';
+import { installVirtualEnv, flaskApp, djangoApp } from './tasks/virtualenv';
+
+const access = promisify(fs.access);
+let errorToggle = false;
+
+/**
+ * Main function to create a project
+ * @param {Object} options 
+ */
+export async function createProject(options) {
+  options = {
+    ...options,
+    targetDirectory: options.targetDirectory || process.cwd(),
+  };
+
+  const templateDir = path.resolve(__dirname, '../templates', options.template.name.toLowerCase());
+  const commonDir = path.resolve(__dirname, '../templates/common');
+  const backendDir = path.resolve(__dirname, '../templates/backend');
+  const frontendDir = path.resolve(__dirname, '../templates/frontend');
+  options.templateDirectory = templateDir;
+  options.commonDir = commonDir;
+  options.backendDir = backendDir;
+  options.frontendDir = frontendDir;
+
+  try {
+    await access(templateDir, fs.constants.R_OK);
+    await access(commonDir, fs.constants.R_OK);
+    await access(backendDir, fs.constants.R_OK);
+    await access(frontendDir, fs.constants.R_OK);
+  } catch (err) {
+    console.error('%s Invalid template name', chalk.red.bold('ERROR'));
+    process.exit(1);
+  }
+
+  const vsCodeTasks = new Listr([
+    {
+      title: `Creating ${options.name} Project`,
+      task: (ctx, task) => {
+        createProjectDir(options).catch((err) => {
+          if (err.code === 'EEXIST') {
+            options.error = true;
+            task.skip('Folder Already exists');
+            ctx.exists = true;
+          } else {
+            ctx.exists = false;
+          }
+        });
+      },
+      skip: () => options.gitpod,
+    },
+    {
+      title: `Copying Common files to ${options.name}`,
+      skip: (ctx) => ctx.exists,
+      task: () => copyFiles(options, 'common'),
+      enabled: () => !options.error,
+    },
+    {
+      title: `Creating Project files for ${options.name}`,
+      skip: (ctx) => ctx.exists,
+      task: () =>
+        //prettier-ignore
+        options.template.python ? copyFiles(options, "backend") : copyFiles(options, "frontend"),
+      enabled: () => !options.error,
+    },
+    {
+      title: `Copying Python settings ${options.name}`,
+      task: () => copyFiles(options, 'backend'),
+      skip: (ctx) =>
+        // prettier-ignore
+        ctx.exists || !options.template.python ? 'Not a Python Project 🚫🐍' : false,
+      enabled: () => options.template.python &amp;&amp; !options.error,
+    },
+    {
+      title: `Copying template files to ${options.name}`,
+      task: () => copyFiles(options, 'templates'),
+      enabled: () => !options.error,
+      skip: (ctx) => ctx.exists,
+    },
+    {
+      title: 'Making Starting Templates',
+      task: () => createHTML(options),
+      enabled: () => !options.error,
+      skip: (ctx) => ctx.exists,
+    },
+    {
+      title: 'Creating README and TESTING.md 📢📑',
+      task: () => createMarkdown(options),
+      enabled: () => !options.error,
+      skip: (ctx) => ctx.exists,
+    },
+    {
+      title: 'Generating requirements.txt file',
+      task: () => generateRequirements(options),
+      skip: () =>
+        // prettier-ignore
+        options.gitpod || !options.template.python ? 'Not a Python Project 🚫🐍' : false,
+      enabled: () => !options.error,
+    },
+    {
+      title: 'Generating python env file',
+      task: () => createENVPy(options),
+      skip: () =>
+        // prettier-ignore
+        options.gitpod || !options.template.flask ? 'Not a Flask Project 🚫🐍' : false,
+      enabled: () => options.template.flask &amp;&amp; !options.error,
+    },
+    {
+      title: 'Generating vscode settings',
+      task: (task) =>
+        createVSCodeSettings(options).catch((err) => {
+          task.skip(err.message);
+        }),
+      skip: (ctx) =>
+        // prettier-ignore
+        ctx.exists|| options.gitpod || !options.template.python ? 'Not a Python Project 🚫🐍' : false,
+      enabled: () => !options.error,
+    },
+    {
+      title: 'Configuring Procfile',
+      task: () => createProcfile(options),
+      enabled: () => (options.template.flask || options.template.django) &amp;&amp; !options.error,
+      skip: (ctx) =>
+        // prettier-ignore
+        ctx.exists || options.gitpod,
+    },
+    {
+      title: 'Setting up git',
+      task: () => gitTasks(options),
+      enabled: () => options.git &amp;&amp; !options.error,
+      skip: (ctx) => ctx.exists,
+    },
+    {
+      title: 'Setting up Virtual Enviroment',
+      task: () => installVirtualEnv(options),
+      enabled: () => options.createENV &amp;&amp; !options.error,
+      skip: (ctx) => ctx.exists,
+    },
+    {
+      title: 'Setting Flask up',
+      task: () => flaskApp(options),
+      enabled: () => options.template.flask &amp;&amp; options.env &amp;&amp; !options.error,
+      skip: (ctx) =>
+        // prettier-ignore
+        ctx.exists || !options.template.flask ? 'Not a Flask Project' : undefined || options.gitpod,
+    },
+    {
+      title: 'Setting Django up',
+      task: () => djangoApp(options),
+      enabled: () => options.template.django &amp;&amp; options.env &amp;&amp; !options.error,
+      skip: (ctx) =>
+        // prettier-ignore
+        ctx.exists || !options.template.django ? 'Not a Django Project' : undefined || options.gitpod,
+    },
+    {
+      title: 'Configuring .gitignore',
+      task: () => createGitIgnore(options),
+      skip: (ctx) =>
+        // prettier-ignore
+        ctx.exists || !options.env ? 'No VirtualEnviroment created' : false || options.gitpod,
+      enabled: () => !options.error,
+    },
+  ]);
+  if (!options.gitpod) {
+    await vsCodeTasks.run().catch(() => (errorToggle = true));
+    if (!errorToggle &amp;&amp; !options.error) {
+      title(`${options.name}`, 'ANSI Shadow');
+      console.log('This tool was created by Eventyret');
+      console.log(`If you liked this tool please do say thank you in Slack or mention the tool in your Readme`);
+      return true;
+    }
+    if (options.error) {
+      clear();
+      title('Error');
+      console.log(`${options.name} folder already exists`);
+      return false;
+    }
+  } else {
+    title('Oh noes!', 'ANSI Shadow');
+    console.log('Gitpod is not supported yet');
+    return false;
+  }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#checkCopyType">checkCopyType</a></li><li><a href="global.html#cli">cli</a></li><li><a href="global.html#copyFiles">copyFiles</a></li><li><a href="global.html#createENVPy">createENVPy</a></li><li><a href="global.html#createGitIgnore">createGitIgnore</a></li><li><a href="global.html#createHTML">createHTML</a></li><li><a href="global.html#createMarkdown">createMarkdown</a></li><li><a href="global.html#createProcfile">createProcfile</a></li><li><a href="global.html#createProject">createProject</a></li><li><a href="global.html#createProjectDir">createProjectDir</a></li><li><a href="global.html#createVSCodeSettings">createVSCodeSettings</a></li><li><a href="global.html#djangoApp">djangoApp</a></li><li><a href="global.html#djangoOnly">djangoOnly</a></li><li><a href="global.html#djangoSettings">djangoSettings</a></li><li><a href="global.html#doesEnvExistForProject">doesEnvExistForProject</a></li><li><a href="global.html#envQuestions">envQuestions</a></li><li><a href="global.html#flaskApp">flaskApp</a></li><li><a href="global.html#flaskOnly">flaskOnly</a></li><li><a href="global.html#flaskSettings">flaskSettings</a></li><li><a href="global.html#generateENVFile">generateENVFile</a></li><li><a href="global.html#generateHTML">generateHTML</a></li><li><a href="global.html#generatePath">generatePath</a></li><li><a href="global.html#generatePythonSettings">generatePythonSettings</a></li><li><a href="global.html#generateREADME">generateREADME</a></li><li><a href="global.html#generateRequirements">generateRequirements</a></li><li><a href="global.html#generateTESTING">generateTESTING</a></li><li><a href="global.html#getDevNul">getDevNul</a></li><li><a href="global.html#getOS">getOS</a></li><li><a href="global.html#gitTasks">gitTasks</a></li><li><a href="global.html#installVirtualEnv">installVirtualEnv</a></li><li><a href="global.html#parseArgumentsIntoOptions">parseArgumentsIntoOptions</a></li><li><a href="global.html#pipInstallAndFreeze">pipInstallAndFreeze</a></li><li><a href="global.html#promptForMissingOptions">promptForMissingOptions</a></li><li><a href="global.html#targetOS">targetOS</a></li><li><a href="global.html#title">title</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sat May 09 2020 13:31:00 GMT+0100 (British Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
