@@ -3,7 +3,7 @@ const git = simplegit();
 
 /**
  *  Will execute git init and git add with a commit
- * @param {Object} options 
+ * @param {Object} options
  */
 export async function gitTasks(options) {
   try {

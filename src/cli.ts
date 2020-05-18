@@ -8,7 +8,7 @@ import { createProject } from './main';
  *  Input taken directly from the user
  * @param {String[]} rawArgs
  */
-async function parseArgumentsIntoOptions(rawArgs) {
+async function parseArgumentsIntoOptions(rawArgs: string[]) {
   const args = arg(
     {
       '--name': String,
@@ -36,10 +36,10 @@ async function parseArgumentsIntoOptions(rawArgs) {
   };
 }
 /**
- * 
- * @param {Object} options 
+ *
+ * @param {Object} options
  */
-async function promptForMissingOptions(options) {
+async function promptForMissingOptions(options: object) {
   const defaultTemplate = 'UCFD';
   if (options.skipPrompts) {
     return {
@@ -54,7 +54,7 @@ async function promptForMissingOptions(options) {
       type: 'input',
       name: 'name',
       message: 'What is the name of this amazing project: ',
-      validate: function (value) {
+      validate (value) {
         if (value.length) {
           return true;
         } else {
@@ -118,9 +118,9 @@ async function promptForMissingOptions(options) {
 }
 /**
  * Checking if the user has created a virtual enviroment before
- * @param {Object} options 
+ * @param {Object} options
  */
-async function doesEnvExistForProject(options) {
+async function doesEnvExistForProject(options: object) {
   const questions = [];
   if (options.template.python && !options.gitpod) {
     questions.push({
@@ -140,9 +140,9 @@ async function doesEnvExistForProject(options) {
 /**
  *  Questions if the user wants us to create a virtual enviroment
  * or if the user has one already what is the name of the folder.
- * @param {Object} options 
+ * @param {Object} options
  */
-async function envQuestions(options) {
+async function envQuestions(options: object) {
   const questions = [];
   if (!options.env && options.template.python && !options.gitpod) {
     questions.push({
@@ -157,7 +157,7 @@ async function envQuestions(options) {
       type: 'input',
       name: 'envName',
       message: 'What is the name of the folder for your virtual enviroment',
-      validate: function (value) {
+      validate (value) {
         if (value.length) {
           return true;
         } else {
@@ -176,11 +176,11 @@ async function envQuestions(options) {
 
 /**
  * Starting the main program
- * @param {String[]} args 
+ * @param {String[]} args
  */
-export async function cli(args) {
+export async function cli(args: string[]) {
   clear();
-  title('Padawan', 'ANSI Shadow');
+  title({ text: 'Padawan', font: 'ANSI Shadow' });
   let options = parseArgumentsIntoOptions(args);
   options = await promptForMissingOptions(options);
   options = await doesEnvExistForProject(options);

@@ -37,8 +37,8 @@ export async function generatePythonSettings(config) {
 
 /**
  * Generates correct path for virtual enviroment
- * @param {Object} config 
- * @param {String} os 
+ * @param {Object} config
+ * @param {String} os
  * @returns {Promise<String>} Customized OS path for virutal enviroment
  */
 async function generatePath(config, os) {
