@@ -7,7 +7,7 @@
     "url": "https://github.com/Eventyret/Padawan/issues",
     "email": "simen@dehlin.dev"
   },
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "bin": {
     "@eventyret/padawan": "bin/padawan",
     "padawan": "bin/padawan",
@@ -58,6 +58,8 @@
   },
   "devDependencies": {
     "clean-jsdoc-theme": "^2.2.11",
-    "jsdoc": "^3.6.4"
+    "jsdoc": "^3.6.4",
+    "tslint": "^6.1.2",
+    "typescript": "^3.9.2"
   }
 }
