@@ -1,11 +1,14 @@
 {
-	"compilerOptions": {
-	  "module": "commonjs",
-	  "esModuleInterop": true,
-	  "target": "es6",
-	  "moduleResolution": "node",
-	  "sourceMap": true,
-	  "outDir": "lib"
-	},
-	"lib": ["es2015"]
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "lib": ["es6", "es2015", "dom"],
+    "declaration": true,
+    "outDir": "lib",
+    "rootDir": "src",
+    "strict": true,
+    "types": ["node"],
+    "esModuleInterop": true,
+    "resolveJsonModule": true
   }
+}

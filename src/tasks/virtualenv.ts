@@ -38,6 +38,7 @@ export async function installVirtualEnv(options: object) {
     }
     options.env = true;
   } catch (err) {
+    throw err;
   }
 }
 
@@ -74,7 +75,7 @@ async function getDevNul(): Promise<string> {
  */
 async function targetOS(options: object, platform: string) {
   const envName = !options.envName ? 'env' : options.envName;
-  if (platform == 'windows') {
+  if (platform === 'windows') {
     // prettier-ignore
     target.path = `\\\\${envName}\\Scripts\\activate`;
     target.osVar = `\\\\${envName}`;

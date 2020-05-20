@@ -2,7 +2,7 @@
 /**
  * Generates the Boilerplate for the Readme file
  * @param {Object} config
-  * @returns {Promise<String>} Custom boilerplate for README.md
+ * @returns {Promise<String>} Custom boilerplate for README.md
  */
 export async function generateREADME(config: object): Promise<string> {
   return `
@@ -80,7 +80,7 @@ In addition, if it is not obvious, you should also describe how to run your code
 
 - I received inspiration for this project from X
 - [Simen Daehlin](https://github.com/Eventyret) - [The Padwan Project](https://github.com/Eventyret/Padawan)
-  `
+  `;
 }
 
 // TODO: Rewrite with better testing
@@ -107,6 +107,5 @@ export async function generateTESTING(): string {
 
  You should also mention in this section any interesting bugs or problems you discovered during your testing, even if you haven't addressed them yet.
 
- If this section grows too long, you may want to split it off into a separate file and link to it from here.`
- ;
+ If this section grows too long, you may want to split it off into a separate file and link to it from here.`;
 }
