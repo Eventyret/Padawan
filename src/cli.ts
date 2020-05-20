@@ -35,7 +35,7 @@ async function parseArgumentsIntoOptions(rawArgs: string[]) {
  */
 async function promptForMissingOptions(options: UserOptions) {
   const defaultTemplate = 'UCFD';
-  const questions = [];
+  const questions:Questions[] = [];
   if (!options.name) {
     questions.push({
       type: 'input',
@@ -130,7 +130,7 @@ async function doesEnvExistForProject(options: UserOptions) {
  * @param {UserOptions} options
  */
 async function envQuestions(options: UserOptions) {
-  const questions = [];
+  const questions: Questions[] = [];
   if (!options.env && options.template.python && !options.gitpod) {
     questions.push({
       type: 'confirm',
@@ -144,7 +144,7 @@ async function envQuestions(options: UserOptions) {
       type: 'input',
       name: 'envName',
       message: 'What is the name of the folder for your virtual enviroment',
-      validate(value) {
+      validate(value:any) {
         if (value.length) {
           return true;
         } else {
@@ -163,7 +163,7 @@ async function envQuestions(options: UserOptions) {
 
 /**
  * Starting the main program
- * @param {string[]} args
+ * @param {Questions[]} args
  */
 export async function cli(args: string[]) {
   clear();

@@ -7,12 +7,10 @@ interface UserOptions {
   env: boolean;
   envName: string;
   createENV: boolean;
+  targetDirectory?: string;
+  templateDirectory?: string;
+  commonDir?: string;
+  backendDir?: string;
+  frontendDir?: string;
 }
 
-interface Templates {
-  name: string;
-  python: boolean;
-  django: boolean;
-  flask: boolean;
-  js: boolean;
-}

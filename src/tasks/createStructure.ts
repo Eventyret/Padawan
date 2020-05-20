@@ -9,9 +9,9 @@ const read = promisify(fs.readdir);
 
 /**
  * Copies the setup folder per project.
- * @param {Object) options
+ * @param {UserOptions) options
  */
-export async function copyFiles(options, type) {
+export async function copyFiles(options: UserOptions, type) {
   await copy(checkCopyType(options, type), options.targetDirectory, {
     clobber: false,
   });
@@ -33,10 +33,10 @@ export async function createProjectDir(options) {
 
 /**
  *  Checks what folder to copy
- * @param {Object} options
+ * @param {UserOptions} options
  * @param {String} type - Name of the folder
  */
-function checkCopyType(options, type){
+function checkCopyType(options: UserOptions, type){
   switch (type) {
     case "templates":
       return  options.templateDirectory

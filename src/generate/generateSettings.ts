@@ -3,10 +3,10 @@ import { getOS } from '../common/common';
 /**
  * Generates python specific vscode settings.
  * This includes a secret key and linting
- * @param {Object} config
+ * @param {UserOptions} config
  * @returns Customized vscode settings per OS.
  */
-export async function generatePythonSettings(config) {
+export async function generatePythonSettings(config: UserOptions) {
   const usrOS = await getOS();
   // prettier-ignore
   const envPath =
@@ -16,17 +16,10 @@ export async function generatePythonSettings(config) {
   "python.terminal.activateEnvironment": true,
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": true,
-  "python.linting.pylintArgs": ["--load-plugins=pylint_${
-    config.template.django ? 'django' : 'flask'
-  }"],
+  "python.linting.pylintArgs": ["--load-plugins=pylint_${config.template.django ? 'django' : 'flask'}"],
   "files.autoSave": "onFocusChange",
   "terminal.integrated.env.${usrOS}": {
-    "SECRET_KEY": "${Math.random()
-      .toString(36)
-      .substring(2, 15) +
-      Math.random()
-        .toString(36)
-        .substring(2, 15)}",
+    "SECRET_KEY": "${Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)}",
       "DEV": "1",
       "HOSTNAME": "0.0.0.0",
       ${config.template.flask ? await flaskSettings() : await djangoSettings()}
@@ -37,31 +30,29 @@ export async function generatePythonSettings(config) {
 
 /**
  * Generates correct path for virtual enviroment
- * @param {Object} config
+ * @param {UserOptions} config
  * @param {String} os
  * @returns {Promise<String>} Customized OS path for virutal enviroment
  */
-async function generatePath(config, os) {
+async function generatePath(config: UserOptions, os: string): Promise<string> {
   const envName = config.envName ? config.envName : 'env';
-  if (os === 'osx' || os === 'linux')
-    return `"python.pythonPath": "${envName}/bin/python3",`;
-  if (os === 'windows')
-    return `"python.pythonPath": "${envName}\\\\Scripts\\\\python.exe",`;
+  if (os === 'osx' || os === 'linux') return `"python.pythonPath": "${envName}/bin/python3",`;
+  if (os === 'windows') return `"python.pythonPath": "${envName}\\\\Scripts\\\\python.exe",`;
 }
 
 /**
  * Flask specific settings
  * @returns {Promise<String>} Mongo URI Settings
  */
-async function flaskSettings() {
+async function flaskSettings(): Promise<string> {
   return `"MONGO_URI": "YOUR MONGO URI GOES HERE"`;
 }
 
 /**
  * Django specific settings
- * @returns {Pormise<String>} Stripe & AWS Settings
+ * @returns {Promise<String>} Stripe & AWS Settings
  */
-async function djangoSettings() {
+async function djangoSettings(): Promise<string> {
   return `"STRIPE_PUBLISHABLE": "",
   "STRIPE_SECRET": "",
   "AWS_ACCESS_KEY_ID": "",
