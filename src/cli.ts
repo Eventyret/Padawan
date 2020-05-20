@@ -13,12 +13,10 @@ async function parseArgumentsIntoOptions(rawArgs: string[]) {
     {
       '--name': String,
       '--git': Boolean,
-      '--clean': Boolean,
       '--gitpod': Boolean,
       '-n': '--name',
       '-g': '--git',
       '-p': '--gitpod',
-      '-c': '--clean',
     },
     {
       argv: rawArgs.slice(2),
@@ -28,15 +26,14 @@ async function parseArgumentsIntoOptions(rawArgs: string[]) {
     name: args['--name'],
     git: args['--git'] || false,
     template: args._[0],
-    clean: args['--clean'] || false,
     gitpod: args['--gitpod'] || false,
   };
 }
 /**
  *
- * @param {Object} options
+ * @param {UserOptions} options
  */
-async function promptForMissingOptions(options: object) {
+async function promptForMissingOptions(options: UserOptions) {
   const defaultTemplate = 'UCFD';
   const questions = [];
   if (!options.name) {
@@ -44,7 +41,7 @@ async function promptForMissingOptions(options: object) {
       type: 'input',
       name: 'name',
       message: 'What is the name of this amazing project: ',
-      validate (value) {
+      validate(value: any) {
         if (value.length) {
           return true;
         } else {
@@ -108,9 +105,9 @@ async function promptForMissingOptions(options: object) {
 }
 /**
  * Checking if the user has created a virtual enviroment before
- * @param {Object} options
+ * @param {UserOptions} options
  */
-async function doesEnvExistForProject(options: object) {
+async function doesEnvExistForProject(options: UserOptions) {
   const questions = [];
   if (options.template.python && !options.gitpod) {
     questions.push({
@@ -130,9 +127,9 @@ async function doesEnvExistForProject(options: object) {
 /**
  *  Questions if the user wants us to create a virtual enviroment
  * or if the user has one already what is the name of the folder.
- * @param {Object} options
+ * @param {UserOptions} options
  */
-async function envQuestions(options: object) {
+async function envQuestions(options: UserOptions) {
   const questions = [];
   if (!options.env && options.template.python && !options.gitpod) {
     questions.push({
@@ -147,7 +144,7 @@ async function envQuestions(options: object) {
       type: 'input',
       name: 'envName',
       message: 'What is the name of the folder for your virtual enviroment',
-      validate (value) {
+      validate(value) {
         if (value.length) {
           return true;
         } else {
@@ -166,7 +163,7 @@ async function envQuestions(options: object) {
 
 /**
  * Starting the main program
- * @param {String[]} args
+ * @param {string[]} args
  */
 export async function cli(args: string[]) {
   clear();
