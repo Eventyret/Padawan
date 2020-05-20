@@ -3,9 +3,9 @@ const git = simplegit();
 
 /**
  *  Will execute git init and git add with a commit
- * @param {Object} options
+ * @param {UserOptions} options
  */
-export async function gitTasks(options) {
+export async function gitTasks(options: UserOptions): Promise<void> {
   try {
     await git.cwd(options.targetDirectory);
     await git.init();
