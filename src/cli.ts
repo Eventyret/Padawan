@@ -12,14 +12,12 @@ async function parseArgumentsIntoOptions(rawArgs: string[]) {
   const args = arg(
     {
       '--name': String,
-      '--skip': Boolean,
       '--git': Boolean,
       '--clean': Boolean,
       '--gitpod': Boolean,
       '-n': '--name',
       '-g': '--git',
       '-p': '--gitpod',
-      '-s': '--skip',
       '-c': '--clean',
     },
     {
@@ -28,7 +26,6 @@ async function parseArgumentsIntoOptions(rawArgs: string[]) {
   );
   return {
     name: args['--name'],
-    skipPrompts: args['--skip'] || false,
     git: args['--git'] || false,
     template: args._[0],
     clean: args['--clean'] || false,
@@ -41,13 +38,6 @@ async function parseArgumentsIntoOptions(rawArgs: string[]) {
  */
 async function promptForMissingOptions(options: object) {
   const defaultTemplate = 'UCFD';
-  if (options.skipPrompts) {
-    return {
-      ...options,
-      template: options.template.name || defaultTemplate,
-      clean: options.template || false,
-    };
-  }
   const questions = [];
   if (!options.name) {
     questions.push({
