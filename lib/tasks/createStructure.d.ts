@@ -1,8 +1,8 @@
 /**
  * Copies the setup folder per project.
- * @param {Object) options
+ * @param {UserOptions) options
  */
-export declare function copyFiles(options: any, type: any): Promise<void>;
+export declare function copyFiles(options: UserOptions, type: any): Promise<void>;
 /**
  * Creates the main Project directory.
  * @param {Object} options

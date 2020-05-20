@@ -1,5 +1,5 @@
 /**
  * Starting the main program
- * @param {String[]} args
+ * @param {string[]} args
  */
 export declare function cli(args: string[]): Promise<void>;

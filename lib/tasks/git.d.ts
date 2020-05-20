@@ -1,5 +1,5 @@
 /**
  *  Will execute git init and git add with a commit
- * @param {Object} options
+ * @param {UserOptions} options
  */
-export declare function gitTasks(options: any): Promise<void>;
+export declare function gitTasks(options: UserOptions): Promise<void>;

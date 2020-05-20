@@ -1,7 +1,7 @@
 /**
  * Generates python specific vscode settings.
  * This includes a secret key and linting
- * @param {Object} config
+ * @param {UserOptions} config
  * @returns Customized vscode settings per OS.
  */
-export declare function generatePythonSettings(config: any): Promise<string>;
+export declare function generatePythonSettings(config: UserOptions): Promise<string>;
