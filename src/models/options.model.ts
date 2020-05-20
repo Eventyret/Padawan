@@ -1,5 +1,5 @@
 interface UserOptions {
-  name: [];
+  name: string;
   git: boolean;
   template: Templates;
   clean: boolean;
