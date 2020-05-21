@@ -1,8 +1,8 @@
 /**
  * Installing and using virtualenv
- * @param {Object} options
+ * @param {UserOptions} options
  */
-export declare function installVirtualEnv(options: object): Promise<void>;
+export declare function installVirtualEnv(options: UserOptions): Promise<void>;
 /**
  * Install Flask into the virtual environment
  */

@@ -1,7 +1,7 @@
 /**
  * Generate environmental variables
  * for env.py
- * @param {Object} options
+ * @param {UserOptions} options
  * @returns {Promise<String>} Hostname and random generated string
  */
-export declare function generateENVFile(options: object): Promise<string>;
+export declare function generateENVFile(options: UserOptions): Promise<string>;

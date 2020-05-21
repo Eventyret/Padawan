@@ -1,5 +1,5 @@
 /**
  * Main function to create a project
- * @param {Object} options
+ * @param {UserOptions} options
  */
-export declare function createProject(options: any): Promise<boolean | undefined>;
+export declare function createProject(options: UserOptions): Promise<boolean | undefined>;

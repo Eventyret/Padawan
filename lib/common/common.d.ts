@@ -2,7 +2,7 @@
  * This will return the name of the platform
  * @returns {Promise<String>} - Name of platform
  */
-export declare function getOS(): Promise<string | undefined>;
+export declare function getOS(): Promise<string>;
 /**
  * Creating custom title
  * @param {String} text - The text to display

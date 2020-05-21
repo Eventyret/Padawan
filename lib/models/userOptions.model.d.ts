@@ -1,15 +1,17 @@
 interface UserOptions {
-    name: string;
-    git: boolean;
+    name: any;
+    git: any;
     template: Templates;
     clean: boolean;
-    gitpod: boolean;
-    env: boolean;
-    envName: string;
+    gitpod: any;
+    env: any;
+    envName: any;
     createENV: boolean;
-    targetDirectory?: string;
+    targetDirectory?: any;
     templateDirectory?: string;
     commonDir?: string;
     backendDir?: string;
     frontendDir?: string;
+    target?: PythonSettings;
+    error?: boolean;
 }
