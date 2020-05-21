@@ -5,9 +5,9 @@ const append = promisify(fs.appendFile);
 
 /**
  * Generates the requirements.txt for Milestone 3 or Milestone 4
- * @param {Object} options
+ * @param {UserOptions} options
  */
-export async function generateRequirements(options) {
+export async function generateRequirements(options: UserOptions) {
   // prettier-ignore
   const requirements = options.template.flask ? 'Flask\npymongo\npylint_flask' : 'Django\npylint_django';
   await append(

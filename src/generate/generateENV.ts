@@ -2,10 +2,10 @@
 /**
  * Generate environmental variables
  * for env.py
- * @param {Object} options
+ * @param {UserOptions} options
  * @returns {Promise<String>} Hostname and random generated string
  */
-export async function generateENVFile(options: object): Promise<string> {
+export async function generateENVFile(options: UserOptions): Promise<string> {
   return `import os
 os.environ["HOSTNAME"] = "0.0.0.0"
 os.environ["SECRET_KEY"] =  "${Math.random()

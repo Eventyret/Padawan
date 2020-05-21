@@ -34,7 +34,7 @@ export async function generatePythonSettings(config: UserOptions) {
  * @param {String} os
  * @returns {Promise<String>} Customized OS path for virutal enviroment
  */
-async function generatePath(config: UserOptions, os: string): Promise<string> {
+async function generatePath(config: UserOptions, os: string): Promise<string | undefined> {
   const envName = config.envName ? config.envName : 'env';
   if (os === 'osx' || os === 'linux') return `"python.pythonPath": "${envName}/bin/python3",`;
   if (os === 'windows') return `"python.pythonPath": "${envName}\\\\Scripts\\\\python.exe",`;

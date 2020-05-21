@@ -16,9 +16,9 @@ let errorToggle = false;
 
 /**
  * Main function to create a project
- * @param {Object} options
+ * @param {UserOptions} options
  */
-export async function createProject(options) {
+export async function createProject(options: UserOptions) {
   options = {
     ...options,
     targetDirectory: options.targetDirectory || process.cwd(),

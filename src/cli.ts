@@ -33,7 +33,7 @@ async function parseArgumentsIntoOptions(rawArgs: string[]) {
  *
  * @param {UserOptions} options
  */
-async function promptForMissingOptions(options: UserOptions) {
+async function promptForMissingOptions(options: UserOptions): Promise<UserOptions> {
   const defaultTemplate = 'UCFD';
   const questions:Questions[] = [];
   if (!options.name) {
@@ -163,12 +163,12 @@ async function envQuestions(options: UserOptions) {
 
 /**
  * Starting the main program
- * @param {Questions[]} args
+ * @param {any} args
  */
-export async function cli(args: string[]) {
+export async function cli(args: any[]) {
   clear();
   title({ text: 'Padawan', font: 'ANSI Shadow' });
-  let options = parseArgumentsIntoOptions(args);
+  let options: any = parseArgumentsIntoOptions(args);
   options = await promptForMissingOptions(options);
   options = await doesEnvExistForProject(options);
   options = await envQuestions(options);

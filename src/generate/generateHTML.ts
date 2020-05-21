@@ -1,10 +1,10 @@
 
 /**
  * This will generate the html for Milestone 1 and Milestone 2
- * @param {Object} config - Configuration options
+ * @param {UserOptions} config - Configuration options
  * @returns {Promise<String>} Customized HTML 5 Boiler template
  */
-export async function generateHTML(config) {
+export async function generateHTML(config: UserOptions): Promise<string> {
   const script = config.template.js  ? `<script src="assets/js/app.js"></script>`: '';
   const head = `<!DOCTYPE html>
   <html lang="en">

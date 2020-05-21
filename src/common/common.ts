@@ -6,7 +6,7 @@ import { platform } from 'os';
  * This will return the name of the platform
  * @returns {Promise<String>} - Name of platform
  */
-export async function getOS(): Promise<string | undefined> {
+export async function getOS(): Promise<string> {
   const usrPlatform = platform();
   switch (usrPlatform) {
     case 'win32':
@@ -16,7 +16,7 @@ export async function getOS(): Promise<string | undefined> {
     case 'linux':
       return 'linux';
     default:
-      return;
+      return '';
   }
 }
 

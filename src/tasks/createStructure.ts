@@ -11,7 +11,7 @@ const read = promisify(fs.readdir);
  * Copies the setup folder per project.
  * @param {UserOptions) options
  */
-export async function copyFiles(options: UserOptions, type) {
+export async function copyFiles(options: UserOptions, type: string) {
   await copy(checkCopyType(options, type), options.targetDirectory, {
     clobber: false,
   });
@@ -19,10 +19,10 @@ export async function copyFiles(options: UserOptions, type) {
 
 /**
  * Creates the main Project directory.
- * @param {Object} options
+ * @param {UserOptions} options
  * @returns {Promise} Target Directory if created
  */
-export async function createProjectDir(options) {
+export async function createProjectDir(options: UserOptions): Promise<any> {
   options.targetDirectory = path.resolve(
     process.cwd(),
     options.name.replace(/[^A-Z0-9]+/gi, '-').toLowerCase(),
@@ -36,7 +36,7 @@ export async function createProjectDir(options) {
  * @param {UserOptions} options
  * @param {String} type - Name of the folder
  */
-function checkCopyType(options: UserOptions, type){
+function checkCopyType(options: UserOptions, type: string): any{
   switch (type) {
     case "templates":
       return  options.templateDirectory
@@ -48,6 +48,6 @@ function checkCopyType(options: UserOptions, type){
     return options.frontendDir
 
     default:
-      return null
+      return ''
   }
 }
