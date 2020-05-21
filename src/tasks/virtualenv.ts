@@ -1,14 +1,14 @@
 import { asyncExec } from 'async-shelljs';
 import { getOS } from '../common/common';
 
-const target = {};
-let targetDir;
+const target: PythonSettings = {};
+let targetDir: string | undefined;
 
 /**
  * Using virtualenv to freeze and install correct pip packages
- * @param {Object} options
+ * @param {UserOptions} options
  */
-async function pipInstallAndFreeze(options: object) {
+async function pipInstallAndFreeze(options: UserOptions) {
   try {
     const devNul = await getDevNul();
     await asyncExec(`virtualenv ${targetDir}${target.osVar}`);
@@ -22,9 +22,9 @@ async function pipInstallAndFreeze(options: object) {
 // TODO: Check if python3 is installed
 /**
  * Installing and using virtualenv
- * @param {Object} options
+ * @param {UserOptions} options
  */
-export async function installVirtualEnv(options: object) {
+export async function installVirtualEnv(options: UserOptions) {
   targetDir = options.targetDirectory;
   try {
     const usrOS = await getOS();
@@ -38,7 +38,7 @@ export async function installVirtualEnv(options: object) {
     }
     options.env = true;
   } catch (err) {
-    throw err;
+    console.error(err);
   }
 }
 
@@ -70,10 +70,10 @@ async function getDevNul(): Promise<string> {
 
 /**
  * Sets up the correct targets for use depending on OS
- * @param {Object} options
+ * @param {UserOptions} options
  * @param {String} platform
  */
-async function targetOS(options: object, platform: string) {
+async function targetOS(options: UserOptions, platform: string) {
   const envName = !options.envName ? 'env' : options.envName;
   if (platform === 'windows') {
     // prettier-ignore

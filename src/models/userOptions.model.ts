@@ -12,5 +12,6 @@ interface UserOptions {
   commonDir?: string;
   backendDir?: string;
   frontendDir?: string;
+  target?: PythonSettings;
 }
 
