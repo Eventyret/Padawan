@@ -1,11 +1,11 @@
 interface Questions {
     type: string;
     name: string;
+    gitpod?: any;
     message?: string;
     validate?: any;
     default?: any;
     choices?: Choices[];
-    gitpod?: any;
 }
 interface Choices {
     name: string;

@@ -76,6 +76,7 @@ async function promptForMissingOptions(options: UserOptions): Promise<UserOption
       default: defaultTemplate,
     });
   }
+  // @ts-ignore
   if (!questions.gitpod) {
     questions.push({
       type: 'confirm',
