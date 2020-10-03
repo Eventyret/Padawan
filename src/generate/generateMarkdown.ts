@@ -1,10 +1,10 @@
 // TODO: Rewrite better UI / UX
 /**
  * Generates the Boilerplate for the Readme file
- * @param {Object} config
-  * @returns {Promise<String>} Custom boilerplate for README.md
+ * @param {UserOptions} config
+ * @returns {Promise<String>} Custom boilerplate for README.md
  */
-export async function generateREADME(config) {
+export async function generateREADME(config: UserOptions): Promise<string> {
   return `
 # ${config.name}
 <!-- markdownlint-disable MD033 -->
@@ -80,7 +80,7 @@ In addition, if it is not obvious, you should also describe how to run your code
 
 - I received inspiration for this project from X
 - [Simen Daehlin](https://github.com/Eventyret) - [The Padwan Project](https://github.com/Eventyret/Padawan)
-  `
+  `;
 }
 
 // TODO: Rewrite with better testing
@@ -88,7 +88,7 @@ In addition, if it is not obvious, you should also describe how to run your code
  *  Generates the Testing.md for the project with boilerplate
  * @returns {String} Full boilerplate for Testing.md
  */
-export async function generateTESTING() {
+export async function generateTESTING(): Promise<string> {
   return `# Testing
 
  In this section, you need to convince the assessor that you have conducted enough testing to legitimately believe that the site works well. Essentially, in this part you will want to go over all of your user stories from the UX section and ensure that they all work as intended, with the project providing an easy and straightforward way for the users to achieve their goals.
@@ -107,6 +107,5 @@ export async function generateTESTING() {
 
  You should also mention in this section any interesting bugs or problems you discovered during your testing, even if you haven't addressed them yet.
 
- If this section grows too long, you may want to split it off into a separate file and link to it from here.`
- ;
+ If this section grows too long, you may want to split it off into a separate file and link to it from here.`;
 }

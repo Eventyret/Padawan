@@ -16,9 +16,9 @@ let errorToggle = false;
 
 /**
  * Main function to create a project
- * @param {Object} options 
+ * @param {UserOptions} options
  */
-export async function createProject(options) {
+export async function createProject(options: UserOptions) {
   options = {
     ...options,
     targetDirectory: options.targetDirectory || process.cwd(),
@@ -69,7 +69,7 @@ export async function createProject(options) {
       title: `Creating Project files for ${options.name}`,
       skip: (ctx) => ctx.exists,
       task: () =>
-        //prettier-ignore
+        // prettier-ignore
         options.template.python ? copyFiles(options, "backend") : copyFiles(options, "frontend"),
       enabled: () => !options.error,
     },
@@ -174,19 +174,19 @@ export async function createProject(options) {
   if (!options.gitpod) {
     await vsCodeTasks.run().catch(() => (errorToggle = true));
     if (!errorToggle && !options.error) {
-      title(`${options.name}`, 'ANSI Shadow');
+      title({ text: `${options.name}`, font: 'ANSI Shadow' });
       console.log('This tool was created by Eventyret');
       console.log(`If you liked this tool please do say thank you in Slack or mention the tool in your Readme`);
       return true;
     }
     if (options.error) {
       clear();
-      title('Error', 'ANSI Shadow');
+      title({ text: 'Error', font: 'ANSI Shadow' });
       console.log(`${options.name} folder already exists`);
       return false;
     }
   } else {
-    title('Oh noes!', 'ANSI Shadow');
+    title({ text: 'Oh noes!', font: 'ANSI Shadow' });
     console.log('Gitpod is not supported yet');
     return false;
   }

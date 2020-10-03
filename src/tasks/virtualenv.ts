@@ -1,14 +1,14 @@
 import { asyncExec } from 'async-shelljs';
 import { getOS } from '../common/common';
 
-const target = {};
-let targetDir;
+const target: PythonSettings = {};
+let targetDir: string | undefined;
 
 /**
  * Using virtualenv to freeze and install correct pip packages
- * @param {Object} options 
+ * @param {UserOptions} options
  */
-async function pipInstallAndFreeze(options) {
+async function pipInstallAndFreeze(options: UserOptions) {
   try {
     const devNul = await getDevNul();
     await asyncExec(`virtualenv ${targetDir}${target.osVar}`);
@@ -22,9 +22,9 @@ async function pipInstallAndFreeze(options) {
 // TODO: Check if python3 is installed
 /**
  * Installing and using virtualenv
- * @param {Object} options 
+ * @param {UserOptions} options
  */
-export async function installVirtualEnv(options) {
+export async function installVirtualEnv(options: UserOptions) {
   targetDir = options.targetDirectory;
   try {
     const usrOS = await getOS();
@@ -38,6 +38,7 @@ export async function installVirtualEnv(options) {
     }
     options.env = true;
   } catch (err) {
+    console.error(err);
   }
 }
 
@@ -63,19 +64,19 @@ export async function djangoApp() {
  * Checks if we want to use dev/null or Nul
  * @returns {Promise<String>} Nul or dev/null
  */
-async function getDevNul() {
+async function getDevNul(): Promise<string> {
   return (await getOS()) === 'windows' ? 'NUL' : '/dev/null 2>&1';
 }
 
 /**
  * Sets up the correct targets for use depending on OS
- * @param {Object} options 
- * @param {String} platform 
+ * @param {UserOptions} options
+ * @param {String} platform
  */
-async function targetOS(options, platform) {
-  let envName = !options.envName ? 'env' : options.envName;
-  if (platform == 'windows') {
-    //prettier-ignore
+async function targetOS(options: UserOptions, platform: string) {
+  const envName = !options.envName ? 'env' : options.envName;
+  if (platform === 'windows') {
+    // prettier-ignore
     target.path = `\\\\${envName}\\Scripts\\activate`;
     target.osVar = `\\\\${envName}`;
     target.pythonExecutable = `\\\\${envName}\\Scripts\\python.exe`;

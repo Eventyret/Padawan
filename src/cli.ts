@@ -8,19 +8,15 @@ import { createProject } from './main';
  *  Input taken directly from the user
  * @param {String[]} rawArgs
  */
-async function parseArgumentsIntoOptions(rawArgs) {
+async function parseArgumentsIntoOptions(rawArgs: string[]) {
   const args = arg(
     {
       '--name': String,
-      '--skip': Boolean,
       '--git': Boolean,
-      '--clean': Boolean,
       '--gitpod': Boolean,
       '-n': '--name',
       '-g': '--git',
       '-p': '--gitpod',
-      '-s': '--skip',
-      '-c': '--clean',
     },
     {
       argv: rawArgs.slice(2),
@@ -28,33 +24,24 @@ async function parseArgumentsIntoOptions(rawArgs) {
   );
   return {
     name: args['--name'],
-    skipPrompts: args['--skip'] || false,
     git: args['--git'] || false,
     template: args._[0],
-    clean: args['--clean'] || false,
     gitpod: args['--gitpod'] || false,
   };
 }
 /**
- * 
- * @param {Object} options 
+ *
+ * @param {UserOptions} options
  */
-async function promptForMissingOptions(options) {
+async function promptForMissingOptions(options: UserOptions): Promise<UserOptions> {
   const defaultTemplate = 'UCFD';
-  if (options.skipPrompts) {
-    return {
-      ...options,
-      template: options.template.name || defaultTemplate,
-      clean: options.template || false,
-    };
-  }
-  const questions = [];
+  const questions:Questions[] = [];
   if (!options.name) {
     questions.push({
       type: 'input',
       name: 'name',
       message: 'What is the name of this amazing project: ',
-      validate: function (value) {
+      validate(value: any) {
         if (value.length) {
           return true;
         } else {
@@ -89,6 +76,7 @@ async function promptForMissingOptions(options) {
       default: defaultTemplate,
     });
   }
+  // @ts-ignore
   if (!questions.gitpod) {
     questions.push({
       type: 'confirm',
@@ -118,9 +106,9 @@ async function promptForMissingOptions(options) {
 }
 /**
  * Checking if the user has created a virtual enviroment before
- * @param {Object} options 
+ * @param {UserOptions} options
  */
-async function doesEnvExistForProject(options) {
+async function doesEnvExistForProject(options: UserOptions) {
   const questions = [];
   if (options.template.python && !options.gitpod) {
     questions.push({
@@ -140,10 +128,10 @@ async function doesEnvExistForProject(options) {
 /**
  *  Questions if the user wants us to create a virtual enviroment
  * or if the user has one already what is the name of the folder.
- * @param {Object} options 
+ * @param {UserOptions} options
  */
-async function envQuestions(options) {
-  const questions = [];
+async function envQuestions(options: UserOptions) {
+  const questions: Questions[] = [];
   if (!options.env && options.template.python && !options.gitpod) {
     questions.push({
       type: 'confirm',
@@ -157,7 +145,7 @@ async function envQuestions(options) {
       type: 'input',
       name: 'envName',
       message: 'What is the name of the folder for your virtual enviroment',
-      validate: function (value) {
+      validate(value:any) {
         if (value.length) {
           return true;
         } else {
@@ -176,12 +164,12 @@ async function envQuestions(options) {
 
 /**
  * Starting the main program
- * @param {String[]} args 
+ * @param {any} args
  */
-export async function cli(args) {
+export async function cli(args: any[]) {
   clear();
-  title('Padawan', 'ANSI Shadow');
-  let options = parseArgumentsIntoOptions(args);
+  title({ text: 'Padawan', font: 'ANSI Shadow' });
+  let options: any = parseArgumentsIntoOptions(args);
   options = await promptForMissingOptions(options);
   options = await doesEnvExistForProject(options);
   options = await envQuestions(options);
