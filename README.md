@@ -41,7 +41,7 @@ This will speed up development as you can can focus more on your code rather the
 These are the requirements to run the tool.
 
 - [NodeJS 10+](https://www.nodejs.org)
-- [NPM 6.12.1](npmjs.com)
+- [NPM 6.14.8](https://www.npmjs.com/package/npm/v/6.14.8)
 - [Python 3.x](https://www.python.org/)
 
 ### Running the tool
