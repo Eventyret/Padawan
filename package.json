@@ -63,7 +63,7 @@
     "listr": "^0.14.3",
     "ncp": "^2.0.0",
     "shelljs": "^0.8.4",
-    "simple-git": "^2.20.1"
+    "simple-git": "^3.3.0"
   },
   "devDependencies": {
     "clean-jsdoc-theme": "^2.2.11",
